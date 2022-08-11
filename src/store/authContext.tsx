@@ -31,7 +31,8 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
 	};
 
 	const logout = () => {
-		return signOut(auth);
+		signOut(auth);
+		setUser(null)
 	};
 
 	useEffect(() => {

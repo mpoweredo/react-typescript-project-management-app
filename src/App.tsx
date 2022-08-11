@@ -1,10 +1,10 @@
-import LoginForm from "./components/auth/LoginForm"
+import RegisterForm from "./components/auth/RegisterForm"
 
 function App() {
 
   return (
     <div className="App bg-[#121316] h-screen">
-        <LoginForm />
+        <RegisterForm />
     </div>
   )
 }

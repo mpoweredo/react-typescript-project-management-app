@@ -11,11 +11,12 @@ const UserContext = createContext<AuthContextValue | null>(null);
 export const AuthContextProvider = ({ children }: PropsWithChildren) => {
 	const [user, setUser] = useState<FirebaseUser | null>(null);
 
-	const registerUser = async (email: string, password: string) => {
+	const registerUser = async (email: string, password: string, name: string) => {
 		try {
 			const response = await createUserWithEmailAndPassword(auth, email, password);
             await setDoc(doc(db, 'users', response.user.uid), {
-                email
+                email,
+				name
             })
             console.log(response)
 		} catch (e: unknown) {

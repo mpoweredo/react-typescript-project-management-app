@@ -1,4 +1,5 @@
 import { useFormik } from 'formik';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { UserAuth } from '../../store/authContext';
 
@@ -16,6 +17,7 @@ const classes = {
 
 const LoginForm = () => {
     const { loginUser } = UserAuth()
+	const navigate = useNavigate()
 
 	const formik = useFormik({
 		initialValues: {
@@ -71,7 +73,7 @@ const LoginForm = () => {
 					</form>
 					<p className={classes.p}>
 						Don't have account? Create new{' '}
-						<span onClick={() => {}} className='text-indigo-500 cursor-pointer'>
+						<span onClick={() => {navigate('/signup')}} className='text-indigo-500 cursor-pointer'>
 							here
 						</span>
 					</p>

@@ -1,4 +1,5 @@
 import { useFormik } from 'formik';
+import { Navigate, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { UserAuth } from '../../store/authContext';
 
@@ -16,6 +17,7 @@ const classes = {
 
 const RegisterForm = () => {
 	const { registerUser } = UserAuth();
+	const navigate = useNavigate()
 
 	const formik = useFormik({
 		initialValues: {
@@ -28,8 +30,9 @@ const RegisterForm = () => {
 			email: Yup.string().email('Invalid email!').required('Email is required!'),
 			password: Yup.string().min(7, 'Password must have atleast 7 characters!').required('Password is required!'),
 		}),
-		onSubmit: values => {
-			registerUser(values.email, values.password, values.name);
+		onSubmit: async values => {
+			await registerUser(values.email, values.password, values.name);
+			navigate('/')
 		},
 	});
 
@@ -88,7 +91,7 @@ const RegisterForm = () => {
 					</form>
 					<p className={classes.p}>
 						Already Have an account? Sign in
-						<span onClick={() => {}} className='text-indigo-500 cursor-pointer'>
+						<span onClick={() => {navigate('/signin')}} className='text-indigo-500 cursor-pointer'>
 							{' '}
 							here
 						</span>

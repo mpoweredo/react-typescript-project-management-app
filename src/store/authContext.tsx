@@ -6,10 +6,10 @@ import { db } from '../data/firebaseConfig';
 import { AuthContextValue } from '../types/authContextType';
 import { doc, setDoc } from 'firebase/firestore';
 
-const UserContext = createContext<AuthContextValue | null>(null);
+const UserContext = createContext<AuthContextValue | false >(false);
 
 export const AuthContextProvider = ({ children }: PropsWithChildren) => {
-	const [user, setUser] = useState<FirebaseUser | null>(null);
+	const [user, setUser] = useState<FirebaseUser | null | false>(null);
 
 	const registerUser = async (email: string, password: string, name: string) => {
 		try {
@@ -38,7 +38,13 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, currentUser => {
-			setUser(currentUser);
+			if (currentUser) {
+				setUser(currentUser);
+			} else {
+				setUser(false)
+			}
+
+			console.log(currentUser)
 		});
 		return () => {
 			unsubscribe();

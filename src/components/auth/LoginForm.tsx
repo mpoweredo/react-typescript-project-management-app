@@ -30,6 +30,7 @@ const LoginForm = () => {
 		}),
 		onSubmit: values => {
             loginUser(values.email, values.password)
+			navigate('/')
         },
 	});
 

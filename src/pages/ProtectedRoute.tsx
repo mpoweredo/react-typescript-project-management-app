@@ -1,30 +1,31 @@
-import { Navigate } from 'react-router-dom'
-import { UserAuth } from '../store/authContext'
+import { Navigate } from 'react-router-dom';
+import { UserAuth } from '../store/authContext';
+import { CircularProgress } from '@mui/material';
 
 type Props = {
-  children?: JSX.Element | JSX.Element[]
-}
+	children?: JSX.Element | JSX.Element[];
+};
 
 const ProtectedRoute = ({ children }: Props) => {
-  const { user } = UserAuth()
+	const { user } = UserAuth();
 
-  console.log(user)
+	console.log(user);
 
-  if (user) {
-    return <>
-      {children}
-    </>
-  }
+	if (user) {
+		return <>{children}</>;
+	}
 
-  if (user === null) {
-    // TODO: LOADING SPINNER
-    return <h1 className='text-white text-5xl'>waiting</h1>
-  }
+	if (user === null) {
+		return (
+			<div className='h-screen w-screen flex items-center justify-center text-indigo-600'>
+				<CircularProgress />
+			</div>
+		);
+	}
 
-  if (user === false) {
-    return <Navigate to='/signin' />
-  } else return null
+	if (user === false) {
+		return <Navigate to='/signin' />;
+	} else return null;
+};
 
-}
-
-export default ProtectedRoute
+export default ProtectedRoute;

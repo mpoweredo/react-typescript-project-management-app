@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { UserAuth } from '../../store/authContext';
 

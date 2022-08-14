@@ -28,8 +28,8 @@ const LoginForm = () => {
 			email: Yup.string().email('Invalid email!').required('Email is required!'),
 			password: Yup.string().min(7, 'Password must have atleast 7 characters!').required('Password is required!'),
 		}),
-		onSubmit: values => {
-            loginUser(values.email, values.password)
+		onSubmit: async values => {
+            await loginUser(values.email, values.password)
 			navigate('/')
         },
 	});

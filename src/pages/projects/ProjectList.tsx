@@ -1,4 +1,4 @@
-import { doc, getDoc } from 'firebase/firestore';
+import { collection, collectionGroup, doc, getDoc, getDocs } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { db } from '../../data/firebaseConfig';
 import { UserAuth } from '../../store/authContext';
@@ -11,6 +11,7 @@ const classes = {
 	createButton: 'w-36 h-11 font-semibold rounded bg-indigo-500 text-slate-900 hover:bg-indigo-600 self-center lg:self-start',
 	messageContent: 'text-md text-red-300 text-center mb-8',
 	projectListWrapper: 'flex flex-col items-center lg:items-start lg:justify-start w-full gap-8',
+	projectList: 'flex flex-col lg:flex-row gap-5',
 };
 
 const ProjectList = () => {
@@ -21,13 +22,21 @@ const ProjectList = () => {
 	useEffect(() => {
 		const fetchProjects = async () => {
 			if (user) {
+				let data = [] as Project[];
 				setLoading(true);
-				const docRef = doc(db, 'users', user.uid);
-				const docSnap = await getDoc(docRef);
-				const fetchedUserData = await docSnap.data();
-				const fetchedProjects = fetchedUserData?.projects as Project[];
-				if (fetchedProjects) {
-					setProjects(fetchedProjects);
+				const docRef = collection(db, `users/${user.uid}/projects`);
+				const docSnap = await getDocs(docRef);
+				docSnap.forEach(doc => {
+					const item = {
+						projectId: doc.id,
+						...doc.data(),
+					};
+
+					data.push(item as Project);
+				});
+				if (data) {
+					console.log(data);
+					setProjects(data);
 				}
 				setLoading(false);
 			}
@@ -39,15 +48,14 @@ const ProjectList = () => {
 	const anyProjectMessageContent = (
 		<div className='w-full h-auto flex items-center flex-col lg:items-start'>
 			<h2 className={classes.messageContent}>It looks like you have not any projects yet</h2>
-			<button className={classes.createButton}>Create project</button>
 		</div>
 	);
 
 	const projectsContent = (
 		<div className={classes.projectListWrapper}>
-			<ul className='flex flex-col lg:flex-row gap-5'>
+			<ul className={classes.projectList}>
 				{projects.map((projectItem: Project) => (
-					<ProjectItem name={projectItem.name} />
+					<ProjectItem key={projectItem.projectId} name={projectItem.name} />
 				))}
 			</ul>
 			<button className={classes.createButton}>Create project</button>

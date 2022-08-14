@@ -4,7 +4,7 @@ import { auth } from '../data/firebaseConfig';
 import { User as FirebaseUser } from 'firebase/auth';
 import { db } from '../data/firebaseConfig';
 import { AuthContextValue, Name } from '../types/authContextType';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore';
 
 const UserContext = createContext<AuthContextValue | false>(false);
 
@@ -14,19 +14,20 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
 	const registerUser = async (email: string, password: string, name: string) => {
 		try {
 			const response = await createUserWithEmailAndPassword(auth, email, password);
-			await setDoc(doc(db, 'users', response.user.uid), {
+			const docRef = doc(db, 'users', response.user.uid)
+			await setDoc(docRef, {
 				email,
 				name,
-				projects: [
-					{
-						name: 'React Website',
-					},
-					{
-						name: 'Crypto app',
-					},
-				],
 			});
-			console.log(response);
+			await addDoc(collection(docRef, 'projects'), {
+				kanban: {
+					todo: [],
+					inProgress: [],
+					done: [],
+				},
+				calendar: {},
+				name: 'React App'
+			})
 		} catch (e: unknown) {
 			// TODO: BETTER ERROR HANDLING
 			if (e instanceof Error) {

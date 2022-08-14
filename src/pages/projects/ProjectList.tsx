@@ -12,6 +12,7 @@ const classes = {
 	messageContent: 'text-md text-red-300 text-center mb-8',
 	projectListWrapper: 'flex flex-col items-center lg:items-start lg:justify-start w-full gap-8',
 	projectList: 'flex flex-col lg:flex-row gap-5',
+	noProjectsMessageContainer: 'w-full h-auto flex items-center flex-col lg:items-start'
 };
 
 const ProjectList = () => {
@@ -46,7 +47,7 @@ const ProjectList = () => {
 	}, []);
 
 	const anyProjectMessageContent = (
-		<div className='w-full h-auto flex items-center flex-col lg:items-start'>
+		<div className={classes.noProjectsMessageContainer}>
 			<h2 className={classes.messageContent}>It looks like you have not any projects yet</h2>
 		</div>
 	);

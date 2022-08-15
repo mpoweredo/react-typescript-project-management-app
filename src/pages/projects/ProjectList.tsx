@@ -5,10 +5,10 @@ import { UserAuth } from '../../store/authContext';
 import { Project } from '../../types/ProjectsType';
 import { CircularProgress } from '@mui/material';
 import ProjectItem from './ProjectItem';
+import CreateNewProject from './CreateNewProject';
 
 const classes = {
 	container: 'flex flex-col gap-5 items-center lg:items-start',
-	createButton: 'w-36 h-11 font-semibold rounded bg-indigo-500 text-slate-900 hover:bg-indigo-600 self-center lg:self-start',
 	messageContent: 'text-md text-red-300 text-center mb-8',
 	projectListWrapper: 'flex flex-col items-center lg:items-start lg:justify-start w-full gap-8',
 	projectList: 'flex flex-col lg:flex-row gap-5',
@@ -59,7 +59,7 @@ const ProjectList = () => {
 					<ProjectItem key={projectItem.projectId} name={projectItem.name} />
 				))}
 			</ul>
-			<button className={classes.createButton}>Create project</button>
+			<CreateNewProject />
 		</div>
 	);
 

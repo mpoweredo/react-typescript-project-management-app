@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { db } from '../../data/firebaseConfig';
 import { UserAuth } from '../../store/authContext';
+import { v4 as uuidv4 } from 'uuid';
 
 const classes = {
 	createButton: 'w-36 h-11 font-semibold rounded bg-indigo-500 text-slate-900 hover:bg-indigo-600 self-center lg:self-start mt-5',
@@ -20,7 +21,7 @@ const classes = {
 const CreateNewProject = () => {
 	const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
 	const { user } = UserAuth();
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 
 	const openFormHandler = () => {
 		setIsFormOpen(prevState => !prevState);
@@ -38,16 +39,55 @@ const CreateNewProject = () => {
 				const docRef = doc(db, 'users', user.uid);
 
 				const response = await addDoc(collection(docRef, 'projects'), {
-					kanban: {
-						todo: [],
-						inProgress: [],
-						done: [],
-					},
+					kanban: [
+						{
+							id: uuidv4(),
+							title: '📝 To do',
+							tasks: [
+								{
+									id: uuidv4(),
+									title: 'Learn React'
+								},
+								{
+									id: uuidv4(),
+									title: 'Learn NextJS'
+								}
+							],
+						},
+						{
+							id: uuidv4(),
+							title: '✏️ In progress',
+							tasks: [
+								{
+									id: uuidv4(),
+									title: 'Learn JavaScript'
+								},
+								{
+									id: uuidv4(),
+									title: 'Learn SCSS'
+								}
+							],
+						},
+						{
+							id: uuidv4(),
+							title: '✅ Done',
+							tasks: [
+								{
+									id: uuidv4(),
+									title: 'Learn HTML'
+								},
+								{
+									id: uuidv4(),
+									title: 'Learn CSS'
+								}
+							],
+						},
+					],
 					name: values.projectName,
 				});
-				console.log(response.id)
-				setIsFormOpen(prevState => !prevState)
-				navigate(`/${response.id}`)
+				console.log(response.id);
+				setIsFormOpen(prevState => !prevState);
+				navigate(`/${response.id}`);
 			}
 		},
 	});

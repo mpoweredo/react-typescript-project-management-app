@@ -43,7 +43,6 @@ const CreateNewProject = () => {
 						inProgress: [],
 						done: [],
 					},
-					calendar: {},
 					name: values.projectName,
 				});
 				console.log(response.id)

@@ -1,18 +1,16 @@
 import { Navigate } from 'react-router-dom';
-import { UserAuth } from '../store/authContext';
+import { UserAuth } from '../../store/authContext';
 import { CircularProgress } from '@mui/material';
 
 type Props = {
 	children?: JSX.Element | JSX.Element[];
 };
 
-const ProtectedRoute = ({ children }: Props) => {
+const SignInUpRoute = ({ children }: Props) => {
 	const { user } = UserAuth();
 
-	console.log(user);
-
 	if (user) {
-		return <>{children}</>;
+		return <Navigate to='/' />;
 	}
 
 	if (user === null) {
@@ -24,8 +22,8 @@ const ProtectedRoute = ({ children }: Props) => {
 	}
 
 	if (user === false) {
-		return <Navigate to='/signin' />;
+		return <>{children}</>;
 	} else return null;
 };
 
-export default ProtectedRoute;
+export default SignInUpRoute;

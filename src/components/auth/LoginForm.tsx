@@ -1,3 +1,4 @@
+import { CircularProgress } from '@mui/material';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -16,7 +17,7 @@ const classes = {
 };
 
 const LoginForm = () => {
-    const { loginUser } = UserAuth()
+    const { loginUser, user } = UserAuth()
 	const navigate = useNavigate()
 
 	const formik = useFormik({

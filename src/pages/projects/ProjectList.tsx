@@ -11,7 +11,7 @@ const classes = {
 	container: 'flex flex-col gap-5 items-center lg:items-start',
 	messageContent: 'text-md text-red-300 text-center mb-8',
 	projectListWrapper: 'flex flex-col items-center lg:items-start lg:justify-start w-full gap-8',
-	projectList: 'flex flex-col lg:flex-row gap-5',
+	projectList: 'flex flex-col lg:flex-row lg:flex-wrap gap-5',
 	noProjectsMessageContainer: 'w-full h-auto flex items-center flex-col lg:items-start'
 };
 
@@ -59,7 +59,6 @@ const ProjectList = () => {
 					<ProjectItem key={projectItem.projectId} name={projectItem.name} />
 				))}
 			</ul>
-			<CreateNewProject />
 		</div>
 	);
 

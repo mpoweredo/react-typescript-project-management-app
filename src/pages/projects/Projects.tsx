@@ -1,4 +1,5 @@
 import { UserAuth } from '../../store/authContext';
+import CreateNewProject from './CreateNewProject';
 import ProjectList from './ProjectList';
 
 const classes = {
@@ -23,6 +24,7 @@ const Projects = () => {
 			<div className={classes.projectsContainer}>
 				<h4 className={classes.selectText}>Select project you wanna work with</h4>
 				<ProjectList />
+				<CreateNewProject />
 				<button onClick={() => logout()} className={classes.logoutButton}>Logout</button>
 			</div>
 		</div>

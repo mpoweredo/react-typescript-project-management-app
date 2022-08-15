@@ -1,9 +1,13 @@
+import { addDoc, collection, doc } from 'firebase/firestore';
 import { useFormik } from 'formik';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import { db } from '../../data/firebaseConfig';
+import { UserAuth } from '../../store/authContext';
 
 const classes = {
-	createButton: 'w-36 h-11 font-semibold rounded bg-indigo-500 text-slate-900 hover:bg-indigo-600 self-center lg:self-start',
+	createButton: 'w-36 h-11 font-semibold rounded bg-indigo-500 text-slate-900 hover:bg-indigo-600 self-center lg:self-start mt-5',
 	popupOverlay: 'w-screen absolute top-1/2 left-1/2 h-screen bg-[#0000004D] translate-y-[-50%] translate-x-[-50%] z-10',
 	popupCard:
 		'w-4/5 max-w-[400px] h-auto bg-[#181a1c] absolute translate-y-[-50%] translate-x-[-50%] top-1/2 left-1/2 rounded-lg px-4 py-6 z-20 flex flex-col',
@@ -15,6 +19,8 @@ const classes = {
 
 const CreateNewProject = () => {
 	const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
+	const { user } = UserAuth();
+	const navigate = useNavigate()
 
 	const openFormHandler = () => {
 		setIsFormOpen(prevState => !prevState);
@@ -27,8 +33,23 @@ const CreateNewProject = () => {
 		validationSchema: Yup.object({
 			projectName: Yup.string().min(4, 'Project name must have atleast 4 characters!').required('This field is required!'),
 		}),
-		onSubmit: values => {
-			console.log(values.projectName);
+		onSubmit: async values => {
+			if (user) {
+				const docRef = doc(db, 'users', user.uid);
+
+				const response = await addDoc(collection(docRef, 'projects'), {
+					kanban: {
+						todo: [],
+						inProgress: [],
+						done: [],
+					},
+					calendar: {},
+					name: values.projectName,
+				});
+				console.log(response.id)
+				setIsFormOpen(prevState => !prevState)
+				navigate(`/${response.id}`)
+			}
 		},
 	});
 

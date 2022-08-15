@@ -7,7 +7,7 @@ import Projects from "./pages/projects/Projects"
 function App() {
 
   return (
-    <div className="App bg-[#121316] h-screen">
+    <div className="App bg-[#121316] min-h-screen">
       <Routes>
         <Route path='/' element={<ProtectedRoute><Projects /></ProtectedRoute>} />
         <Route path='/signin' element={<SignIn />} />

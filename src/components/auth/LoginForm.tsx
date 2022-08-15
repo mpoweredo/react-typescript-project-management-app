@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { UserAuth } from '../../store/authContext';
 
 const classes = {
-	container: 'flex items-center justify-center h-full px-3',
+	container: 'flex items-center justify-center h-screen px-3',
 	card: 'w-full max-w-[440px] bg-[#181a1d] h-auto rounded-md px-4 py-6 flex flex-col gap-7',
 	title: 'font-bold text-3xl text-white text-center',
 	input: 'bg-[#212428] w-full h-10 rounded px-3 focus:outline focus:outline-indigo-500 duration-500 hover:bg-[#2d3137] text-gray-300',

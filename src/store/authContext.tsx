@@ -19,15 +19,6 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
 				email,
 				name,
 			});
-			await addDoc(collection(docRef, 'projects'), {
-				kanban: {
-					todo: [],
-					inProgress: [],
-					done: [],
-				},
-				calendar: {},
-				name: 'React App'
-			})
 		} catch (e: unknown) {
 			// TODO: BETTER ERROR HANDLING
 			if (e instanceof Error) {

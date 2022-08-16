@@ -15,7 +15,8 @@ const classes = {
 	text: 'text-white font-semibold text-2xl text-center',
 	input: 'bg-[#212428] w-full h-10 rounded px-3 focus:outline focus:outline-indigo-500 duration-500 hover:bg-[#2d3137] text-gray-300 mt-5',
 	error: 'text-red-400 mt-2',
-	button: 'w-full h-11 mt-4 rounded font-semibold bg-[#0d0e10] text-[#bdbdbf] hover:bg-[#101114]',
+	buttonCreate: 'w-full h-11 mt-4 rounded font-semibold bg-[#0d0e10] text-[#bdbdbf] hover:bg-[#101114]',
+	buttonClose: 'w-full h-11 mt-4 rounded font-semibold bg-red-600 text-[#bdbdbf] hover:bg-red-500',
 };
 
 const CreateNewProject = () => {
@@ -23,7 +24,7 @@ const CreateNewProject = () => {
 	const { user } = UserAuth();
 	const navigate = useNavigate();
 
-	const openFormHandler = () => {
+	const openCloseFormHandler = () => {
 		setIsFormOpen(prevState => !prevState);
 	};
 
@@ -95,9 +96,7 @@ const CreateNewProject = () => {
 	const formContent = (
 		<div
 			className={classes.popupOverlay}
-			onClick={() => {
-				setIsFormOpen(prevState => !prevState);
-			}}>
+			onClick={openCloseFormHandler}>
 			<div className={classes.popupCard} onClick={e => e.stopPropagation()}>
 				<h1 className={classes.text}>Name your project</h1>
 				<form onSubmit={formik.handleSubmit}>
@@ -111,7 +110,8 @@ const CreateNewProject = () => {
 						value={formik.values.projectName}
 					/>
 					{formik.touched.projectName && formik.errors.projectName ? <p className={classes.error}>{formik.errors.projectName}</p> : null}
-					<button className={classes.button}>Create</button>
+					<button className={classes.buttonCreate}>Create</button>
+					<button className={classes.buttonClose} onClick={openCloseFormHandler}>Cancel</button>
 				</form>
 			</div>
 		</div>
@@ -120,7 +120,7 @@ const CreateNewProject = () => {
 	return (
 		<>
 			{isFormOpen && formContent}
-			<button onClick={openFormHandler} className={classes.createButton}>
+			<button onClick={openCloseFormHandler} className={classes.createButton}>
 				Create project
 			</button>
 		</>

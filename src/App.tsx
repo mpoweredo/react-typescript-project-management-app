@@ -3,6 +3,7 @@ import ProtectedRoute from './components/protectedRoutes/ProtectedRoute';
 import SignInUpRoute from './components/protectedRoutes/SignInUpRoute';
 import SignIn from './pages/auth/SignIn';
 import SignUp from './pages/auth/SignUp';
+import Dashboard from './pages/dashboard/Dashboard';
 import Projects from './pages/projects/Projects';
 
 function App() {
@@ -33,7 +34,7 @@ function App() {
 						</SignInUpRoute>
 					}
 				/>
-        <Route path='/:id' element={<ProtectedRoute></ProtectedRoute>} />
+        <Route path='/:projectId' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
 			</Routes>
 		</div>
 	);

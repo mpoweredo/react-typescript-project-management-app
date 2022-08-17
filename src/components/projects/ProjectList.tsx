@@ -5,7 +5,6 @@ import { UserAuth } from '../../store/authContext';
 import { Project } from '../../types/ProjectsType';
 import { CircularProgress } from '@mui/material';
 import ProjectItem from './ProjectItem';
-import CreateNewProject from './CreateNewProject';
 
 const classes = {
 	container: 'flex flex-col gap-5 items-center lg:items-start',

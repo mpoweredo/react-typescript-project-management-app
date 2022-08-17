@@ -1,5 +1,5 @@
-import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
-import React, { useEffect } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import NavbarDesktop from '../../components/layout/NavbarDesktop';
 import NavbarMobile from '../../components/layout/NavbarMobile';

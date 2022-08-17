@@ -34,7 +34,14 @@ function App() {
 						</SignInUpRoute>
 					}
 				/>
-        <Route path='/:projectId' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+				<Route
+					path='/:projectId'
+					element={
+						<ProtectedRoute>
+							<Dashboard />
+						</ProtectedRoute>
+					}
+				/>
 			</Routes>
 		</div>
 	);

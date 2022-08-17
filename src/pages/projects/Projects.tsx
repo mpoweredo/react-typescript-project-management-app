@@ -1,6 +1,6 @@
 import { UserAuth } from '../../store/authContext';
-import CreateNewProject from './CreateNewProject';
-import ProjectList from './ProjectList';
+import CreateNewProject from '../../components/projects/CreateNewProject';
+import ProjectList from '../../components/projects/ProjectList';
 
 const classes = {
 	container: 'w-full flex flex-col p-4 lg:p-8',

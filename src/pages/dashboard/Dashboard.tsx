@@ -4,6 +4,7 @@ import Column from '../../components/kanban/Column';
 import NavbarDesktop from '../../components/layout/NavbarDesktop';
 import NavbarMobile from '../../components/layout/NavbarMobile';
 import useProject from '../../hooks/useProject';
+import { Column as ColumnType } from '../../types/KanbanTypes';
 
 const classes = {
 	dashboard: 'flex flex-col lg:grid lg:grid-cols-[224px_minmax(700px,_1fr)] w-full min-h-screen',
@@ -41,8 +42,8 @@ const Dashboard = () => {
 						</div>
 					)}
 					<div className='flex gap-5 flex-wrap'>
-						{project?.kanban.map((column: any) => (
-							<Column key={column.id} />
+						{project?.kanban.map((column: ColumnType) => (
+							<Column key={column.id} id={column.id} tasks={column.tasks} />
 						))}
 					</div>
 				</div>

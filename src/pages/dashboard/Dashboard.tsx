@@ -9,7 +9,7 @@ import { Column as ColumnType } from '../../types/KanbanTypes';
 const classes = {
 	dashboard: 'flex flex-col lg:grid lg:grid-cols-[224px_minmax(700px,_1fr)] w-full min-h-screen',
 	container: 'w-full h-full lg:p-8',
-	kanbanContent: 'w-full bg-[#26292c] h-full rounded-2xl px-7 py-5',
+	kanbanContent: 'w-full bg-[#1B1D1F] h-full rounded-2xl px-7 py-5',
 	kanbanHeader: 'mb-5',
 	spinnerContainer: 'w-full h-full flex justify-center items-center',
 	errorMessage: 'text-red-400 font-semibold text-center m-2',

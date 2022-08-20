@@ -14,6 +14,7 @@ const classes = {
 	spinnerContainer: 'w-full h-full flex justify-center items-center',
 	errorMessage: 'text-red-400 font-semibold text-center m-2',
 	projectName: 'text-indigo-400 text-3xl font-semibold',
+	columnsContainer: 'flex gap-5 flex-wrap'
 };
 
 const Dashboard = () => {
@@ -41,7 +42,7 @@ const Dashboard = () => {
 							<h5 className={classes.errorMessage}>Something went wrong... Try to check your internet connection!</h5>
 						</div>
 					)}
-					<div className='flex gap-5 flex-wrap'>
+					<div className={classes.columnsContainer}>
 						{project?.kanban.map((column: ColumnType) => (
 							<Column key={column.id} id={column.id} tasks={column.tasks} />
 						))}

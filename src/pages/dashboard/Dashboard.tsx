@@ -1,3 +1,4 @@
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { CircularProgress } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import Column from '../../components/kanban/Column';
@@ -5,6 +6,7 @@ import NavbarDesktop from '../../components/layout/NavbarDesktop';
 import NavbarMobile from '../../components/layout/NavbarMobile';
 import useProject from '../../hooks/useProject';
 import { Column as ColumnType } from '../../types/KanbanTypes';
+import { dragBetweenColumns, dragBetweenRows } from '../../helpers/dragDrop';
 
 const classes = {
 	dashboard: 'flex flex-col lg:grid lg:grid-cols-[224px_minmax(700px,_1fr)] w-full min-h-screen',
@@ -14,12 +16,27 @@ const classes = {
 	spinnerContainer: 'w-full h-full flex justify-center items-center',
 	errorMessage: 'text-red-400 font-semibold text-center m-2',
 	projectName: 'text-indigo-400 text-3xl font-semibold',
-	columnsContainer: 'flex gap-5 flex-wrap'
+	columnsContainer: 'flex gap-5 flex-wrap',
 };
 
 const Dashboard = () => {
 	const { projectId } = useParams();
-	const { project, error, loading } = useProject(projectId!);
+	const { project, error, loading, setProject } = useProject(projectId!);
+
+	const handleDragEnd = async (result: DropResult) => {
+		if (!result.destination) return;
+		const { source, destination } = result;
+
+		if (source.droppableId !== destination.droppableId) {
+			const updatedData = dragBetweenColumns(result, project!.kanban);
+			setProject(prevState => prevState && { ...prevState, kanban: updatedData });
+
+		} else if (source.droppableId === destination.droppableId) {
+			const updatedData = dragBetweenRows(result, project!.kanban);
+			setProject(prevState => prevState && { ...prevState, kanban: updatedData });
+
+		}
+	};
 
 	return (
 		<div className={classes.dashboard}>
@@ -42,11 +59,13 @@ const Dashboard = () => {
 							<h5 className={classes.errorMessage}>Something went wrong... Try to check your internet connection!</h5>
 						</div>
 					)}
-					<div className={classes.columnsContainer}>
-						{project?.kanban.map((column: ColumnType) => (
-							<Column key={column.id} id={column.id} tasks={column.tasks} />
-						))}
-					</div>
+					<DragDropContext onDragEnd={handleDragEnd}>
+						<div className={classes.columnsContainer}>
+							{project?.kanban.map((column: ColumnType, index: number) => {
+								return <Column key={column.id} id={column.id} title={column.title} index={index} tasks={column.tasks} />;
+							})}
+						</div>
+					</DragDropContext>
 				</div>
 			</main>
 		</div>

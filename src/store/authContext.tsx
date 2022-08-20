@@ -55,7 +55,6 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
 				setUser(false);
 			}
 
-			console.log(currentUser);
 		});
 		return () => {
 			unsubscribe();

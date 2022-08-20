@@ -1,11 +1,20 @@
+import { Draggable } from 'react-beautiful-dnd';
 import { Task as TaskType } from '../../types/KanbanTypes';
 
 const classes = {
-	taskItem: 'w-full h-16 bg-[#232325] mb-4 rounded-sm p-3 last:mb-0 text-[#7D7D7D] font-semibold',
+	taskItem: 'w-full h-16 bg-[#232325] rounded-sm p-3 text-[#7D7D7D] font-semibold',
 };
 
-const Task = ({ id, title }: TaskType) => {
-	return <li className={classes.taskItem}>{title}</li>;
+const Task = ({ id, title, index }: TaskType) => {
+	return (
+		<Draggable key={id} draggableId={id.toString()} index={index}>
+			{provided => (
+				<div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className='mb-4'>
+					<li className={classes.taskItem}>{title}</li>
+				</div>
+			)}
+		</Draggable>
+	);
 };
 
 export default Task;

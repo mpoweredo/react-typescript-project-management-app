@@ -9,8 +9,6 @@ type Props = {
 const ProtectedRoute = ({ children }: Props) => {
 	const { user } = UserAuth();
 
-	console.log(user);
-
 	if (user) {
 		return <>{children}</>;
 	}

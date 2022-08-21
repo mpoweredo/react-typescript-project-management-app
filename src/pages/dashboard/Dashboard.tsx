@@ -9,12 +9,13 @@ import { Column as ColumnType, Project } from '../../types/KanbanTypes';
 import { dragBetweenColumns, dragBetweenRows } from '../../helpers/dragDrop';
 import { updateData } from '../../helpers/updateData';
 import { UserAuth } from '../../store/authContext';
+import NewTask from '../../components/kanban/NewTask/NewTask';
 
 const classes = {
 	dashboard: 'flex flex-col lg:grid lg:grid-cols-[224px_minmax(700px,_1fr)] w-full min-h-screen',
 	container: 'w-full h-full lg:p-8',
 	kanbanContent: 'w-full bg-[#1B1D1F] h-full rounded-2xl px-7 py-5',
-	kanbanHeader: 'mb-5',
+	kanbanHeader: 'mb-5 flex h-auto w-full justify-between',
 	spinnerContainer: 'w-full h-full flex justify-center items-center',
 	errorMessage: 'text-red-400 font-semibold text-center m-2',
 	projectName: 'text-indigo-400 text-3xl font-semibold',
@@ -65,7 +66,10 @@ const Dashboard = () => {
 			</div>
 			<main className={classes.container}>
 				<div className={classes.kanbanContent}>
-					<header className={classes.kanbanHeader}>{project && <h3 className={classes.projectName}>/{project.name}</h3>}</header>
+					<header className={classes.kanbanHeader}>
+						{project && <h3 className={classes.projectName}>/{project.name}</h3>}
+						{project && <NewTask project={project} />}
+					</header>
 					{loading && (
 						<div className={classes.spinnerContainer}>
 							<CircularProgress />

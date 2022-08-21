@@ -5,8 +5,10 @@ import Column from '../../components/kanban/Column';
 import NavbarDesktop from '../../components/layout/NavbarDesktop';
 import NavbarMobile from '../../components/layout/NavbarMobile';
 import useProject from '../../hooks/useProject';
-import { Column as ColumnType } from '../../types/KanbanTypes';
+import { Column as ColumnType, Project } from '../../types/KanbanTypes';
 import { dragBetweenColumns, dragBetweenRows } from '../../helpers/dragDrop';
+import { updateData } from '../../helpers/updateData';
+import { UserAuth } from '../../store/authContext';
 
 const classes = {
 	dashboard: 'flex flex-col lg:grid lg:grid-cols-[224px_minmax(700px,_1fr)] w-full min-h-screen',
@@ -21,6 +23,7 @@ const classes = {
 
 const Dashboard = () => {
 	const { projectId } = useParams();
+	const { user } = UserAuth();
 	const { project, error, loading, setProject } = useProject(projectId!);
 
 	const handleDragEnd = async (result: DropResult) => {
@@ -29,12 +32,26 @@ const Dashboard = () => {
 
 		if (source.droppableId !== destination.droppableId) {
 			const updatedData = dragBetweenColumns(result, project!.kanban);
-			setProject(prevState => prevState && { ...prevState, kanban: updatedData });
+			const newData = {
+				...project,
+				kanban: updatedData,
+			} as Project;
 
-		} else if (source.droppableId === destination.droppableId) {
+			setProject(newData);
+			updateData(newData, projectId!, user);
+			return;
+		}
+
+		if (source.droppableId === destination.droppableId) {
 			const updatedData = dragBetweenRows(result, project!.kanban);
-			setProject(prevState => prevState && { ...prevState, kanban: updatedData });
+			const newData = {
+				...project,
+				kanban: updatedData,
+			} as Project;
 
+			setProject(newData);
+			updateData(newData, projectId!, user);
+			return;
 		}
 	};
 

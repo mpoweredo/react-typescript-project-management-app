@@ -9,7 +9,7 @@ const Task = ({ id, title, index }: TaskType) => {
 	return (
 		<Draggable key={id} draggableId={id.toString()} index={index}>
 			{provided => (
-				<div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className='mb-4'>
+				<div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className='mt-4'>
 					<li className={classes.taskItem}>{title}</li>
 				</div>
 			)}

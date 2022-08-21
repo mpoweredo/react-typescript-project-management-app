@@ -1,12 +1,16 @@
-import { User as FirebaseUser } from 'firebase/auth'
+import { User as FirebaseUser } from 'firebase/auth';
 
-export type Name = {
-    name: string;
-}
+type Name = {
+	name: string;
+};
 
-export type AuthContextValue = {
-    user: FirebaseUser & Name | null | false;
-    registerUser: (email: string, password: string, name: string) => void;
-    loginUser: (email: string, password: string) => void;
-    logout: () => void
-}
+type User = (FirebaseUser & Name) | null | false;
+
+type AuthContextValue = {
+	user: User;
+	registerUser: (email: string, password: string, name: string) => void;
+	loginUser: (email: string, password: string) => void;
+	logout: () => void;
+};
+
+export type { AuthContextValue, User, Name };

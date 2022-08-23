@@ -18,8 +18,10 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 	const { user } = UserAuth();
 
 	const updateProject = (newData: Project) => {
-		setProject(newData);
-		updateData(newData, projectId!, user);
+		if (newData) {
+			setProject(newData);
+			updateData(newData, projectId!, user);
+		}
 	};
 
 	const addNewTask = (NewTaskData: NewTaskData) => {

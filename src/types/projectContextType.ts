@@ -5,7 +5,8 @@ type ProjectContextType = {
 	error: null | {};
     loading: boolean;
     updateProject: (arg0: Project) => void
-    addNewTask: (NewTaskData: NewTaskData) => void
+    addNewTask: (NewTaskData: NewTaskData) => void,
+    addNewColumn: (arg0: string) => void,
 };
 
 export type { ProjectContextType };

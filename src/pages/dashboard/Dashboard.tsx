@@ -7,6 +7,7 @@ import { Column as ColumnType, Project } from '../../types/KanbanTypes';
 import { dragBetweenColumns, dragBetweenRows } from '../../helpers/dragDrop';
 import NewTask from '../../components/kanban/NewTask/NewTask';
 import { ProjectData } from '../../store/projectContext';
+import NewColumn from '../../components/kanban/NewColumn/NewColumn';
 
 const classes = {
 	dashboard: 'flex flex-col lg:grid lg:grid-cols-[224px_minmax(700px,_1fr)] w-full min-h-screen',
@@ -78,6 +79,7 @@ const Dashboard = () => {
 							{project?.kanban.map((column: ColumnType, index: number) => {
 								return <Column key={column.id} id={column.id} title={column.title} index={index} tasks={column.tasks} />;
 							})}
+							<NewColumn />
 						</div>
 					</DragDropContext>
 				</div>

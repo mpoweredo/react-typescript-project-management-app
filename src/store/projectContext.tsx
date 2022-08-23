@@ -43,6 +43,12 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 		updateProject(newData);
 	};
 
+	const addNewColumn = (title: string) => {
+		const updatedData = {...project, kanban: [...project!.kanban, {title, id: uuidv4(), tasks: []}]} as Project;
+
+		updateProject(updatedData)
+	}
+
 	useEffect(() => {
 		const fetchProjects = async () => {
 			setLoading(true);
@@ -64,7 +70,7 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 		fetchProjects();
 	}, []);
 
-	return <ProjectContext.Provider value={{ updateProject, project, loading, error, addNewTask }}>{children}</ProjectContext.Provider>;
+	return <ProjectContext.Provider value={{ updateProject, addNewColumn, project, loading, error, addNewTask }}>{children}</ProjectContext.Provider>;
 };
 
 export const ProjectData = () => {

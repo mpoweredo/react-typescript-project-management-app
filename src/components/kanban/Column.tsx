@@ -16,7 +16,7 @@ const Column = ({ tasks, index, id, title }: ColumnType) => {
 					<ul>
 						<>
 							{tasks.map((task: TaskType, index: number) => (
-								<Task key={task.id} id={task.id} title={task.title} index={index} />
+								task && <Task key={task.id} id={task.id} title={task.title} index={index} />
 							))}
 							{provided.placeholder}
 						</>

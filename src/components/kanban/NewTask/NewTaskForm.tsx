@@ -2,7 +2,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { columnSelectStyles, prioritySelectStyles } from '../../../data/selectStyles';
 import { ProjectData } from '../../../store/projectContext';
-import { Project } from '../../../types/KanbanTypes';
+import { NewTaskData, Project } from '../../../types/KanbanTypes';
 import CustomSelect from './CustomSelect';
 
 const classes = {
@@ -28,17 +28,17 @@ export type Option = {
 
 const priorityOptions = [
 	{
-		value: 'High',
+		value: 'high',
 		label: 'High',
 		color: '#FB8585',
 	},
 	{
-		value: 'Medium',
+		value: 'medium',
 		label: 'Medium',
 		color: '#fbbf24',
 	},
 	{
-		value: 'Low',
+		value: 'low',
 		label: 'Low',
 		color: '#4ade80',
 	},
@@ -58,7 +58,7 @@ const NewTaskForm = ({ project, closePopUp }: Props) => {
 		validationSchema: Yup.object({
 			taskTitle: Yup.string().min(4, 'Title name must have atleast 4 characters!').required('This field is required!'),
 		}),
-		onSubmit: values => {
+		onSubmit: (values: NewTaskData) => {
 			addNewTask(values)
 			closePopUp()
 		},

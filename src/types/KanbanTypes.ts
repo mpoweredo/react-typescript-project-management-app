@@ -2,6 +2,7 @@ export type Task = {
 	id: string;
 	title: string;
 	index?: number;
+	priority: 'high' | 'low' | 'medium';
 };
 
 export type Column = {
@@ -21,6 +22,6 @@ export type Project = {
 export type NewTaskData = {
 	taskColumn: number;
 	taskDescription: string;
-	taskPriority: string;
+	taskPriority: 'high' | 'low' | 'medium';
 	taskTitle: string;
 };

@@ -5,6 +5,7 @@ import SignIn from './pages/auth/SignIn';
 import SignUp from './pages/auth/SignUp';
 import Dashboard from './pages/dashboard/Dashboard';
 import Projects from './pages/projects/Projects';
+import { ProjectContextProvider } from './store/projectContext';
 
 function App() {
 	return (
@@ -38,7 +39,9 @@ function App() {
 					path='/:projectId'
 					element={
 						<ProtectedRoute>
-							<Dashboard />
+							<ProjectContextProvider>
+								<Dashboard />
+							</ProjectContextProvider>
 						</ProtectedRoute>
 					}
 				/>

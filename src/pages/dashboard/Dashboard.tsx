@@ -1,15 +1,12 @@
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { CircularProgress } from '@mui/material';
-import { useParams } from 'react-router-dom';
 import Column from '../../components/kanban/Column';
 import NavbarDesktop from '../../components/layout/NavbarDesktop';
 import NavbarMobile from '../../components/layout/NavbarMobile';
-import useProject from '../../hooks/useProject';
 import { Column as ColumnType, Project } from '../../types/KanbanTypes';
 import { dragBetweenColumns, dragBetweenRows } from '../../helpers/dragDrop';
-import { updateData } from '../../helpers/updateData';
-import { UserAuth } from '../../store/authContext';
 import NewTask from '../../components/kanban/NewTask/NewTask';
+import { ProjectData } from '../../store/projectContext';
 
 const classes = {
 	dashboard: 'flex flex-col lg:grid lg:grid-cols-[224px_minmax(700px,_1fr)] w-full min-h-screen',
@@ -23,9 +20,7 @@ const classes = {
 };
 
 const Dashboard = () => {
-	const { projectId } = useParams();
-	const { user } = UserAuth();
-	const { project, error, loading, setProject } = useProject(projectId!);
+	const { project, updateProject, loading, error } = ProjectData();
 
 	const handleDragEnd = async (result: DropResult) => {
 		if (!result.destination) return;
@@ -38,8 +33,7 @@ const Dashboard = () => {
 				kanban: updatedData,
 			} as Project;
 
-			setProject(newData);
-			updateData(newData, projectId!, user);
+			updateProject(newData);
 			return;
 		}
 
@@ -50,8 +44,7 @@ const Dashboard = () => {
 				kanban: updatedData,
 			} as Project;
 
-			setProject(newData);
-			updateData(newData, projectId!, user);
+			updateProject(newData);
 			return;
 		}
 	};

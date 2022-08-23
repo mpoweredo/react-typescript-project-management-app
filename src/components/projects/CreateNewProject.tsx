@@ -47,11 +47,13 @@ const CreateNewProject = () => {
 							tasks: [
 								{
 									id: uuidv4(),
-									title: 'Learn React'
+									title: 'Learn React',
+									priority: 'high'
 								},
 								{
 									id: uuidv4(),
-									title: 'Learn NextJS'
+									title: 'Learn NextJS',
+									priority: 'low'
 								}
 							],
 						},
@@ -61,11 +63,13 @@ const CreateNewProject = () => {
 							tasks: [
 								{
 									id: uuidv4(),
-									title: 'Learn JavaScript'
+									title: 'Learn JavaScript',
+									priority: 'high'
 								},
 								{
 									id: uuidv4(),
-									title: 'Learn SCSS'
+									title: 'Learn SCSS',
+									priority: 'medium'
 								}
 							],
 						},
@@ -75,11 +79,13 @@ const CreateNewProject = () => {
 							tasks: [
 								{
 									id: uuidv4(),
-									title: 'Learn HTML'
+									title: 'Learn HTML',
+									priority: 'low'
 								},
 								{
 									id: uuidv4(),
-									title: 'Learn CSS'
+									title: 'Learn CSS',
+									priority: 'medium'
 								}
 							],
 						},

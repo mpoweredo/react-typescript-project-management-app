@@ -14,7 +14,7 @@ const dragBetweenColumns = ({ source, destination }: DropResult, data: Kanban): 
 	const destinationTask = [...destinationCol.tasks];
 
 	const [removed] = sourceTask.splice(source.index, 1);
-	destinationTask.splice(destination!.index, 0, removed);
+	removed && destinationTask.splice(destination!.index, 0, removed);
 
 	updatedData[sourceDroppableId].tasks = sourceTask;
 	updatedData[destinationDroppableId].tasks = destinationTask;

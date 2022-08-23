@@ -3,9 +3,10 @@ import { createContext, PropsWithChildren, useContext, useState, useEffect } fro
 import { useParams } from 'react-router-dom';
 import { db } from '../data/firebaseConfig';
 import { updateData } from '../helpers/updateData';
-import { Project } from '../types/KanbanTypes';
+import { Kanban, NewTaskData, Project } from '../types/KanbanTypes';
 import { ProjectContextType } from '../types/projectContextType';
 import { UserAuth } from './authContext';
+import { v4 as uuidv4 } from 'uuid';
 
 const ProjectContext = createContext<ProjectContextType | false>(false);
 
@@ -19,6 +20,24 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 	const updateProject = (newData: Project) => {
 		setProject(newData);
 		updateData(newData, projectId!, user);
+	};
+
+	const addNewTask = (NewTaskData: NewTaskData) => {
+		const newTask = {
+			id: uuidv4(),
+			title: NewTaskData.taskTitle,
+		};
+
+		const updatedData = [...project!.kanban] as Kanban;
+
+		updatedData[NewTaskData.taskColumn].tasks = [...updatedData[NewTaskData.taskColumn].tasks, newTask];
+
+		const newData = {
+			...project,
+			kanban: updatedData,
+		} as Project;
+
+		updateProject(newData);
 	};
 
 	useEffect(() => {
@@ -42,7 +61,7 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 		fetchProjects();
 	}, []);
 
-	return <ProjectContext.Provider value={{ updateProject, project, loading, error }}>{children}</ProjectContext.Provider>;
+	return <ProjectContext.Provider value={{ updateProject, project, loading, error, addNewTask }}>{children}</ProjectContext.Provider>;
 };
 
 export const ProjectData = () => {

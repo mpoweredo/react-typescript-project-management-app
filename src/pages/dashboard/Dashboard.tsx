@@ -22,6 +22,8 @@ const classes = {
 const Dashboard = () => {
 	const { project, updateProject, loading, error } = ProjectData();
 
+	console.log(project)
+
 	const handleDragEnd = async (result: DropResult) => {
 		if (!result.destination) return;
 		const { source, destination } = result;

@@ -36,7 +36,7 @@ const NewTaskPopup = ({ isOpen, closePopUp, project }: Props) => {
 						</header>
 						<div className='w-full'>
 							<div className={classes.formContainer}>
-								<NewTaskForm project={project} />
+								<NewTaskForm closePopUp={closePopUp} project={project} />
 							</div>
 						</div>
 					</div>

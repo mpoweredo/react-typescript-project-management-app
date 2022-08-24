@@ -5,40 +5,42 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { ProjectData } from '../../store/projectContext';
 
 const classes = {
-	column: 'w-[260px] h-full bg-[#11111388] rounded-md px-4 py-4',
+	column: 'w-[260px] h-full bg-[#11111388] rounded-md px-4 py-4 flex flex-col',
 	columnHeaderContainer: 'w-full h-auto bg-[#474DA1] rounded-sm p-3 text-indigo-200 font-semibold flex justify-between items-center',
 	deleteColumn: 'bg-indigo-500 hover:bg-indigo-400 p-1 rounded h-full text-indigo-300 hover:text-indigo-200',
 };
 
 const Column = ({ tasks, index, id, title }: ColumnType) => {
-	const { deleteColumn } = ProjectData()
+	const { deleteColumn } = ProjectData();
 
 	const deleteHandler = () => {
-		deleteColumn(index)
-	}
+		deleteColumn(index);
+	};
 
 	return (
-		<Droppable key={id} droppableId={index.toString()}>
-			{provided => (
-				<div {...provided.droppableProps} ref={provided.innerRef} className={classes.column}>
-					<header className={classes.columnHeaderContainer}>
-						<h5>{title}</h5>
-						<button onClick={deleteHandler} className={classes.deleteColumn}>
-							<DeleteIcon />
-						</button>
-					</header>
-					<ul>
-						<>
-							{tasks.map(
-								(task: TaskType, index: number) =>
-									task && <Task priority={task.priority} key={task.id} id={task.id} title={task.title} index={index} />
-							)}
-							{provided.placeholder}
-						</>
-					</ul>
-				</div>
-			)}
-		</Droppable>
+		<div className={classes.column}>
+			<header className={classes.columnHeaderContainer}>
+				<h5>{title}</h5>
+				<button onClick={deleteHandler} className={classes.deleteColumn}>
+					<DeleteIcon />
+				</button>
+			</header>
+			<Droppable key={id} droppableId={index.toString()}>
+				{provided => (
+					<div {...provided.droppableProps} ref={provided.innerRef}>
+						<ul>
+							<>
+								{tasks.map(
+									(task: TaskType, index: number) =>
+										task && <Task priority={task.priority} key={task.id} id={task.id} title={task.title} index={index} />
+								)}
+								{provided.placeholder}
+							</>
+						</ul>
+					</div>
+				)}
+			</Droppable>
+		</div>
 	);
 };
 

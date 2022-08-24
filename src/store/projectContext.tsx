@@ -24,6 +24,18 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 		}
 	};
 
+	const deleteColumn = (index: number) => {
+		const updatedData = [...project!.kanban] as Kanban
+		updatedData.splice(index, 1)
+		
+		const newData = {
+			...project,
+			kanban: updatedData
+		} as Project
+
+		updateProject(newData)
+	}
+
 	const addNewTask = (NewTaskData: NewTaskData) => {
 		const newTask = {
 			id: uuidv4(),
@@ -70,7 +82,7 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 		fetchProjects();
 	}, []);
 
-	return <ProjectContext.Provider value={{ updateProject, addNewColumn, project, loading, error, addNewTask }}>{children}</ProjectContext.Provider>;
+	return <ProjectContext.Provider value={{ updateProject, deleteColumn, addNewColumn, project, loading, error, addNewTask }}>{children}</ProjectContext.Provider>;
 };
 
 export const ProjectData = () => {

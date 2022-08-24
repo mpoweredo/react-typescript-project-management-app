@@ -23,7 +23,7 @@ const NewColumn = () => {
 
 	const formik = useFormik({
 		initialValues: {
-			columnTitle: '' as string,
+			columnTitle: ''
 		},
 		validationSchema: Yup.object({
 			columnTitle: Yup.string().min(4, 'Title name must have atleast 4 characters!').required(),

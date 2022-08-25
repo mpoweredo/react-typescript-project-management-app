@@ -38,5 +38,15 @@ const dragBetweenRows = ({ source, destination }: DropResult, data: Kanban): Kan
 	return updatedData
 };
 
+const dragColumns = ({ source, destination }: DropResult, data: Kanban): Kanban => {
+	const sourceDroppableId: number = +source.index;
+	const updatedData = [...data];
+	const toBeMoved = updatedData[source.index];
 
-export { dragBetweenColumns, dragBetweenRows };
+	updatedData.splice(source.index, 1);
+	updatedData.splice(destination!.index, 0, toBeMoved);
+
+	return updatedData
+}
+
+export { dragBetweenColumns, dragBetweenRows, dragColumns };

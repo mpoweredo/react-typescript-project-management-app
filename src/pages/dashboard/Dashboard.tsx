@@ -1,10 +1,10 @@
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { CircularProgress } from '@mui/material';
 import Column from '../../components/kanban/Column';
 import NavbarDesktop from '../../components/layout/NavbarDesktop';
 import NavbarMobile from '../../components/layout/NavbarMobile';
 import { Column as ColumnType, Project } from '../../types/KanbanTypes';
-import { dragBetweenColumns, dragBetweenRows } from '../../helpers/dragDrop';
+import { dragBetweenColumns, dragBetweenRows, dragColumns } from '../../helpers/dragDrop';
 import NewTask from '../../components/kanban/NewTask/NewTask';
 import { ProjectData } from '../../store/projectContext';
 import NewColumn from '../../components/kanban/NewColumn/NewColumn';
@@ -17,36 +17,55 @@ const classes = {
 	spinnerContainer: 'w-full h-full flex justify-center items-center',
 	errorMessage: 'text-red-400 font-semibold text-center m-2',
 	projectName: 'text-indigo-400 text-3xl font-semibold',
-	columnsContainer: 'flex gap-5 flex-wrap',
+	columnsContainer: 'flex flex-wrap',
 };
 
 const Dashboard = () => {
 	const { project, updateProject, loading, error } = ProjectData();
 
+	console.log(project)
+
 	const handleDragEnd = async (result: DropResult) => {
 		if (!result.destination) return;
 		const { source, destination } = result;
 
-		if (source.droppableId !== destination.droppableId) {
-			const updatedData = dragBetweenColumns(result, project!.kanban);
+		if (result.type === 'task') {
+			if (source.droppableId !== destination.droppableId) {
+				const updatedData = dragBetweenColumns(result, project!.kanban);
+				const newData = {
+					...project,
+					kanban: updatedData,
+				} as Project;
+
+				updateProject(newData);
+				return;
+			}
+
+			if (source.droppableId === destination.droppableId) {
+				const updatedData = dragBetweenRows(result, project!.kanban);
+				const newData = {
+					...project,
+					kanban: updatedData,
+				} as Project;
+
+				updateProject(newData);
+				return;
+			}
+		} else {
+			const updatedData = dragColumns(result, project!.kanban)
+
+
+
+
 			const newData = {
 				...project,
-				kanban: updatedData,
-			} as Project;
+				kanban: updatedData
+			} as Project
 
-			updateProject(newData);
-			return;
-		}
 
-		if (source.droppableId === destination.droppableId) {
-			const updatedData = dragBetweenRows(result, project!.kanban);
-			const newData = {
-				...project,
-				kanban: updatedData,
-			} as Project;
 
-			updateProject(newData);
-			return;
+			console.log(updatedData)
+			updateProject(newData)
 		}
 	};
 
@@ -75,12 +94,19 @@ const Dashboard = () => {
 						</div>
 					)}
 					<DragDropContext onDragEnd={handleDragEnd}>
-						<div className={classes.columnsContainer}>
-							{project?.kanban.map((column: ColumnType, index: number) => {
-								return <Column key={column.id} id={column.id} title={column.title} index={index} tasks={column.tasks} />;
-							})}
-							<NewColumn />
-						</div>
+						<Droppable type='column' droppableId='columns' direction='horizontal'>
+							{provided => (
+								<div {...provided.droppableProps} ref={provided.innerRef}>
+									<div className={classes.columnsContainer}>
+										{project?.kanban.map((column: ColumnType, index: number) => {
+											return <Column key={column.id} id={column.id} title={column.title} index={index} tasks={column.tasks} />;
+										})}
+										<NewColumn />
+									</div>
+									{provided.placeholder}
+								</div>
+							)}
+						</Droppable>
 					</DragDropContext>
 				</div>
 			</main>

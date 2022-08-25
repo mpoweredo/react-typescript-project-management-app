@@ -11,7 +11,7 @@ const Task = ({ id, title, index, priority }: TaskType) => {
 	const priorityColor = priority === 'high' ? '#FB8585' : priority === 'medium' ? '#fbbf24' : '#4ade80'
 
 	return (
-		<Draggable key={id} draggableId={id.toString()} index={index as number}>
+		<Draggable draggableId={id.toString()} index={index as number}>
 			{provided => (
 				<div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className='mt-4'>
 					<li className={classes.taskItem}>

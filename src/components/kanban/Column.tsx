@@ -8,6 +8,7 @@ const classes = {
 	column: 'w-[260px] h-full bg-[#11111388] rounded-md px-4 py-4 flex flex-col mr-5',
 	columnHeaderContainer: 'w-full h-auto bg-[#474DA1] rounded-sm p-3 text-indigo-200 font-semibold flex justify-between items-center',
 	deleteColumn: 'bg-indigo-500 hover:bg-indigo-400 p-1 rounded h-full text-indigo-300 hover:text-indigo-200',
+	tasksContainer: 'max-h-[370px] lg:max-h-[480px] overflow-auto tasks-container'
 };
 
 const Column = ({ tasks, index, id, title }: ColumnType) => {
@@ -32,7 +33,7 @@ const Column = ({ tasks, index, id, title }: ColumnType) => {
 							<Droppable type='task' droppableId={index.toString()}>
 								{provided => (
 									<div {...provided.droppableProps} ref={provided.innerRef}>
-										<ul>
+										<ul className={classes.tasksContainer}>
 											<>
 												{tasks.map(
 													(task: TaskType, index: number) =>

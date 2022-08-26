@@ -28,7 +28,7 @@ const columnSelectStyles = {
 	}),
 	container: (provided: ContainerProps<{}>) => ({
 		...provided,
-		width: 280,
+		width: '',
 	}),
     singleValue: (provided: SingleValue<{}>, state: SingleValueProps<{ color: string }>) => {
 		const color = '#d1d5db';

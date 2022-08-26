@@ -18,7 +18,7 @@ const classes = {
 
 type Props = {
 	project: Project;
-	closePopUp: () => void
+	closePopUp: () => void;
 };
 
 export type Option = {
@@ -46,7 +46,7 @@ const priorityOptions = [
 
 const NewTaskForm = ({ project, closePopUp }: Props) => {
 	const columnOptions: Option[] = project.kanban.map(column => column.title).map((title, index) => ({ value: index, label: title }));
-	const { addNewTask } = ProjectData()
+	const { addNewTask } = ProjectData();
 
 	const formik = useFormik({
 		initialValues: {
@@ -59,8 +59,8 @@ const NewTaskForm = ({ project, closePopUp }: Props) => {
 			taskTitle: Yup.string().min(4, 'Title name must have atleast 4 characters!').required('This field is required!'),
 		}),
 		onSubmit: (values: NewTaskData) => {
-			addNewTask(values)
-			closePopUp()
+			addNewTask(values);
+			closePopUp();
 		},
 	});
 
@@ -96,17 +96,6 @@ const NewTaskForm = ({ project, closePopUp }: Props) => {
 			</div>
 			<div>
 				<label htmlFor='taskDescription' className={classes.label}>
-					Select task priority
-				</label>
-				<CustomSelect
-					onChange={(value: Option) => formik.setFieldValue('taskPriority', value.value)}
-					value={formik.values.taskColumn}
-					options={priorityOptions}
-					passedStyles={prioritySelectStyles}
-				/>
-			</div>
-			<div>
-				<label htmlFor='taskDescription' className={classes.label}>
 					Select column
 				</label>
 				<CustomSelect
@@ -114,6 +103,17 @@ const NewTaskForm = ({ project, closePopUp }: Props) => {
 					value={formik.values.taskColumn}
 					options={columnOptions}
 					passedStyles={columnSelectStyles}
+				/>
+			</div>
+			<div>
+				<label htmlFor='taskDescription' className={classes.label}>
+					Select task priority
+				</label>
+				<CustomSelect
+					onChange={(value: Option) => formik.setFieldValue('taskPriority', value.value)}
+					value={formik.values.taskColumn}
+					options={priorityOptions}
+					passedStyles={prioritySelectStyles}
 				/>
 			</div>
 			<div className={classes.buttonsContainer}>
@@ -126,6 +126,3 @@ const NewTaskForm = ({ project, closePopUp }: Props) => {
 };
 
 export default NewTaskForm;
-
-
-

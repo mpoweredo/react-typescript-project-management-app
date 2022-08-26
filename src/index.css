@@ -8,8 +8,8 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    transition-delay: 2000s;
-    transition: 0 ease-in-out 0s;
+	transition-delay: 2000s;
+	transition: 0 ease-in-out 0s;
 }
 input:-webkit-autofill {
 	-webkit-text-fill-color: #999;
@@ -17,6 +17,31 @@ input:-webkit-autofill {
 input:-webkit-autofill:focus {
 	-webkit-text-fill-color: #d1d5db;
 }
+
+.tasks-container::-webkit-scrollbar {
+	width: 0px;
+}
+
+.columns-container::-webkit-scrollbar {
+	height: 6px;
+}
+
+@media only screen and (max-width: 900px) {
+	.columns-container::-webkit-scrollbar {
+		height: 0px;
+	}
+}
+
+.columns-container::-webkit-scrollbar-thumb {
+	border-radius: 50px;
+	background-color: gray;
+}
+
+.columns-container::-webkit-scrollbar-track {
+	border-radius: 50px;
+	background-color: rgb(43, 43, 43);
+}
+
 
 @tailwind base;
 @tailwind components;

@@ -12,10 +12,6 @@ const classes = {
 	createButton: 'bg-[#11111388] hover:bg-[#232325] text-slate-50 w-8 h-8 rounded-sm font-medium cursor-pointer',
 };
 
-type xd = {
-    columnTitle: string
-}
-
 const NewColumn = () => {
 	const { addNewColumn } = ProjectData();
 	const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -40,7 +36,7 @@ const NewColumn = () => {
 	};
 
 	return (
-		<div className='flex gap-2'>
+		<div className='flex gap-2 pt-2'>
 			{isOpen && (
 				<form onSubmit={formik.handleSubmit} className='flex gap-2'>
 					<input

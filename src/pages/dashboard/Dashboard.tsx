@@ -10,14 +10,14 @@ import { ProjectData } from '../../store/projectContext';
 import NewColumn from '../../components/kanban/NewColumn/NewColumn';
 
 const classes = {
-	dashboard: 'lg:grid lg:grid-cols-[224px_minmax(700px,_1fr)] flex flex-col w-full h-screen lg:min-h-screen',
-	container: 'w-full h-full lg:p-8 flex flex-col ',
+	dashboard: 'lg:grid lg:grid-cols-[224px_minmax(700px,_1fr)] w-full lg:min-h-screen',
+	container: 'w-full h-full lg:p-8',
 	kanbanContent: 'flex flex-col w-full h-full bg-[#1B1D1F] lg:rounded-2xl px-7 py-5',
 	kanbanHeader: 'mb-5 flex h-auto w-full justify-between',
 	spinnerContainer: 'w-full h-full flex justify-center items-center',
 	errorMessage: 'text-red-400 font-semibold text-center m-2',
 	projectName: 'text-indigo-400 text-3xl font-semibold',
-	columnsContainer: 'flex h-full w-full overflow-auto py-2',
+	columnsContainer: 'flex h-full w-full overflow-auto py-2 px-1',
 };
 
 const Dashboard = () => {
@@ -94,9 +94,9 @@ const Dashboard = () => {
 											{project?.kanban.map((column: ColumnType, index: number) => {
 												return <Column key={column.id} id={column.id} title={column.title} index={index} tasks={column.tasks} />;
 											})}
+											{provided.placeholder}
 											<NewColumn />
 										</div>
-										{provided.placeholder}
 									</div>
 								)}
 							</Droppable>

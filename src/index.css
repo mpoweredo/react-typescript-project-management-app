@@ -42,6 +42,20 @@ input:-webkit-autofill:focus {
 	background-color: rgb(43, 43, 43);
 }
 
+.vertical-scroll::-webkit-scrollbar  {
+	width: 5px;
+}
+
+.vertical-scroll::-webkit-scrollbar-thumb {
+	border-radius: 50px;
+	background-color: gray;
+}
+
+.vertical-scroll::-webkit-scrollbar-track {
+	border-radius: 50px;
+	background-color: rgb(43, 43, 43);
+}
+
 
 @tailwind base;
 @tailwind components;

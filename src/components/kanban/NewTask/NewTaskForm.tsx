@@ -1,4 +1,7 @@
 import { useFormik } from 'formik';
+import ReactMarkdown from 'react-markdown';
+import gfm from 'remark-gfm';
+import remarkGfm from 'remark-gfm';
 import * as Yup from 'yup';
 import { columnSelectStyles, prioritySelectStyles } from '../../../data/selectStyles';
 import { ProjectData } from '../../../store/projectContext';
@@ -13,7 +16,7 @@ const classes = {
 	buttonCreate: 'w-full h-11 mt-4 rounded font-semibold bg-[#0d0e10] text-[#bdbdbf] hover:bg-[#101114]',
 	buttonsContainer: 'flex w-full gap-2',
 	description:
-		'bg-[#212428] w-full h-10 rounded p-3 h-32 focus:outline focus:outline-indigo-500 duration-500 hover:bg-[#2d3137] text-gray-300 mt-2 resize-none',
+		'bg-[#212428] w-full rounded p-3 focus:outline focus:outline-indigo-500 duration-500 text-gray-300 mt-2 resize-none vertical-scroll',
 };
 
 type Props = {
@@ -91,8 +94,17 @@ const NewTaskForm = ({ project, closePopUp }: Props) => {
 					name='taskDescription'
 					onChange={formik.handleChange}
 					value={formik.values.taskDescription}
-					className={classes.description}
+					className={`${classes.description} hover:bg-[#2d3137] h-32`}
 				/>
+				{formik.values.taskDescription.trim().length > 0 && (
+					<div>
+						{' '}
+						<p className={`${classes.label} mt-2 mb-1`}>Live preview</p>
+						<div className={classes.description}>
+							<ReactMarkdown remarkPlugins={[gfm, remarkGfm]} children={formik.values.taskDescription} />
+						</div>
+					</div>
+				)}
 			</div>
 			<div>
 				<label htmlFor='taskDescription' className={classes.label}>

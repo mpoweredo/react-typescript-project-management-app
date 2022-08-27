@@ -35,6 +35,7 @@ const Column = ({ tasks, index, id, title }: ColumnType) => {
 									<div {...provided.droppableProps} ref={provided.innerRef}>
 										<ul className={classes.tasksContainer}>
 											<>
+											<div className='h-1'></div>
 												{tasks.map(
 													(task: TaskType, index: number) =>
 														task && <Task priority={task.priority} key={task.id} id={task.id} title={task.title} index={index} />

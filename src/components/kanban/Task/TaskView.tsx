@@ -30,7 +30,7 @@ const classes = {
 	formContainer: 'w-full',
 	buttonClose: 'w-8 h-8 rounded font-semibold justify-start bg-[#151619] text-[#bdbdbf] hover:bg-[#1d1f24]',
 	closeDescriptionButton: 'w-14 h-8 rounded font-semibold justify-start bg-indigo-700 text-[#bdbdbf] hover:bg-indigo-600 mt-1',
-	buttonCreate: 'w-full h-11 mt-4 rounded font-semibold bg-[#0d0e10] text-[#bdbdbf] hover:bg-[#101114]',
+	buttonChange: 'w-full h-11 mt-4 rounded font-semibold bg-[#0d0e10] text-[#bdbdbf] hover:bg-[#101114]',
 	buttonContainer: 'flex w-full gap-2',
 };
 
@@ -42,7 +42,7 @@ const TaskView = ({ isOpen, task, closeTaskView, columnId }: Props) => {
 		if (option.value === task.priority) return option;
 	});
 
-	const deafultColumnId = project!.kanban.findIndex(({ id }, index) => id === columnId);
+	const deafultColumnId = project!.kanban.findIndex(({ id }) => id === columnId);
 
 	const closeHandler = () => {
 		closeTaskView();
@@ -117,7 +117,7 @@ const TaskView = ({ isOpen, task, closeTaskView, columnId }: Props) => {
 								task.title !== formik.values.taskTitle ||
 								task.priority !== formik.values.taskPriority) && (
 								<div className={classes.buttonContainer}>
-									<button type='submit' className={classes.buttonCreate}>
+									<button type='submit' className={classes.buttonChange}>
 										Change
 									</button>
 								</div>

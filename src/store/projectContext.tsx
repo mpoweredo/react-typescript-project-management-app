@@ -40,6 +40,7 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 		const newTask = {
 			id: uuidv4(),
 			title: NewTaskData.taskTitle,
+			description: NewTaskData.taskDescription,
 			priority: NewTaskData.taskPriority
 		};
 

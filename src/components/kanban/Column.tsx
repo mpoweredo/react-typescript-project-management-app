@@ -1,5 +1,5 @@
 import { Column as ColumnType, Task as TaskType } from '../../types/KanbanTypes';
-import Task from './Task';
+import Task from './Task/Task';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ProjectData } from '../../store/projectContext';
@@ -34,12 +34,9 @@ const Column = ({ tasks, index, id, title }: ColumnType) => {
 								{provided => (
 									<div {...provided.droppableProps} ref={provided.innerRef}>
 										<ul className={classes.tasksContainer}>
-										<div className='h-1'></div>
+											<div className='h-1'></div>
 											<>
-												{tasks.map(
-													(task: TaskType, index: number) =>
-														task && <Task priority={task.priority} key={task.id} id={task.id} title={task.title} index={index} />
-												)}
+												{tasks.map((task: TaskType, index: number) => task && <Task columnId={id} key={task.id} taskData={task} index={index} />)}
 												{provided.placeholder}
 											</>
 										</ul>

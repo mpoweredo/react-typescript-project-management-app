@@ -2,6 +2,7 @@ import ReactDom from 'react-dom';
 import NewTaskForm from './NewTaskForm';
 import CloseIcon from '@mui/icons-material/Close';
 import { Project } from '../../../types/KanbanTypes';
+import Backdrop from '../../UI/Backdrop';
 
 const classes = {
 	header: 'w-full flex justify-between items-start mb-4 md:mb-8',
@@ -15,7 +16,7 @@ const classes = {
 type Props = {
 	isOpen: boolean;
 	closePopUp: () => void;
-    project: Project
+	project: Project;
 };
 
 const NewTaskPopup = ({ isOpen, closePopUp, project }: Props) => {
@@ -26,7 +27,7 @@ const NewTaskPopup = ({ isOpen, closePopUp, project }: Props) => {
 	return ReactDom.createPortal(
 		<>
 			{isOpen && (
-				<div className={classes.backdrop}>
+				<Backdrop>
 					<div className={classes.content}>
 						<header className={classes.header}>
 							<h6 className={classes.title}>Creating task</h6>
@@ -40,7 +41,7 @@ const NewTaskPopup = ({ isOpen, closePopUp, project }: Props) => {
 							</div>
 						</div>
 					</div>
-				</div>
+				</Backdrop>
 			)}
 		</>,
 		document.getElementById('new-task') as HTMLElement

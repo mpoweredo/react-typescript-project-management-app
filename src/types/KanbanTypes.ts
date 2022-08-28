@@ -1,27 +1,35 @@
-export type Task = {
+type Task = {
 	id: string;
 	title: string;
-	index?: number;
 	priority: 'high' | 'low' | 'medium';
+	description: string
 };
 
-export type Column = {
+type Column = {
 	id: string;
 	tasks: Task[];
 	index: number;
 	title: string;
 };
 
-export type Kanban = Column[];
+type Kanban = Column[];
 
-export type Project = {
+type Project = {
 	kanban: Kanban;
 	name: string;
 };
 
-export type NewTaskData = {
+type NewTaskData = {
 	taskColumn: number;
 	taskDescription: string;
 	taskPriority: 'high' | 'low' | 'medium';
 	taskTitle: string;
 };
+
+type Option = {
+	value: number | string;
+	label: string;
+	color?: string
+};
+
+export type {Option, NewTaskData, Project, Kanban, Column, Task}

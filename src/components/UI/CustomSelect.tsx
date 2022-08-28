@@ -1,12 +1,12 @@
 import Select, { ActionMeta, SingleValue } from 'react-select';
-import { ProjectData } from '../../../store/projectContext';
-import { Option } from './NewTaskForm';
+import { ProjectData } from '../../store/projectContext';
+import { Option } from '../../types/KanbanTypes';
 
 type Props = {
 	options: Option[];
-	value: number;
 	onChange: (value: Option) => void;
 	passedStyles?: {};
+	PassedDefaultValue?: Option
 };
 
 const customStyles = {
@@ -25,7 +25,7 @@ const customStyles = {
 	}),
 };
 
-export default ({ onChange, options, passedStyles = {} }: Props) => {
+export default ({ onChange, options, passedStyles = {}, PassedDefaultValue}: Props) => {
 	const { project } = ProjectData();
 
 	const styles = { ...customStyles, ...passedStyles };
@@ -34,7 +34,7 @@ export default ({ onChange, options, passedStyles = {} }: Props) => {
 		<div>
 			<Select
 				styles={styles}
-				defaultValue={options[0]}
+				defaultValue={PassedDefaultValue ? PassedDefaultValue : options[0]}
 				onChange={(option: Option | null, actionMeta: ActionMeta<Option>) => onChange(option as Option)}
 				options={options}
 				className='mt-2'

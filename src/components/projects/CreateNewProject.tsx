@@ -48,12 +48,14 @@ const CreateNewProject = () => {
 								{
 									id: uuidv4(),
 									title: 'Learn React',
-									priority: 'high'
+									priority: 'high',
+									description: '**Hello World**'
 								},
 								{
 									id: uuidv4(),
 									title: 'Learn NextJS',
-									priority: 'low'
+									priority: 'low',
+									description: '**Hello World**'
 								}
 							],
 						},
@@ -64,12 +66,14 @@ const CreateNewProject = () => {
 								{
 									id: uuidv4(),
 									title: 'Learn JavaScript',
-									priority: 'high'
+									priority: 'high',
+									description: '**Hello World**'
 								},
 								{
 									id: uuidv4(),
 									title: 'Learn SCSS',
-									priority: 'medium'
+									priority: 'medium',
+									description: '**Hello World**'
 								}
 							],
 						},
@@ -80,12 +84,14 @@ const CreateNewProject = () => {
 								{
 									id: uuidv4(),
 									title: 'Learn HTML',
-									priority: 'low'
+									priority: 'low',
+									description: '**Hello World**'
 								},
 								{
 									id: uuidv4(),
 									title: 'Learn CSS',
-									priority: 'medium'
+									priority: 'medium',
+									description: '**Hello World**'
 								}
 							],
 						},

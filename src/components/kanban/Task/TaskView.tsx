@@ -71,6 +71,7 @@ const TaskView = ({ isOpen, task, closeTaskView, columnId }: Props) => {
 						<form autoComplete='off' onSubmit={formik.handleSubmit}>
 							<header className={classes.header}>
 								<input
+									spellCheck='false'
 									onChange={formik.handleChange}
 									className={`${classes.title} ${classes.input} px-2 py-1`}
 									name='taskTitle'

@@ -12,7 +12,7 @@ import { priorityOptions } from '../../../data/priorityOptions';
 import { prioritySelectStyles } from '../../../data/selectStyles';
 import { ProjectData } from '../../../store/projectContext';
 import CustomSelect from '../ReusableComponents/CustomSelect';
-import Subtasks from '../ReusableComponents/Subtask/Subtasks';
+import Subtasks from './Subtask/Subtasks';
 
 type Props = {
 	isOpen: boolean;

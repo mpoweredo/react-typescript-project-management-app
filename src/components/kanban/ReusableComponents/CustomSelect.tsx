@@ -34,8 +34,8 @@ export default ({ onChange, options, passedStyles = {}, PassedDefaultValue}: Pro
 		<div>
 			<Select
 				styles={styles}
-				defaultValue={PassedDefaultValue ? PassedDefaultValue : options[0]}
-				onChange={(option: Option | null, actionMeta: ActionMeta<Option>) => onChange(option as Option)}
+				defaultValue={PassedDefaultValue || options[0]}
+				onChange={(option: Option | null) => onChange(option as Option)}
 				options={options}
 				className='mt-2'
 				menuPosition='fixed'

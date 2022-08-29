@@ -41,7 +41,12 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 			id: uuidv4(),
 			title: NewTaskData.taskTitle,
 			description: NewTaskData.taskDescription,
-			priority: NewTaskData.taskPriority
+			priority: NewTaskData.taskPriority,
+			subtasks: [{
+				isCompleted: false,
+				title: 'XD',
+				id: uuidv4()
+			}]
 		};
 
 		const updatedData = [...project!.kanban] as Kanban;

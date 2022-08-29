@@ -7,7 +7,7 @@ import { priorityOptions } from '../../../data/priorityOptions';
 import { columnSelectStyles, prioritySelectStyles } from '../../../data/selectStyles';
 import { ProjectData } from '../../../store/projectContext';
 import { NewTaskData, Option, Project } from '../../../types/KanbanTypes';
-import CustomSelect from '../../UI/CustomSelect';
+import CustomSelect from '../ReusableComponents/CustomSelect';
 
 const classes = {
 	label: 'font-semibold text-[#8c8e92] text-2xl',

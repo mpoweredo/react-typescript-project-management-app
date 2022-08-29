@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import { db } from '../../data/firebaseConfig';
 import { UserAuth } from '../../store/authContext';
 import { v4 as uuidv4 } from 'uuid';
+import { Kanban } from '../../types/KanbanTypes';
 
 const classes = {
 	createButton: 'w-36 h-11 font-semibold rounded bg-indigo-500 text-slate-900 hover:bg-indigo-600 self-center lg:self-start mt-5',
@@ -49,13 +50,37 @@ const CreateNewProject = () => {
 									id: uuidv4(),
 									title: 'Learn React',
 									priority: 'high',
-									description: '**Hello World**'
+									description: '**Hello World**',
+									subtasks: [
+										{
+											title: 'Learn useEffect hook',
+											id: uuidv4(),
+											isCompleted: false
+										},
+										{
+											title: 'Learn useState hook',
+											id: uuidv4(),
+											isCompleted: true
+										},
+									]
 								},
 								{
 									id: uuidv4(),
 									title: 'Learn NextJS',
 									priority: 'low',
-									description: '**Hello World**'
+									description: '**Hello World**',
+									subtasks: [
+										{
+											title: 'Learn folder structure',
+											id: uuidv4(),
+											isCompleted: false
+										},
+										{
+											title: 'Learn SSR',
+											id: uuidv4(),
+											isCompleted: true
+										},
+									]
 								}
 							],
 						},
@@ -67,13 +92,37 @@ const CreateNewProject = () => {
 									id: uuidv4(),
 									title: 'Learn JavaScript',
 									priority: 'high',
-									description: '**Hello World**'
+									description: '**Hello World**',
+									subtasks: [
+										{
+											title: 'Learn nullish operator',
+											id: uuidv4(),
+											isCompleted: true
+										},
+										{
+											title: 'Learn if statement',
+											id: uuidv4(),
+											isCompleted: true
+										},
+									]
 								},
 								{
 									id: uuidv4(),
 									title: 'Learn SCSS',
 									priority: 'medium',
-									description: '**Hello World**'
+									description: '**Hello World**',
+									subtasks: [
+										{
+											title: 'Learn variables in SCSS',
+											id: uuidv4(),
+											isCompleted: false
+										},
+										{
+											title: 'Learn how to make animations',
+											id: uuidv4(),
+											isCompleted: true
+										},
+									]
 								}
 							],
 						},
@@ -85,19 +134,43 @@ const CreateNewProject = () => {
 									id: uuidv4(),
 									title: 'Learn HTML',
 									priority: 'low',
-									description: '**Hello World**'
+									description: '**Hello World**',
+									subtasks: [
+										{
+											title: 'Learn about <textarea> tag',
+											id: uuidv4(),
+											isCompleted: false
+										},
+										{
+											title: 'Learn about SEO',
+											id: uuidv4(),
+											isCompleted: false
+										},
+									]
 								},
 								{
 									id: uuidv4(),
 									title: 'Learn CSS',
 									priority: 'medium',
-									description: '**Hello World**'
+									description: '**Hello World**',
+									subtasks: [
+										{
+											title: 'Learn flexbox',
+											id: uuidv4(),
+											isCompleted: false
+										},
+										{
+											title: 'Learn grid',
+											id: uuidv4(),
+											isCompleted: true
+										},
+									]
 								}
 							],
 						},
-					],
+					] as Kanban,
 					name: values.projectName,
-				});
+				})
 				console.log(response.id);
 				setIsFormOpen(prevState => !prevState);
 				navigate(`/${response.id}`);

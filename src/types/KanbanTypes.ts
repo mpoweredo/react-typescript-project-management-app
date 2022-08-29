@@ -2,8 +2,15 @@ type Task = {
 	id: string;
 	title: string;
 	priority: 'high' | 'low' | 'medium';
-	description: string
+	description: string;
+	subtasks: Subtask[]
 };
+
+type Subtask = {
+	title: string;
+	id: string;
+	isCompleted: boolean;
+}
 
 type Column = {
 	id: string;
@@ -32,4 +39,4 @@ type Option = {
 	color?: string
 };
 
-export type {Option, NewTaskData, Project, Kanban, Column, Task}
+export type {Option, NewTaskData, Project, Kanban, Column, Task, Subtask}

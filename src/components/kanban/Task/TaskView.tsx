@@ -9,9 +9,10 @@ import * as Yup from 'yup';
 import gfm from 'remark-gfm';
 import remarkGfm from 'remark-gfm';
 import { priorityOptions } from '../../../data/priorityOptions';
-import { columnSelectStyles, prioritySelectStyles } from '../../../data/selectStyles';
+import { prioritySelectStyles } from '../../../data/selectStyles';
 import { ProjectData } from '../../../store/projectContext';
-import CustomSelect from '../../UI/CustomSelect';
+import CustomSelect from '../ReusableComponents/CustomSelect';
+import Subtasks from '../ReusableComponents/Subtask/Subtasks';
 
 type Props = {
 	isOpen: boolean;
@@ -22,13 +23,12 @@ type Props = {
 
 const classes = {
 	header: 'w-full flex justify-between items-start mb-4 md:mb-8',
-	title: 'text-3xl w-full font-bold bg-transparent text-indigo-300 cursor-pointer',
+	title: 'text-3xl hover:bg-[#212428] w-full font-bold bg-transparent text-indigo-300 cursor-pointer',
 	input: 'rounded focus:outline focus:outline-indigo-500 duration-500',
 	description: 'w-full bg-[#212428] p-3 rounded text-[#bdbdbf] vertical-scroll resize-none max-h-[200px] overflow-y-auto',
-	backdrop: 'absolute w-screen h-screen bg-[#00000073] top-0 left-0 z-50 p-4 flex items-center justify-center',
 	content: 'w-full max-h-[720px] h-auto overflow-auto bg-[#1a1b1f] rounded flex flex-col p-5 md:w-[700px] md:h-auto md:p-8 vertical-scroll',
-	formContainer: 'w-full',
-	buttonClose: 'w-8 h-8 rounded font-semibold justify-start bg-[#151619] text-[#bdbdbf] hover:bg-[#1d1f24]',
+	formContainer: 'w-full flex flex-col gap-2',
+	buttonClose: 'w-8 h-8 ml-2 rounded font-semibold justify-start bg-[#151619] text-[#bdbdbf] hover:bg-[#1d1f24]',
 	closeDescriptionButton: 'w-14 h-8 rounded font-semibold justify-start bg-indigo-700 text-[#bdbdbf] hover:bg-indigo-600 mt-1',
 	buttonChange: 'w-full h-11 mt-4 rounded font-semibold bg-[#0d0e10] text-[#bdbdbf] hover:bg-[#101114]',
 	buttonContainer: 'flex w-full gap-2',
@@ -38,11 +38,14 @@ const TaskView = ({ isOpen, task, closeTaskView, columnId }: Props) => {
 	const [isDescriptionEdited, setIsDescriptionEdited] = useState<boolean>(false);
 	const { project } = ProjectData();
 
+	console.log(task.subtasks);
+
 	const deafultPriorityValue = priorityOptions.find((option: Option) => {
 		if (option.value === task.priority) return option;
 	});
 
-	const deafultColumnId = project!.kanban.findIndex(({ id }) => id === columnId);
+	const columnIndex = project!.kanban.findIndex(({ id }) => id === columnId);
+	const taskIndex = project!.kanban[columnIndex].tasks.findIndex(({ id }) => id === task.id);
 
 	const closeHandler = () => {
 		closeTaskView();
@@ -51,9 +54,8 @@ const TaskView = ({ isOpen, task, closeTaskView, columnId }: Props) => {
 	const formik = useFormik({
 		initialValues: {
 			taskTitle: task.title,
-			taskDescription: task.description,
+			taskDescription: task.description || '*Click to add description!*',
 			taskPriority: task.priority,
-			taskColumn: deafultColumnId,
 		},
 		validationSchema: Yup.object({
 			taskTitle: Yup.string().min(4, 'Title name must have atleast 4 characters!').required('This field is required!'),
@@ -103,6 +105,7 @@ const TaskView = ({ isOpen, task, closeTaskView, columnId }: Props) => {
 									<div className={`${classes.description} ${!isDescriptionEdited && 'cursor-pointer'}`} onClick={() => setIsDescriptionEdited(true)}>
 										<ReactMarkdown remarkPlugins={[gfm, remarkGfm]} children={formik.values.taskDescription} />
 									</div>
+									<Subtasks subtasks={task.subtasks} columnIndex={columnIndex} taskIndex={taskIndex} />
 									<div>
 										<CustomSelect
 											onChange={(value: Option) => formik.setFieldValue('taskPriority', value.value)}

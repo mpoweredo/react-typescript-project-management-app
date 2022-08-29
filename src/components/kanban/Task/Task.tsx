@@ -35,7 +35,7 @@ const Task = ({ index, taskData, columnId }: Props) => {
 					</div>
 				)}
 			</Draggable>
-			<TaskView task={{...taskData}} columnId={columnId} isOpen={isOpen} closeTaskView={toggleTaskView} />
+			<TaskView task={taskData} columnId={columnId} isOpen={isOpen} closeTaskView={toggleTaskView} />
 		</>
 	);
 };

@@ -1,9 +1,14 @@
+import { useState } from 'react';
 import { useFormik } from 'formik';
 import { ProjectData } from '../../../../store/projectContext';
 import { Project, Subtask as SubtaskType } from '../../../../types/KanbanTypes';
+import EditIcon from '@mui/icons-material/Edit';
+import ClearIcon from '@mui/icons-material/Clear';
+import DoneIcon from '@mui/icons-material/Done';
 
 const classes = {
 	subtaskContainer: 'w-full bg-[#1D2024] py-3 px-2 mt-3 flex gap-2',
+	input: 'rounded focus:outline focus:outline-indigo-500 duration-500 px-2 bg-[#292d33] p-1',
 };
 
 type Props = {
@@ -14,40 +19,80 @@ type Props = {
 
 const Subtask = ({ subtask, columnIndex, taskIndex }: Props) => {
 	const { project, updateProject } = ProjectData();
-
+	const [isEditing, setIsEditing] = useState<boolean>(false);
 	const subtaskIndex = project?.kanban[columnIndex].tasks[taskIndex].subtasks.findIndex(({ id }) => id === subtask.id) as number;
 
 	const formik = useFormik({
 		initialValues: {
 			isTaskCompleted: subtask.isCompleted,
-			taskTitle: subtask.title,
+			subtaskTitle: subtask.title,
 		},
 		onSubmit: values => {
 			console.log(values);
 		},
 	});
 
-	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const changeSubtaskStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
 		formik.handleChange(e);
 		const updatedData = project?.kanban;
+		updatedData![columnIndex].tasks[taskIndex].subtasks[subtaskIndex].isCompleted = !formik.values.isTaskCompleted;
 
-		console.log(columnIndex, taskIndex);
+		const newData = {
+			...project,
+			kanban: updatedData,
+		} as Project;
 
-        console.log(formik.values.isTaskCompleted);
-		updatedData![columnIndex].tasks[taskIndex].subtasks[subtaskIndex].isCompleted = !formik.values.isTaskCompleted
+		updateProject(newData);
+	};
 
-        const newData = {
-            ...project,
-            kanban: updatedData
-        } as Project
+	const changeSubtaskTitle = () => {
+		setIsEditing(false);
+		const updatedData = project?.kanban;
 
-        updateProject(newData)
+		updatedData![columnIndex].tasks[taskIndex].subtasks[subtaskIndex].title = formik.values.subtaskTitle;
+
+		const newData = {
+			...project,
+			kanban: updatedData,
+		} as Project;
+
+		updateProject(newData);
+	};
+
+	const editHandler = () => {
+		setIsEditing(prevState => !prevState);
 	};
 
 	return (
 		<div className={classes.subtaskContainer}>
-			<input type='checkbox' checked={formik.values.isTaskCompleted} onChange={changeHandler} name='isTaskCompleted' id={subtask.id} />
-			<label htmlFor={subtask.id}>{subtask.title}</label>
+			<input type='checkbox' checked={formik.values.isTaskCompleted} onChange={changeSubtaskStatus} name='isTaskCompleted' id={subtask.id} />
+			<div className='flex justify-between w-full'>
+				{!isEditing ? (
+					<label htmlFor={subtask.id} className='py-1'>
+						{subtask.title}
+					</label>
+				) : (
+					<input
+						className={classes.input}
+						autoFocus
+                        spellCheck='false'
+						type='text'
+						onChange={formik.handleChange}
+						name='subtaskTitle'
+						value={formik.values.subtaskTitle}
+					/>
+				)}
+				<div className='flex gap-2'>
+					<button type='button' onClick={editHandler}>
+						{!isEditing ? <EditIcon className='text-gray-300' /> : <ClearIcon className='text-red-300' />}
+					</button>
+					{isEditing && (
+						<button type='button' onClick={changeSubtaskTitle}>
+							<DoneIcon className='text-green-300' />
+						</button>
+					)}
+				</div>
+			</div>
 		</div>
 	);
 };

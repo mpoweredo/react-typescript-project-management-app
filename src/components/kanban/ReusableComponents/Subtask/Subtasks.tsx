@@ -2,7 +2,7 @@ import { Subtask as SubtaskType } from '../../../../types/KanbanTypes';
 import Subtask from './Subtask';
 
 const classes = {
-	subtasksContainer: 'w-full bg-[#212428] text-[#bdbdbf] h-auto max-h-48 overflow-y-auto no-scroll px-3 pb-3 flex flex-col',
+	subtasksContainer: 'w-full bg-[#212428] text-[#bdbdbf] h-auto max-h-48 overflow-y-auto no-scroll px-3 pb-3 flex flex-col rounded',
 };
 
 type Props = {

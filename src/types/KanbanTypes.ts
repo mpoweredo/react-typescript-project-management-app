@@ -31,6 +31,7 @@ type NewTaskData = {
 	taskDescription: string;
 	taskPriority: 'high' | 'low' | 'medium';
 	taskTitle: string;
+	subtasks?: Subtask[]
 };
 
 type Option = {

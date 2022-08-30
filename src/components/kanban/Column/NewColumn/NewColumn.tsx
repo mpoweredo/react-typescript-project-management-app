@@ -4,10 +4,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import { FormikValues, useFormik } from 'formik';
 import { useRef, useState } from 'react';
 import * as Yup from 'yup';
-import { ProjectData } from '../../../store/projectContext';
+import { ProjectData } from '../../../../store/projectContext';
 
 const classes = {
-	addNewTask: 'bg-[#11111388] hover:bg-[#232325] text-slate-50 w-8 h-8 rounded-sm font-medium cursor-pointer',
+	addNewColumn: 'bg-[#11111388] hover:bg-[#232325] text-slate-50 w-8 h-8 rounded-sm font-medium cursor-pointer',
 	input: 'bg-[#212428] w-36 h-8 rounded px-3 focus:outline focus:outline-indigo-500 duration-500 hover:bg-[#2d3137] text-gray-300',
 	createButton: 'bg-[#11111388] hover:bg-[#232325] text-slate-50 w-8 h-8 rounded-sm font-medium cursor-pointer',
 };
@@ -19,7 +19,7 @@ const NewColumn = () => {
 
 	const formik = useFormik({
 		initialValues: {
-			columnTitle: ''
+			columnTitle: '',
 		},
 		validationSchema: Yup.object({
 			columnTitle: Yup.string().min(4, 'Title name must have atleast 4 characters!').required(),
@@ -27,7 +27,7 @@ const NewColumn = () => {
 		onSubmit: (values, { resetForm }: FormikValues) => {
 			addNewColumn(values.columnTitle);
 			toggleInput();
-			resetForm({ columnTitle: ''}) ;
+			resetForm({ columnTitle: '' });
 		},
 	});
 
@@ -56,7 +56,7 @@ const NewColumn = () => {
 					</button>
 				</form>
 			)}
-			<button onClick={toggleInput} className={classes.addNewTask}>
+			<button onClick={toggleInput} className={classes.addNewColumn}>
 				{!isOpen ? <AddIcon /> : <CloseIcon />}
 			</button>
 		</div>

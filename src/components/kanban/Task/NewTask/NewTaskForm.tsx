@@ -3,11 +3,11 @@ import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
 import remarkGfm from 'remark-gfm';
 import * as Yup from 'yup';
-import { priorityOptions } from '../../../data/priorityOptions';
-import { columnSelectStyles, prioritySelectStyles } from '../../../data/selectStyles';
-import { ProjectData } from '../../../store/projectContext';
-import { NewTaskData, Option, Project } from '../../../types/KanbanTypes';
-import CustomSelect from '../ReusableComponents/CustomSelect';
+import { priorityOptions } from '../../../../data/priorityOptions';
+import { columnSelectStyles, prioritySelectStyles } from '../../../../data/selectStyles';
+import { ProjectData } from '../../../../store/projectContext';
+import { NewTaskData, Option, Project } from '../../../../types/KanbanTypes';
+import CustomSelect from '../../ReusableComponents/CustomSelect';
 
 const classes = {
 	label: 'font-semibold text-[#8c8e92] text-2xl',
@@ -58,6 +58,7 @@ const NewTaskForm = ({ project, closePopUp }: Props) => {
 					id='taskTitle'
 					name='taskTitle'
 					autoComplete='off'
+					spellCheck='false'
 					className={`${classes.input} ${formik.touched.taskTitle && formik.errors.taskTitle && 'outline outline-1 !outline-red-400'}`}
 					onChange={formik.handleChange}
 					onBlur={formik.handleBlur}

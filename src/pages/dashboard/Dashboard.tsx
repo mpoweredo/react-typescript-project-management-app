@@ -1,13 +1,13 @@
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { CircularProgress } from '@mui/material';
-import Column from '../../components/kanban/Column';
+import Column from '../../components/kanban/Column/Column';
 import NavbarDesktop from '../../components/layout/NavbarDesktop';
 import NavbarMobile from '../../components/layout/NavbarMobile';
 import { Column as ColumnType, Project } from '../../types/KanbanTypes';
 import { dragBetweenColumns, dragBetweenRows, dragColumns } from '../../helpers/dragDrop';
-import NewTask from '../../components/kanban/NewTask/NewTask';
+import NewTask from '../../components/kanban/Task/NewTask/NewTask';
 import { ProjectData } from '../../store/projectContext';
-import NewColumn from '../../components/kanban/NewColumn/NewColumn';
+import NewColumn from '../../components/kanban/Column/NewColumn/NewColumn';
 
 const classes = {
 	dashboard: 'lg:grid lg:grid-cols-[224px_minmax(700px,_1fr)] w-full lg:min-h-screen',

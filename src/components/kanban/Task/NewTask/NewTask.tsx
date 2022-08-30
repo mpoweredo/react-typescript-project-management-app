@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Project } from '../../../types/KanbanTypes';
+import { Project } from '../../../../types/KanbanTypes';
 import NewTaskPopup from './NewTaskPopup';
 import AddIcon from '@mui/icons-material/Add';
 

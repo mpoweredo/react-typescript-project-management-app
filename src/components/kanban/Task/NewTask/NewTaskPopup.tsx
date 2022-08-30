@@ -1,8 +1,8 @@
 import ReactDom from 'react-dom';
 import NewTaskForm from './NewTaskForm';
 import CloseIcon from '@mui/icons-material/Close';
-import { Project } from '../../../types/KanbanTypes';
-import Backdrop from '../../UI/Backdrop';
+import { Project } from '../../../../types/KanbanTypes';
+import Backdrop from '../../../UI/Backdrop';
 
 const classes = {
 	header: 'w-full flex justify-between items-start mb-4 md:mb-8',

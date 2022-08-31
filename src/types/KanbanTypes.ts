@@ -1,10 +1,12 @@
 type Task = {
 	id: string;
 	title: string;
-	priority: 'high' | 'low' | 'medium';
+	priority: PriorityOptions
 	description: string;
 	subtasks: Subtask[]
 };
+
+type PriorityOptions = 'high' | 'medium' | 'low'
 
 type Subtask = {
 	title: string;
@@ -17,6 +19,7 @@ type Column = {
 	tasks: Task[];
 	index: number;
 	title: string;
+	filter: PriorityOptions | 'all'
 };
 
 type Kanban = Column[];
@@ -40,4 +43,4 @@ type Option = {
 	color?: string
 };
 
-export type {Option, NewTaskData, Project, Kanban, Column, Task, Subtask}
+export type {Option, NewTaskData, Project, Kanban, Column, Task, Subtask, PriorityOptions}

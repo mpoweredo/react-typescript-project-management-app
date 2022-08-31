@@ -28,7 +28,7 @@ const Task = ({ index, taskData, columnId }: Props) => {
 			<Draggable draggableId={taskData.id.toString()} index={index as number}>
 				{provided => (
 					<div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className='mt-4'>
-						<li className={classes.taskItem} onClick={() => setIsOpen(true)}>
+						<li className={classes.taskItem} onClick={() => console.log(index)}>
 							{taskData.title}
 							<div className={`${classes.priorityBar}`} style={{ backgroundColor: priorityColor }} />
 						</li>

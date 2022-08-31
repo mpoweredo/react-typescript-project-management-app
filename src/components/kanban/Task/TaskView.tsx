@@ -8,10 +8,10 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import gfm from 'remark-gfm';
 import remarkGfm from 'remark-gfm';
-import { priorityOptions } from '../../../data/priorityOptions';
+import { priorityOptions } from '../../../data/selectOptions';
 import { prioritySelectStyles } from '../../../data/selectStyles';
 import { ProjectData } from '../../../store/projectContext';
-import CustomSelect from '../ReusableComponents/CustomSelect';
+import CustomSelect from '../../UI/CustomSelect';
 import Subtasks from './Subtask/Subtasks';
 
 type Props = {
@@ -38,8 +38,6 @@ const TaskView = ({ isOpen, task, closeTaskView, columnId }: Props) => {
 	const [isDescriptionEdited, setIsDescriptionEdited] = useState<boolean>(false);
 	const { project } = ProjectData();
 
-	console.log(task.subtasks);
-
 	const deafultPriorityValue = priorityOptions.find((option: Option) => {
 		if (option.value === task.priority) return option;
 	});
@@ -61,7 +59,6 @@ const TaskView = ({ isOpen, task, closeTaskView, columnId }: Props) => {
 			taskTitle: Yup.string().min(4, 'Title name must have atleast 4 characters!').required('This field is required!'),
 		}),
 		onSubmit: (values: unknown) => {
-			console.log(values);
 		},
 	});
 

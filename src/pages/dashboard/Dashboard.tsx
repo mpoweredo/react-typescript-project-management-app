@@ -1,13 +1,18 @@
+import { useState } from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { CircularProgress } from '@mui/material';
 import Column from '../../components/kanban/Column/Column';
 import NavbarDesktop from '../../components/layout/NavbarDesktop';
 import NavbarMobile from '../../components/layout/NavbarMobile';
-import { Column as ColumnType, Project } from '../../types/KanbanTypes';
+import { Column as ColumnType, Option, Project } from '../../types/KanbanTypes';
 import { dragBetweenColumns, dragBetweenRows, dragColumns } from '../../helpers/dragDrop';
 import NewTask from '../../components/kanban/Task/NewTask/NewTask';
 import { ProjectData } from '../../store/projectContext';
 import NewColumn from '../../components/kanban/Column/NewColumn/NewColumn';
+import CustomSelect from '../../components/UI/CustomSelect';
+import { sortOptions } from '../../data/selectOptions';
+import { filterBySelectStyles } from '../../data/selectStyles';
+import { PriorityOptions } from '../../types/KanbanTypes';
 
 const classes = {
 	dashboard: 'lg:grid lg:grid-cols-[224px_minmax(700px,_1fr)] w-full lg:min-h-screen',
@@ -22,8 +27,9 @@ const classes = {
 
 const Dashboard = () => {
 	const { project, updateProject, loading, error } = ProjectData();
+	const [filterBy, setFilterBy] = useState<PriorityOptions | 'all'>('all');
 
-	console.log(project)
+	console.log(project);
 
 	const handleDragEnd = async (result: DropResult) => {
 		if (!result.destination) return;
@@ -75,7 +81,16 @@ const Dashboard = () => {
 				<div className={classes.kanbanContent}>
 					<header className={classes.kanbanHeader}>
 						{project && <h3 className={classes.projectName}>/{project.name}</h3>}
-						{project && <NewTask project={project} />}
+						<div className='flex gap-2 items-center'>
+							<CustomSelect
+								onChange={(value: Option) => {
+									setFilterBy(value.value as PriorityOptions);
+								}}
+								options={sortOptions}
+								passedStyles={filterBySelectStyles}
+							/>
+							{project && <NewTask project={project} />}
+						</div>
 					</header>
 					{loading && (
 						<div className={classes.spinnerContainer}>
@@ -94,7 +109,7 @@ const Dashboard = () => {
 									<div {...provided.droppableProps} ref={provided.innerRef} className='h-full'>
 										<div className={`${classes.columnsContainer} columns-container`}>
 											{project?.kanban.map((column: ColumnType, index: number) => {
-												return <Column key={column.id} id={column.id} title={column.title} index={index} tasks={column.tasks} />;
+												return <Column filter={filterBy} key={column.id} id={column.id} title={column.title} index={index} tasks={column.tasks} />;
 											})}
 											{provided.placeholder}
 											<NewColumn />

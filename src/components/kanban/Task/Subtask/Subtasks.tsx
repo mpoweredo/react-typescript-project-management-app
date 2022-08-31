@@ -8,7 +8,7 @@ import AddIcon from '@mui/icons-material/Add';
 const classes = {
 	subtasksContainer: 'w-full bg-[#212428] text-[#bdbdbf] h-auto px-2 pb-3 flex flex-col rounded',
 	addSubtaskInput: 'border-b-2 w-64 border-indigo-500 bg-transparent focus:bg-[#1D2024] px-2 py-1 outline-none',
-	addSubtask: 'bg-[#11111388] hover:bg-[#232325] text-slate-50 w-8 h-8 rounded-sm font-medium cursor-pointer mt-3',
+	addSubtask: 'bg-[#11111388] hover:bg-[#232325] text-slate-50 w-8 h-8 rounded-sm font-medium cursor-pointer mt-3 ',
 };
 
 type Props = {

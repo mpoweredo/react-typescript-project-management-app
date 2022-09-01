@@ -8,8 +8,8 @@ import DoneIcon from '@mui/icons-material/Done';
 
 const classes = {
 	subtaskContainer: 'w-full bg-[#1D2024] py-3 px-2 mt-3 flex gap-3 items-center',
-	input: 'rounded focus:outline focus:outline-indigo-500 duration-500 px-2 bg-[#292d33] p-1',
-	checkbox: 'form-checkbox rounded-sm w-[17px] h-[17px] text-indigo-500 bg-gray-600 border-none focus:ring-offset-0 ring-offset-0 focus:ring-0'
+	input: 'rounded focus:outline focus:outline-indigo-500 duration-500 px-2 bg-[#292d33] p-1 w-3/6',
+	checkbox: 'form-checkbox rounded-sm w-[17px] h-[17px] text-indigo-500 bg-gray-600 border-none focus:ring-offset-0 ring-offset-0 focus:ring-0',
 };
 
 type Props = {
@@ -66,17 +66,24 @@ const Subtask = ({ subtask, columnIndex, taskIndex }: Props) => {
 
 	return (
 		<div className={classes.subtaskContainer}>
-			<input type='checkbox' checked={formik.values.isTaskCompleted} onChange={changeSubtaskStatus} name='isTaskCompleted' className={classes.checkbox} id={subtask.id} />
+			<input
+				type='checkbox'
+				checked={formik.values.isTaskCompleted}
+				onChange={changeSubtaskStatus}
+				name='isTaskCompleted'
+				className={classes.checkbox}
+				id={subtask.id}
+			/>
 			<div className='flex justify-between w-full'>
 				{!isEditing ? (
-					<label htmlFor={subtask.id} className='py-1'>
+					<label htmlFor={subtask.id} className={`py-1 ${formik.values.isTaskCompleted && 'line-through text-gray-600'}`}>
 						{subtask.title}
 					</label>
 				) : (
 					<input
 						className={classes.input}
 						autoFocus
-                        spellCheck='false'
+						spellCheck='false'
 						type='text'
 						onChange={formik.handleChange}
 						name='subtaskTitle'

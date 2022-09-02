@@ -21,7 +21,6 @@ type Props = {
 const Task = ({ index, taskData, columnId }: Props) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const subtaskProgresData = calculateProgress(taskData.subtasks);
-	console.log(subtaskProgresData);
 
 	const toggleTaskView = () => {
 		setIsOpen(prevState => !prevState);

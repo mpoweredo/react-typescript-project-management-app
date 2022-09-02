@@ -13,7 +13,7 @@ const ProjectItem = ({ name, id }: Props) => {
 	const navigate = useNavigate()
 
 	const navigateToProject = () => {
-		navigate(`/${id}`)
+		navigate(`/${id}/kanban`)
 	}
 
 	return (

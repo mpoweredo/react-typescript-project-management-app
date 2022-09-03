@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import NavbarDesktop from './components/layout/NavbarDesktop';
-import NavbarMobile from './components/layout/NavbarMobile';
+import NavbarLayout from './components/layout/NavbarLayout';
 import ProtectedRoute from './components/protectedRoutes/ProtectedRoute';
 import SignInUpRoute from './components/protectedRoutes/SignInUpRoute';
 import SignIn from './pages/auth/SignIn';
@@ -8,10 +7,6 @@ import SignUp from './pages/auth/SignUp';
 import Kanban from './pages/kanban/kanban';
 import Projects from './pages/projects/Projects';
 import { ProjectContextProvider } from './store/projectContext';
-
-const classes = {
-	dashboard: 'lg:grid lg:grid-cols-[224px_minmax(700px,_1fr)] w-full lg:min-h-screen',
-};
 
 function App() {
 	return (
@@ -41,15 +36,7 @@ function App() {
 						</SignInUpRoute>
 					}
 				/>
-			</Routes>
-			<div className={classes.dashboard}>
-				<div className='block lg:hidden'>
-					<NavbarMobile />
-				</div>
-				<div className='hidden lg:block'>
-					<NavbarDesktop />
-				</div>
-				<Routes>
+				<Route element={<NavbarLayout />}>
 					<Route
 						path='/:projectId/kanban'
 						element={
@@ -60,8 +47,8 @@ function App() {
 							</ProtectedRoute>
 						}
 					/>
-				</Routes>
-			</div>
+				</Route>
+			</Routes>
 		</div>
 	);
 }

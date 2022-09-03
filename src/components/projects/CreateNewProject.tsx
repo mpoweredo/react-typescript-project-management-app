@@ -173,7 +173,7 @@ const CreateNewProject = () => {
 				})
 				console.log(response.id);
 				setIsFormOpen(prevState => !prevState);
-				navigate(`/${response.id}`);
+				navigate(`/${response.id}/kanban`);
 			}
 		},
 	});

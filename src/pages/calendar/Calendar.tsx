@@ -1,3 +1,4 @@
+import CalendarGrid from '../../components/calendar/CalendarGrid';
 import { ProjectData } from '../../store/projectContext';
 
 const classes = {
@@ -17,6 +18,7 @@ const Calendar = () => {
 					{project && <h3 className={classes.projectName}>/{project.name}</h3>}
 					<div className='flex gap-2 items-center'></div>
 				</header>
+			<CalendarGrid />
 			</div>
 		</main>
 	);

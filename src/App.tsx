@@ -4,6 +4,7 @@ import ProtectedRoute from './components/protectedRoutes/ProtectedRoute';
 import SignInUpRoute from './components/protectedRoutes/SignInUpRoute';
 import SignIn from './pages/auth/SignIn';
 import SignUp from './pages/auth/SignUp';
+import Calendar from './pages/calendar/Calendar';
 import Kanban from './pages/kanban/kanban';
 import Projects from './pages/projects/Projects';
 import { ProjectContextProvider } from './store/projectContext';
@@ -43,6 +44,18 @@ function App() {
 							<ProtectedRoute>
 								<ProjectContextProvider>
 									<Kanban />
+								</ProjectContextProvider>
+							</ProtectedRoute>
+						}
+					/>
+				</Route>
+				<Route element={<NavbarLayout />}>
+					<Route
+						path='/:projectId/calendar'
+						element={
+							<ProtectedRoute>
+								<ProjectContextProvider>
+									<Calendar />
 								</ProjectContextProvider>
 							</ProtectedRoute>
 						}

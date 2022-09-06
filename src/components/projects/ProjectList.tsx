@@ -2,7 +2,7 @@ import { collection, collectionGroup, doc, getDoc, getDocs } from 'firebase/fire
 import { useEffect, useState } from 'react';
 import { db } from '../../data/firebaseConfig';
 import { UserAuth } from '../../store/authContext';
-import { Project } from '../../types/ProjectsType';
+import { Project } from '../../types/KanbanTypes';
 import { CircularProgress } from '@mui/material';
 import ProjectItem from './ProjectItem';
 
@@ -55,7 +55,7 @@ const ProjectList = () => {
 		<div className={classes.projectListWrapper}>
 			<ul className={classes.projectList}>
 				{projects.map((projectItem: Project) => (
-					<ProjectItem key={projectItem.projectId} id={projectItem.projectId} name={projectItem.name} />
+					<ProjectItem key={projectItem.projectId} id={projectItem.projectId!} name={projectItem.name} />
 				))}
 			</ul>
 		</div>

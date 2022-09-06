@@ -27,6 +27,7 @@ type Kanban = Column[];
 type Project = {
 	kanban: Kanban;
 	name: string;
+	projectId?: string;
 };
 
 type NewTaskData = {

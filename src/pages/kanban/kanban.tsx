@@ -13,8 +13,6 @@ import { filterBySelectStyles } from '../../data/selectStyles';
 import { PriorityOptions } from '../../types/KanbanTypes';
 
 const classes = {
-	container: 'w-full h-full lg:p-8',
-	kanbanContent: 'flex flex-col w-full h-full bg-[#1B1D1F] lg:rounded-2xl px-7 py-5',
 	kanbanHeader: 'mb-5 flex h-auto w-full justify-between',
 	spinnerContainer: 'w-full h-full flex justify-center items-center',
 	errorMessage: 'text-red-400 font-semibold text-center m-2',
@@ -67,11 +65,11 @@ const Kanban = () => {
 	};
 
 	return (
-		<main className={classes.container}>
-			<div className={classes.kanbanContent}>
-				<header className={classes.kanbanHeader}>
-					{project && <h3 className={classes.projectName}>/{project.name}</h3>}
-					<div className='flex gap-2 items-center'>
+		<div>
+			<header className={classes.kanbanHeader}>
+				{project && <h3 className={classes.projectName}>/{project.name}</h3>}
+				<div className='flex gap-2 items-center'>
+					{project && <div className='hidden md:block'>
 						<CustomSelect
 							onChange={(value: Option) => {
 								setFilterBy(value.value as PriorityOptions);
@@ -79,38 +77,28 @@ const Kanban = () => {
 							options={sortOptions}
 							passedStyles={filterBySelectStyles}
 						/>
-						{project && <NewTask project={project} />}
-					</div>
-				</header>
-				{loading && (
-					<div className={classes.spinnerContainer}>
-						<CircularProgress />
-					</div>
-				)}
-				{error && (
-					<div className={classes.spinnerContainer}>
-						<h5 className={classes.errorMessage}>Something went wrong... Try to check your internet connection!</h5>
-					</div>
-				)}
-				<div className='h-full'>
-					<DragDropContext onDragEnd={handleDragEnd}>
-						<Droppable type='column' droppableId='columns' direction='horizontal'>
-							{provided => (
-								<div {...provided.droppableProps} ref={provided.innerRef} className='h-full'>
-									<div className={`${classes.columnsContainer} columns-container`}>
-										{project?.kanban.map((column: ColumnType, index: number) => {
-											return <Column filter={filterBy} key={column.id} id={column.id} title={column.title} index={index} tasks={column.tasks} />;
-										})}
-										{provided.placeholder}
-										<NewColumn />
-									</div>
-								</div>
-							)}
-						</Droppable>
-					</DragDropContext>
+					</div>}
+					{project && <NewTask project={project} />}
 				</div>
+			</header>
+			<div className='h-full'>
+				<DragDropContext onDragEnd={handleDragEnd}>
+					<Droppable type='column' droppableId='columns' direction='horizontal'>
+						{provided => (
+							<div {...provided.droppableProps} ref={provided.innerRef} className='h-full'>
+								<div className={`${classes.columnsContainer} columns-container`}>
+									{project?.kanban.map((column: ColumnType, index: number) => {
+										return <Column filter={filterBy} key={column.id} id={column.id} title={column.title} index={index} tasks={column.tasks} />;
+									})}
+									{provided.placeholder}
+									<NewColumn />
+								</div>
+							</div>
+						)}
+					</Droppable>
+				</DragDropContext>
 			</div>
-		</main>
+		</div>
 	);
 };
 

@@ -4,6 +4,8 @@ import NavbarMobile from './NavbarMobile';
 
 const classes = {
 	dashboard: 'lg:grid lg:grid-cols-[224px_minmax(700px,_1fr)] w-full lg:min-h-screen',
+	container: 'w-full h-full lg:p-8',
+	content: 'flex flex-col w-full h-full bg-[#1B1D1F] lg:rounded-2xl px-7 py-5',
 };
 
 const NavbarLayout = () => {
@@ -15,7 +17,11 @@ const NavbarLayout = () => {
 			<div className='hidden lg:block'>
 				<NavbarDesktop />
 			</div>
-			<Outlet />
+			<main className={classes.container}>
+				<div className={classes.content}>
+					<Outlet />
+				</div>
+			</main>
 		</div>
 	);
 };

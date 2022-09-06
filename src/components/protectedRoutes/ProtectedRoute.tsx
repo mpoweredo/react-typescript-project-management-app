@@ -15,7 +15,7 @@ const ProtectedRoute = ({ children }: Props) => {
 
 	if (user === null) {
 		return (
-			<div className='h-screen w-screen flex items-center justify-center text-indigo-600'>
+			<div className='w-full h-full lg:p-8 flex items-center justify-center'>
 				<CircularProgress />
 			</div>
 		);

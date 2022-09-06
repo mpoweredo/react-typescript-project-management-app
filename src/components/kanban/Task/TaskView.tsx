@@ -13,6 +13,7 @@ import { prioritySelectStyles } from '../../../data/selectStyles';
 import { ProjectData } from '../../../store/projectContext';
 import CustomSelect from '../../UI/CustomSelect';
 import Subtasks from './Subtask/Subtasks';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 type Props = {
 	isOpen: boolean;
@@ -30,6 +31,7 @@ const classes = {
 	content: 'w-full max-h-[720px] h-auto overflow-auto bg-[#1a1b1f] rounded flex flex-col p-5 md:w-[700px] md:h-auto md:p-8 vertical-scroll',
 	formContainer: 'w-full flex flex-col gap-2',
 	buttonClose: 'w-8 h-8 ml-2 rounded font-semibold justify-start bg-[#151619] text-[#bdbdbf] hover:bg-[#1d1f24]',
+	buttonDelete: 'w-8 h-8 ml-2 rounded font-semibold justify-start bg-[#151619] text-red-400 hover:bg-[#1d1f24]',
 	closeDescriptionButton: 'w-14 h-8 rounded font-semibold justify-start bg-indigo-700 text-[#bdbdbf] hover:bg-indigo-600 mt-1',
 	buttonChange: 'w-full h-11 mt-4 rounded font-semibold bg-[#0d0e10] text-[#bdbdbf] hover:bg-[#101114]',
 	buttonContainer: 'flex w-full gap-2',
@@ -37,7 +39,7 @@ const classes = {
 
 const TaskView = ({ isOpen, task, closeTaskView, columnId }: Props) => {
 	const [isDescriptionEdited, setIsDescriptionEdited] = useState<boolean>(false);
-	const { project } = ProjectData();
+	const { project, deleteTask } = ProjectData();
 
 	const deafultPriorityValue = priorityOptions.find((option: Option) => {
 		if (option.value === task.priority) return option;
@@ -50,6 +52,10 @@ const TaskView = ({ isOpen, task, closeTaskView, columnId }: Props) => {
 		closeTaskView();
 	};
 
+	const deleteTaskHandler = () => {
+		deleteTask(task.id, columnIndex)
+	}
+
 	const formik = useFormik({
 		initialValues: {
 			taskTitle: task.title,
@@ -61,6 +67,7 @@ const TaskView = ({ isOpen, task, closeTaskView, columnId }: Props) => {
 		}),
 		onSubmit: (values: unknown) => {},
 	});
+
 
 	return ReactDom.createPortal(
 		<>
@@ -77,6 +84,9 @@ const TaskView = ({ isOpen, task, closeTaskView, columnId }: Props) => {
 									id='taskTitle'
 									value={formik.values.taskTitle}
 								/>
+								<button type='button' className={classes.buttonDelete} onClick={deleteTaskHandler}>
+									<DeleteIcon />
+								</button>
 								<button type='button' className={classes.buttonClose} onClick={closeHandler}>
 									<CloseIcon />
 								</button>

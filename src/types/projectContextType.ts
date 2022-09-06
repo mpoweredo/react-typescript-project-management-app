@@ -7,7 +7,8 @@ type ProjectContextType = {
     updateProject: (arg0: Project) => void
     addNewTask: (NewTaskData: NewTaskData) => void,
     addNewColumn: (arg0: string) => void,
-    deleteColumn: (index: number) => void
+    deleteColumn: (index: number) => void,
+    deleteTask: (taskId: string, columnIndex: number) => void
 };
 
 export type { ProjectContextType };

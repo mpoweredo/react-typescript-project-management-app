@@ -3,7 +3,7 @@ import { createContext, PropsWithChildren, useContext, useState, useEffect } fro
 import { useParams } from 'react-router-dom';
 import { db } from '../data/firebaseConfig';
 import { updateData } from '../helpers/updateData';
-import { Kanban, NewTaskData, Project } from '../types/KanbanTypes';
+import { Column, Kanban, NewTaskData, Project } from '../types/KanbanTypes';
 import { ProjectContextType } from '../types/projectContextType';
 import { UserAuth } from './authContext';
 import { v4 as uuidv4 } from 'uuid';
@@ -25,16 +25,27 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 	};
 
 	const deleteColumn = (index: number) => {
-		const updatedData = [...project!.kanban] as Kanban
-		updatedData.splice(index, 1)
-		
+		const updatedData = [...project!.kanban] as Kanban;
+		updatedData.splice(index, 1);
+
 		const newData = {
 			...project,
-			kanban: updatedData
-		} as Project
+			kanban: updatedData,
+		} as Project;
 
-		updateProject(newData)
-	}
+		updateProject(newData);
+	};
+
+	const deleteTask = (taskId: string, columnIndex: number) => {
+		const updatedData = [...project!.kanban] as Kanban;
+		updatedData[columnIndex].tasks = updatedData[columnIndex].tasks.filter(({ id }) => id !== taskId);
+
+		const newData = {
+			...project,
+			kanban: updatedData,
+		} as Project;
+		updateProject(newData);
+	};
 
 	const addNewTask = (NewTaskData: NewTaskData) => {
 		const newTask = {
@@ -42,7 +53,7 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 			title: NewTaskData.taskTitle,
 			description: NewTaskData.taskDescription || '*Click to add description!*',
 			priority: NewTaskData.taskPriority,
-			subtasks: []
+			subtasks: [],
 		};
 
 		const updatedData = [...project!.kanban] as Kanban;
@@ -58,10 +69,10 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 	};
 
 	const addNewColumn = (title: string) => {
-		const updatedData = {...project, kanban: [...project!.kanban, {title, id: uuidv4(), tasks: []}]} as Project;
+		const updatedData = { ...project, kanban: [...project!.kanban, { title, id: uuidv4(), tasks: [] }] } as Project;
 
-		updateProject(updatedData)
-	}
+		updateProject(updatedData);
+	};
 
 	useEffect(() => {
 		const fetchProjects = async () => {
@@ -84,7 +95,11 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 		fetchProjects();
 	}, []);
 
-	return <ProjectContext.Provider value={{ updateProject, deleteColumn, addNewColumn, project, loading, error, addNewTask }}>{children}</ProjectContext.Provider>;
+	return (
+		<ProjectContext.Provider value={{ updateProject, deleteColumn, addNewColumn, project, loading, error, addNewTask, deleteTask }}>
+			{children}
+		</ProjectContext.Provider>
+	);
 };
 
 export const ProjectData = () => {

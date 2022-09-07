@@ -65,7 +65,7 @@ const Kanban = () => {
 	};
 
 	return (
-		<div>
+		<div className='flex flex-col h-full'>
 			<header className={classes.kanbanHeader}>
 				{project && <h3 className={classes.projectName}>/{project.name}</h3>}
 				<div className='flex gap-2 items-center'>

@@ -11,7 +11,7 @@ const Calendar = () => {
 	const { project } = ProjectData();
 
 	return (
-		<div>
+		<div className='h-full flex flex-col'>
 			<header className={classes.kanbanHeader}>
 				{project && <h3 className={classes.projectName}>/{project.name}</h3>}
 			</header>

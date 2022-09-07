@@ -1,4 +1,4 @@
-import { format, getDay, isEqual, isSameMonth, isToday } from 'date-fns';
+import { format, getDay, isEqual, isSameDay, isSameMonth, isToday, parseISO } from 'date-fns';
 
 type Props = {
 	day: Date;
@@ -11,9 +11,9 @@ type Props = {
 const classes = {
 	colStart: ['', 'col-start-2', 'col-start-3', 'col-start-4', 'col-start-5', 'col-start-6', 'col-start-7'],
 	cellContainer: 'h-10 flex items-center justify-center font-semibold',
-	cell: ' w-8 h-8 text-sm sm:text-[.97rem] sm:w-[2.1rem] sm:h-[2.1rem] md:w-9 md:h-9 flex items-center justify-center rounded-[5px]',
+	cell: ' w-8 h-8 text-[.9rem] xs:text-[1.1rem] xs:w-[2.1rem] xs:h-[2.1rem] xs:w-11 xs:h-11 flex items-center justify-center rounded-[5px]',
 	todayAndSelected: '!bg-green-400 text-green-800',
-	todayNotSelected: 'bg-red-400 text-red-800'
+	todayNotSelected: 'bg-red-400 text-red-800',
 };
 
 // 16: 00
@@ -29,8 +29,8 @@ const Cell = ({ day, dayIndex, selectedDay, firstDayCurrentMonth, selectDay }: P
 					isEqual(day, selectedDay) && !isToday(day) && '!bg-indigo-500'
 				} ${!isToday(day) && isSameMonth(day, firstDayCurrentMonth) && 'bg-[#292d31]'} ${!isToday(day) && 'hover:bg-[#45494e] hover:!text-white'} ${
 					!isSameMonth(day, firstDayCurrentMonth) && !isEqual(day, selectedDay) && 'bg-transparent'
-				} ${classes.cell}`}>
-				<time className='relative md:top-[1px]' dateTime={format(day, 'yyyy-MM-dd')}>
+				} ${classes.cell} `}>
+				<time className='relative top-[1px]' dateTime={format(day, 'yyyy-MM-dd')}>
 					{format(day, 'd')}
 				</time>
 			</button>
@@ -39,3 +39,5 @@ const Cell = ({ day, dayIndex, selectedDay, firstDayCurrentMonth, selectDay }: P
 };
 
 export default Cell;
+
+// ${meetings.some(meeting => isSameDay(parseISO(meeting.startDatetime), day)) && 'bg-sky-500 hover:bg-sky-600'} 

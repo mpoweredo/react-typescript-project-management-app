@@ -5,7 +5,11 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Days from './Days';
 import Cell from './Cell';
 
-const classes = {};
+const classes = {
+	calendarContainer: 'w-full max-w-[310px] sm:max-w-[350px] md:w-3/5 md:max-w-[380px] h-full',
+	calendarHeader: 'flex gap-3 text-indigo-400 justify-around items-center w-full',
+	daysContainer: 'grid grid-cols-7 mt-2 text-center gap-y-1 sm:gap-y-2 md:gap-y-3',
+};
 
 const CalendarGrid = () => {
 	const today = startOfToday();
@@ -32,24 +36,31 @@ const CalendarGrid = () => {
 	};
 
 	return (
-		<div className='w-full max-w-[310px] sm:max-w-[350px] md:w-3/5 md:max-w-[380px] h-full '>
+		<div className={classes.calendarContainer}>
 			<div className='flex justify-between'>
-				<div className='flex gap-3 text-indigo-400 justify-around w-full'>
+				<header className={classes.calendarHeader}>
 					<button onClick={prevMonth}>
-						<ChevronLeftIcon />
+						<ChevronLeftIcon fontSize='large' />
 					</button>
 					<h1 className='text-white'>{format(firstDayCurrentMonth, 'MMM yyyy')}</h1>
 					<button onClick={nextMonth}>
-						<ChevronRightIcon />
+						<ChevronRightIcon fontSize='large' />
 					</button>
-				</div>
+				</header>
 			</div>
 			<div className='grid grid-cols-7 mt-3'>
 				<Days />
 			</div>
-			<div className='grid grid-cols-7 mt-2 text-center gap-y-1 sm:gap-y-2 md:gap-y-3'>
+			<div className={classes.daysContainer}>
 				{days.map((day, dayIndex) => (
-					<Cell key={dayIndex} day={day} dayIndex={dayIndex} selectedDay={selectedDay} firstDayCurrentMonth={firstDayCurrentMonth} selectDay={selectDayHandler} />
+					<Cell
+						key={dayIndex}
+						day={day}
+						dayIndex={dayIndex}
+						selectedDay={selectedDay}
+						firstDayCurrentMonth={firstDayCurrentMonth}
+						selectDay={selectDayHandler}
+					/>
 				))}
 			</div>
 		</div>

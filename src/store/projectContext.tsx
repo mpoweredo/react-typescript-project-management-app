@@ -68,6 +68,27 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 		updateProject(newData);
 	};
 
+	const updateTask = (NewTaskData: NewTaskData) => {
+		const updatedData = [...project!.kanban] as Kanban;
+		const selectedTask = { ...updatedData[NewTaskData.taskColumn].tasks[NewTaskData.taskIndex!] };
+		const updatedTask = {
+			...selectedTask,
+			title: NewTaskData.taskTitle,
+			priority: NewTaskData.taskPriority,
+			description: NewTaskData.taskDescription,
+		};
+
+		updatedData[NewTaskData.taskColumn].tasks[NewTaskData.taskIndex!] = updatedTask 
+
+
+		const newData = {
+			...project,
+			kanban: updatedData,
+		} as Project;
+
+		updateProject(newData);
+	};
+
 	const addNewColumn = (title: string) => {
 		const updatedData = { ...project, kanban: [...project!.kanban, { title, id: uuidv4(), tasks: [] }] } as Project;
 
@@ -96,7 +117,7 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 	}, []);
 
 	return (
-		<ProjectContext.Provider value={{ updateProject, deleteColumn, addNewColumn, project, loading, error, addNewTask, deleteTask }}>
+		<ProjectContext.Provider value={{ updateProject, deleteColumn, addNewColumn, project, loading, error, addNewTask, deleteTask, updateTask }}>
 			{children}
 		</ProjectContext.Provider>
 	);

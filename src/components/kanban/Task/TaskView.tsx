@@ -39,7 +39,7 @@ const classes = {
 
 const TaskView = ({ isOpen, task, closeTaskView, columnId }: Props) => {
 	const [isDescriptionEdited, setIsDescriptionEdited] = useState<boolean>(false);
-	const { project, deleteTask } = ProjectData();
+	const { project, deleteTask, updateTask } = ProjectData();
 
 	const deafultPriorityValue = priorityOptions.find((option: Option) => {
 		if (option.value === task.priority) return option;
@@ -53,8 +53,8 @@ const TaskView = ({ isOpen, task, closeTaskView, columnId }: Props) => {
 	};
 
 	const deleteTaskHandler = () => {
-		deleteTask(task.id, columnIndex)
-	}
+		deleteTask(task.id, columnIndex);
+	};
 
 	const formik = useFormik({
 		initialValues: {
@@ -65,9 +65,18 @@ const TaskView = ({ isOpen, task, closeTaskView, columnId }: Props) => {
 		validationSchema: Yup.object({
 			taskTitle: Yup.string().min(4, 'Title name must have atleast 4 characters!').required('This field is required!'),
 		}),
-		onSubmit: (values: unknown) => {},
-	});
+		onSubmit: values => {
+			const updatedData = {
+				taskColumn: columnIndex,
+				taskDescription: values.taskDescription,
+				taskPriority: values.taskPriority,
+				taskTitle: values.taskTitle,
+				taskIndex,
+			};
 
+			updateTask(updatedData);
+		},
+	});
 
 	return ReactDom.createPortal(
 		<>

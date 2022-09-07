@@ -27,8 +27,8 @@ const NewTaskPopup = ({ isOpen, closePopUp, project }: Props) => {
 	return ReactDom.createPortal(
 		<>
 			{isOpen && (
-				<Backdrop>
-					<div className={classes.content}>
+				<Backdrop passedCloseHandler={closePopUpHandler}>
+					<div className={classes.content} onClick={e => e.stopPropagation()}>
 						<header className={classes.header}>
 							<h6 className={classes.title}>Creating task</h6>
 							<button className={classes.buttonClose} onClick={closePopUpHandler}>

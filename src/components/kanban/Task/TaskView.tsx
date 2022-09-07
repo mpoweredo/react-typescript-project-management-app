@@ -75,14 +75,16 @@ const TaskView = ({ isOpen, task, closeTaskView, columnId }: Props) => {
 			};
 
 			updateTask(updatedData);
+			closeTaskView();
+			setIsDescriptionEdited(false);
 		},
 	});
 
 	return ReactDom.createPortal(
 		<>
 			{isOpen && (
-				<Backdrop>
-					<div className={classes.content}>
+				<Backdrop passedCloseHandler={closeHandler}>
+					<div className={classes.content} onClick={e => e.stopPropagation()}>
 						<form autoComplete='off' onSubmit={formik.handleSubmit}>
 							<header className={classes.header}>
 								<input
@@ -107,6 +109,7 @@ const TaskView = ({ isOpen, task, closeTaskView, columnId }: Props) => {
 											<textarea
 												name='taskDescription'
 												id='taskDescription'
+												spellCheck='false'
 												className={`${classes.description} h-[120px]`}
 												value={formik.values.taskDescription}
 												onChange={formik.handleChange}

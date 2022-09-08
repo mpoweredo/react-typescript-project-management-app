@@ -7,6 +7,8 @@ import { db } from '../../data/firebaseConfig';
 import { UserAuth } from '../../store/authContext';
 import { v4 as uuidv4 } from 'uuid';
 import { Kanban } from '../../types/KanbanTypes';
+import { add, startOfToday } from 'date-fns';
+import { Calendar } from '../../types/CalendarTypes';
 
 const classes = {
 	createButton: 'w-36 h-11 font-semibold rounded bg-indigo-500 text-slate-900 hover:bg-indigo-600 self-center lg:self-start mt-5',
@@ -169,6 +171,21 @@ const CreateNewProject = () => {
 							],
 						},
 					] as Kanban,
+					calendar: [
+						{
+							day: add(startOfToday(), {days: 2}),
+							eventTitle: 'Make dinner',
+							startTime: {
+								startTimeHour: '13',
+								startTimeMinute: '00',
+							},
+							endTime: {
+								endTimeHour: '14',
+								endTimeMinute: '00',
+							},
+							eventDescription: 'Make pizza for dinner for familly!',
+						}
+					] as Calendar,
 					name: values.projectName,
 				})
 				console.log(response.id);

@@ -1,4 +1,5 @@
-import { format, getDay, isEqual, isSameDay, isSameMonth, isToday, parseISO } from 'date-fns';
+import { format, fromUnixTime, getDay, isEqual, isSameDay, isSameMonth, isToday, parseISO } from 'date-fns';
+import { ProjectData } from '../../store/projectContext';
 
 type Props = {
 	day: Date;
@@ -16,9 +17,9 @@ const classes = {
 	todayNotSelected: 'bg-red-400 text-red-800',
 };
 
-// 16: 00
-
 const Cell = ({ day, dayIndex, selectedDay, firstDayCurrentMonth, selectDay }: Props) => {
+	const { project } = ProjectData();
+
 	return (
 		<div key={day.toString()} className={`${dayIndex === 0 && classes.colStart[getDay(day) - 1]} ${classes.cellContainer}`}>
 			<button
@@ -29,7 +30,8 @@ const Cell = ({ day, dayIndex, selectedDay, firstDayCurrentMonth, selectDay }: P
 					isEqual(day, selectedDay) && !isToday(day) && '!bg-indigo-500'
 				} ${!isToday(day) && isSameMonth(day, firstDayCurrentMonth) && 'bg-[#292d31]'} ${!isToday(day) && 'hover:bg-[#45494e] hover:!text-white'} ${
 					!isSameMonth(day, firstDayCurrentMonth) && !isEqual(day, selectedDay) && 'bg-transparent'
-				} ${classes.cell} `}>
+				} ${classes.cell} ${project?.calendar.some(event => isSameDay(fromUnixTime(event.day.seconds), day)) && '!bg-violet-500 hover:bg-violet-600'}
+				`}>
 				<time className='relative top-[1px]' dateTime={format(day, 'yyyy-MM-dd')}>
 					{format(day, 'd')}
 				</time>
@@ -39,5 +41,3 @@ const Cell = ({ day, dayIndex, selectedDay, firstDayCurrentMonth, selectDay }: P
 };
 
 export default Cell;
-
-// ${meetings.some(meeting => isSameDay(parseISO(meeting.startDatetime), day)) && 'bg-sky-500 hover:bg-sky-600'} 

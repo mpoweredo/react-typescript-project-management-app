@@ -1,3 +1,5 @@
+import { Calendar } from "./CalendarTypes";
+
 type Task = {
 	id: string;
 	title: string;
@@ -28,6 +30,7 @@ type Project = {
 	kanban: Kanban;
 	name: string;
 	projectId?: string;
+	calendar: Calendar
 };
 
 type NewTaskData = {

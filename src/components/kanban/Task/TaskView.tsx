@@ -28,7 +28,7 @@ const classes = {
 	input: 'rounded focus:outline focus:outline-indigo-500 duration-500',
 	description:
 		'w-full bg-[#212428] p-3 rounded text-[#bdbdbf] vertical-scroll focus:outline focus:outline-indigo-500 resize-none max-h-[200px] overflow-y-auto',
-	content: 'w-full max-h-[720px] h-auto overflow-auto bg-[#1a1b1f] rounded flex flex-col p-5 md:w-[700px] md:h-auto md:p-8 vertical-scroll',
+	content: 'w-full max-h-[90vh] h-auto overflow-auto bg-[#1a1b1f] rounded flex flex-col p-5 md:w-[700px] md:h-auto md:p-8 vertical-scroll',
 	formContainer: 'w-full flex flex-col gap-2',
 	buttonClose: 'w-8 h-8 ml-2 rounded font-semibold justify-start bg-[#151619] text-[#bdbdbf] hover:bg-[#1d1f24]',
 	buttonDelete: 'w-8 h-8 ml-2 rounded font-semibold justify-start bg-[#151619] text-red-400 hover:bg-[#1d1f24]',

@@ -56,9 +56,13 @@ const meetings = [
 	},
 ];
 
-const CalendarGrid = () => {
+type Props = {
+	selectedDay: Date;
+	setSelectedDay: React.Dispatch<React.SetStateAction<Date>>;
+};
+
+const CalendarGrid = ({ selectedDay, setSelectedDay }: Props) => {
 	const today = startOfToday();
-	const [selectedDay, setSelecteDay] = useState(today);
 	const [currentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'));
 	const firstDayCurrentMonth = parse(currentMonth, 'MMM-yyyy', new Date());
 	const selectedDaySchedule = meetings.filter(meeting => isSameDay(parseISO(meeting.startDatetime), selectedDay));
@@ -78,7 +82,7 @@ const CalendarGrid = () => {
 	};
 
 	const selectDayHandler = (day: Date) => {
-		setSelecteDay(day);
+		setSelectedDay(day);
 	};
 
 	return (

@@ -11,6 +11,10 @@ const filterBySelectStyles = {
 		...provided,
 		width: 120,
 	}),
+	indicatorSeparator: (provided: ContainerProps<{}>) => ({
+		...provided,
+		display: 'none',
+	}),
 	singleValue: (provided: SingleValue<{}>, state: SingleValueProps<{ color: string }>) => {
 		const color = state.data.color;
 		const transition = 'opacity 300ms';
@@ -29,6 +33,10 @@ const prioritySelectStyles = {
 	container: (provided: ContainerProps<{}>) => ({
 		...provided,
 		width: 180,
+	}),
+	indicatorSeparator: (provided: ContainerProps<{}>) => ({
+		...provided,
+		display: 'none',
 	}),
 	singleValue: (provided: SingleValue<{}>, state: SingleValueProps<{ color: string }>) => {
 		const color = state.data.color;
@@ -49,7 +57,11 @@ const columnSelectStyles = {
 		...provided,
 		width: '',
 	}),
-    singleValue: (provided: SingleValue<{}>, state: SingleValueProps<{ color: string }>) => {
+	indicatorSeparator: (provided: ContainerProps<{}>) => ({
+		...provided,
+		display: 'none',
+	}),
+	singleValue: (provided: SingleValue<{}>, state: SingleValueProps<{ color: string }>) => {
 		const color = '#d1d5db';
 		const transition = 'opacity 300ms';
 
@@ -57,4 +69,35 @@ const columnSelectStyles = {
 	},
 };
 
-export { prioritySelectStyles, columnSelectStyles, filterBySelectStyles };
+const hoursSelectStyles = {
+	option: (provided: OptionProps<{}>, state: OptionProps<{ color: string; isFocused: boolean }>) => ({
+		...provided,
+		background: state.isFocused ? '#232429' : '#16171A',
+		color: '#d1d5db',
+		padding: '14px 10px 14px 10px',
+	}),
+	container: (provided: ContainerProps<{}>) => ({
+		...provided,
+		width: 120,
+	}),
+	menuList: (provided: ContainerProps<{}>) => ({
+		...provided,
+		padding: 0,
+		margin: 0,
+		width: '',
+		height: 200,
+		overflow: 'auto',
+	}),
+	indicatorSeparator: (provided: ContainerProps<{}>) => ({
+		...provided,
+		display: 'none',
+	}),
+	singleValue: (provided: SingleValue<{}>, state: SingleValueProps<{ color: string }>) => {
+		const color = '#d1d5db';
+		const transition = 'opacity 300ms';
+
+		return { ...provided, color, transition };
+	},
+};
+
+export { prioritySelectStyles, columnSelectStyles, filterBySelectStyles, hoursSelectStyles };

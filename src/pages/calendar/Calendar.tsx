@@ -1,3 +1,6 @@
+import { startOfToday } from 'date-fns';
+import { useState } from 'react';
+import NewEvent from '../../components/calendar/AddEvent/NewEvent';
 import CalendarGrid from '../../components/calendar/CalendarGrid';
 import { ProjectData } from '../../store/projectContext';
 
@@ -9,13 +12,15 @@ const classes = {
 
 const Calendar = () => {
 	const { project } = ProjectData();
+	const [selectedDay, setSelectedDay] = useState(startOfToday());
 
 	return (
 		<div className='h-full flex flex-col'>
 			<header className={classes.kanbanHeader}>
 				{project && <h3 className={classes.projectName}>/{project.name}</h3>}
+				<NewEvent selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
 			</header>
-			<CalendarGrid />
+			<CalendarGrid selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
 		</div>
 	);
 };

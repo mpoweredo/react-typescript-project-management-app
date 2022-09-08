@@ -16,16 +16,13 @@ const classes = {
 	error: 'text-red-400 mt-2',
 	buttonCreate: 'w-full h-11 mt-4 rounded font-semibold bg-[#0d0e10] text-[#bdbdbf] hover:bg-[#101114]',
 	buttonContainer: 'flex w-full gap-2',
-	description:
-		'bg-[#212428] w-full rounded p-3 focus:outline focus:outline-indigo-500 duration-500 text-gray-300 mt-2 resize-none vertical-scroll',
+	description: 'bg-[#212428] w-full rounded p-3 focus:outline focus:outline-indigo-500 duration-500 text-gray-300 mt-2 resize-none vertical-scroll',
 };
 
 type Props = {
 	project: Project;
 	closePopUp: () => void;
 };
-
-
 
 const NewTaskForm = ({ project, closePopUp }: Props) => {
 	const columnOptions: Option[] = project.kanban.map(column => column.title).map((title, index) => ({ value: index, label: title }));

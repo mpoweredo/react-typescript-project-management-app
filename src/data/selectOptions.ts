@@ -41,4 +41,23 @@ const sortOptions: Option[] = [
 	},
 ];
 
-export { priorityOptions, sortOptions };
+const hourOptions: Option[] = Array.from(
+	{
+		length: 25,
+	},
+	(element, index) => ({
+		value: index.toString().padStart(2, '0'),
+		label: index.toString().padStart(2, '0'),
+	})
+);
+const minuteOptions: Option[] = Array.from(
+	{
+		length: 61,
+	},
+	(element, index) => ({
+		value: index.toString().padStart(2, '0'),
+		label: index.toString().padStart(2, '0'),
+	})
+);
+
+export { priorityOptions, sortOptions, hourOptions, minuteOptions };

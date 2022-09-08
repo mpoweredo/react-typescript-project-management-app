@@ -37,7 +37,8 @@ export default ({ onChange, options, passedStyles = {}, PassedDefaultValue}: Pro
 				defaultValue={PassedDefaultValue || options[0]}
 				onChange={(option: Option | null) => onChange(option as Option)}
 				options={options}
-				className='mt-2'
+				className='mt-2 no-scroll'
+				classNamePrefix='react-select'
 				menuPosition='fixed'
 				menuPlacement={project && project?.kanban.length > 5 ? 'top' : 'bottom'}
 			/>

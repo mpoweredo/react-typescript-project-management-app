@@ -11,7 +11,7 @@ type Props = {
 const classes = {
 	colStart: ['', 'col-start-2', 'col-start-3', 'col-start-4', 'col-start-5', 'col-start-6', 'col-start-7'],
 	cellContainer: 'h-10 flex items-center justify-center font-semibold',
-	cell: ' w-8 h-8 text-[.9rem] xs:text-[1.1rem] xs:w-[2.1rem] xs:h-[2.1rem] xs:w-11 xs:h-11 flex items-center justify-center rounded-[5px]',
+	cell: ' w-9 h-9 text-[.9rem] xs:text-[1.1rem] xs:w-[2.1rem] xs:h-[2.1rem] xs:w-11 xs:h-11 flex items-center justify-center rounded-[5px]',
 	todayAndSelected: '!bg-green-400 text-green-800',
 	todayNotSelected: 'bg-red-400 text-red-800',
 };

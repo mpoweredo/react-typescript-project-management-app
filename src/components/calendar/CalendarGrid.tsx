@@ -7,9 +7,9 @@ import Cell from './Cell';
 import Schedule from './Schedule';
 
 const classes = {
-	calendarContainer: 'w-full max-w-[330px] xs:max-w-[450px] mx-auto lg:mx-0',
+	calendarContainer: 'w-full max-w-[380px] xs:max-w-[450px] mx-auto lg:mx-0',
 	calendarHeader: 'flex gap-3 text-indigo-400 justify-around items-center w-full',
-	daysContainer: 'grid grid-cols-7 mt-2 text-center xs:gap-y-5 md:gap-y-5 h-auto',
+	daysContainer: 'grid grid-cols-7 mt-2 text-center gap-2 xs:gap-y-5 md:gap-y-5 h-auto',
 	contentContainer: 'flex gap-20 h-full xl:justify-between flex-col xl:flex-row',
 };
 

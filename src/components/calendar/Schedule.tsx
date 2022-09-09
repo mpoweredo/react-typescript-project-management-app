@@ -1,11 +1,11 @@
-import { format } from 'date-fns';
+import { format, fromUnixTime } from 'date-fns';
 import { CalendarEvent } from '../../types/CalendarTypes';
 
 const classes = {
-    scheduleContainer: 'xl:max-w-[600px] lg:max-w-[450px] w-full flex h-full flex-col p-6 bg-[#17181b] rounded-lg',
-    scheduleText: 'font-semibold text-indigo-300 text-2xl mb-5',
-    scheduleList: 'flex flex-col gap-3 w-full h-full',
-    scheduleItem: 'h-16 text-white w-full bg-[#25272c] rounded p-3 shadow-md'
+	scheduleContainer: 'xl:max-w-[600px] lg:max-w-[450px] w-full flex h-full flex-col p-6 bg-[#17181b] rounded-lg',
+	scheduleText: 'font-semibold text-indigo-300 text-2xl mb-5',
+	scheduleList: 'flex flex-col gap-3 w-full h-full',
+	scheduleItem: 'min-h-18 h-auto max-h-40 text-white w-full bg-[#25272c] rounded p-3 shadow-md'
 
 }
 
@@ -21,7 +21,15 @@ const Schedule = ({ selectedDaySchedule, selectedDay }: Props) => {
 			<ul className={classes.scheduleList}>
 				{selectedDaySchedule.map(event => (
 					<li key={event.id} className={classes.scheduleItem}>
-						{event.eventTitle}
+						<header>
+							<p className='text-xl font-semibold text-indigo-50'>{event.eventTitle}</p>
+						</header>
+						<section>
+							<div className='flex flex-col gap-3'>
+								<p className='text-gray-400'>{event.startTime.startTimeHour}:{event.startTime.startTimeMinute} - {event.endTime.endTimeHour}:{event.endTime.endTimeMinute}</p>
+								<p className='text-gray-200'>{event.eventDescription}</p>
+							</div>
+						</section>
 					</li>
 				))}
 			</ul>

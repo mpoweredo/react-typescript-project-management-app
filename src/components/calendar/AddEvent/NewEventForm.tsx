@@ -1,9 +1,13 @@
+import { getUnixTime } from 'date-fns';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { hourOptions, minuteOptions } from '../../../data/selectOptions';
 import { hoursSelectStyles } from '../../../data/selectStyles';
+import { CalendarEvent } from '../../../types/CalendarTypes';
 import { Option } from '../../../types/KanbanTypes';
 import CustomSelect from '../../UI/CustomSelect';
+import { v4 as uuidv4 } from 'uuid';
+
 
 const classes = {
 	form: 'flex flex-col gap-5 mt-3',
@@ -37,16 +41,17 @@ const NewEventForm = ({ closePopup, selectedDay }: Props) => {
 		onSubmit: values => {
 			closePopup();
 
-			const object = {
-				day: values.day,
+			const object: CalendarEvent = {
+				id: uuidv4(),
+				day: {seconds: getUnixTime(selectedDay), nanoseconds: 0},
 				eventTitle: values.eventTitle,
 				startTime: {
-					startTimeHour: values.startTimeHour,
-					startTimeMinute: values.startTimeMinute,
+					startTimeHour: values.startTimeHour as string,
+					startTimeMinute: values.startTimeMinute as string,
 				},
 				endTime: {
-					endTimeHour: values.endTimeHour,
-					endTimeMinute: values.endTimeMinute,
+					endTimeHour: values.endTimeHour as string,
+					endTimeMinute: values.endTimeMinute as string,
 				},
 				eventDescription: values.eventDescription,
 			};

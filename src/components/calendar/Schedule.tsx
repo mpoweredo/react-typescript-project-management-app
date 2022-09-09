@@ -1,4 +1,5 @@
 import { format } from 'date-fns';
+import { CalendarEvent } from '../../types/CalendarTypes';
 
 const classes = {
     scheduleContainer: 'xl:max-w-[600px] lg:max-w-[450px] w-full flex h-full flex-col p-6 bg-[#17181b] rounded-lg',
@@ -8,14 +9,19 @@ const classes = {
 
 }
 
-const Schedule = ({ selectedDaySchedule, selectedDay }) => {
+type Props = {
+	selectedDaySchedule: CalendarEvent[];
+	selectedDay: Date;
+}
+
+const Schedule = ({ selectedDaySchedule, selectedDay }: Props) => {
 	return (
 		<div className={classes.scheduleContainer}>
 			<h5 className={classes.scheduleText}>Schedule for {format(selectedDay, 'MMMM dd')}</h5>
 			<ul className={classes.scheduleList}>
-				{selectedDaySchedule.map(item => (
-					<li key={item.id} className={classes.scheduleItem}>
-						{item.name}
+				{selectedDaySchedule.map(event => (
+					<li key={event.id} className={classes.scheduleItem}>
+						{event.eventTitle}
 					</li>
 				))}
 			</ul>

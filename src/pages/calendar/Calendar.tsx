@@ -12,6 +12,7 @@ const classes = {
 
 const Calendar = () => {
 	const { project } = ProjectData();
+	console.log(project)
 	const [selectedDay, setSelectedDay] = useState(startOfToday());
 
 	return (

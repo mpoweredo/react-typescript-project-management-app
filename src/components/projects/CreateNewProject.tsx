@@ -7,7 +7,7 @@ import { db } from '../../data/firebaseConfig';
 import { UserAuth } from '../../store/authContext';
 import { v4 as uuidv4 } from 'uuid';
 import { Kanban } from '../../types/KanbanTypes';
-import { add, startOfToday } from 'date-fns';
+import { add, getUnixTime, startOfToday } from 'date-fns';
 import { Calendar } from '../../types/CalendarTypes';
 
 const classes = {
@@ -173,7 +173,8 @@ const CreateNewProject = () => {
 					] as Kanban,
 					calendar: [
 						{
-							day: add(startOfToday(), {days: 2}),
+							id: uuidv4(),
+							day: {seconds: getUnixTime(add(startOfToday(), {days: 2}),), nanoseconds: 0},
 							eventTitle: 'Make dinner',
 							startTime: {
 								startTimeHour: '13',

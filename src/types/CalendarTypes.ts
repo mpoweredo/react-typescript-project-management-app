@@ -9,6 +9,7 @@ type EndTime = {
 };
 
 type CalendarEvent = {
+	id: string;
 	day: { nanoseconds: number; seconds: number };
 	eventTitle: string;
 	startTime: StartTime;

@@ -5,6 +5,9 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Days from './Days';
 import Cell from './Cell';
 import Schedule from './Schedule';
+import { ProjectData } from '../../store/projectContext'
+import { Calendar, CalendarEvent } from '../../types/CalendarTypes';
+import { fromUnixTime } from 'date-fns/esm';
 
 const classes = {
 	calendarContainer: 'w-full max-w-[380px] xs:max-w-[450px] mx-auto lg:mx-0',
@@ -13,48 +16,6 @@ const classes = {
 	contentContainer: 'flex gap-20 h-full xl:justify-between flex-col xl:flex-row',
 };
 
-const meetings = [
-	{
-		id: 1,
-		name: 'Leslie Alexander',
-		imageUrl:
-			'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-		startDatetime: '2022-09-11T13:00',
-		endDatetime: '2022-09-11T14:30',
-	},
-	{
-		id: 2,
-		name: 'Michael Foster',
-		imageUrl:
-			'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-		startDatetime: '2022-09-20T09:00',
-		endDatetime: '2022-09-20T11:30',
-	},
-	{
-		id: 3,
-		name: 'Dries Vincent',
-		imageUrl:
-			'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-		startDatetime: '2022-09-20T17:00',
-		endDatetime: '2022-09-20T18:30',
-	},
-	{
-		id: 4,
-		name: 'Leslie Alexander',
-		imageUrl:
-			'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-		startDatetime: '2022-09-09T13:00',
-		endDatetime: '2022-09-09T14:30',
-	},
-	{
-		id: 5,
-		name: 'Michael Foster',
-		imageUrl:
-			'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-		startDatetime: '2022-09-13T14:00',
-		endDatetime: '2022-09-13T14:30',
-	},
-];
 
 type Props = {
 	selectedDay: Date;
@@ -62,10 +23,12 @@ type Props = {
 };
 
 const CalendarGrid = ({ selectedDay, setSelectedDay }: Props) => {
+	const { project } = ProjectData()
+
 	const today = startOfToday();
 	const [currentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'));
 	const firstDayCurrentMonth = parse(currentMonth, 'MMM-yyyy', new Date());
-	const selectedDaySchedule = meetings.filter(meeting => isSameDay(parseISO(meeting.startDatetime), selectedDay));
+	const selectedDaySchedule = project && project.calendar.filter((event: CalendarEvent) => isSameDay(fromUnixTime(event.day.seconds), selectedDay)) || [];
 
 	const days = eachDayOfInterval({
 		start: startOfWeek(firstDayCurrentMonth, { weekStartsOn: 1 }),

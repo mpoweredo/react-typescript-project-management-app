@@ -7,7 +7,7 @@ import { CalendarEvent } from '../../../types/CalendarTypes';
 import { Option } from '../../../types/KanbanTypes';
 import CustomSelect from '../../UI/CustomSelect';
 import { v4 as uuidv4 } from 'uuid';
-
+import { ProjectData } from '../../../store/projectContext';
 
 const classes = {
 	form: 'flex flex-col gap-5 mt-3',
@@ -25,6 +25,8 @@ type Props = {
 };
 
 const NewEventForm = ({ closePopup, selectedDay }: Props) => {
+	const { addNewEvent } = ProjectData();
+
 	const formik = useFormik({
 		initialValues: {
 			day: selectedDay,
@@ -41,9 +43,9 @@ const NewEventForm = ({ closePopup, selectedDay }: Props) => {
 		onSubmit: values => {
 			closePopup();
 
-			const object: CalendarEvent = {
+			const newEvent: CalendarEvent = {
 				id: uuidv4(),
-				day: {seconds: getUnixTime(selectedDay), nanoseconds: 0},
+				day: { seconds: getUnixTime(selectedDay), nanoseconds: 0 },
 				eventTitle: values.eventTitle,
 				startTime: {
 					startTimeHour: values.startTimeHour as string,
@@ -56,7 +58,7 @@ const NewEventForm = ({ closePopup, selectedDay }: Props) => {
 				eventDescription: values.eventDescription,
 			};
 
-			console.log(object);
+			addNewEvent(newEvent);
 		},
 	});
 
@@ -88,7 +90,10 @@ const NewEventForm = ({ closePopup, selectedDay }: Props) => {
 						<div>
 							<p className='text-indigo-200'>Hour</p>
 							<CustomSelect
-								onChange={(value: Option) => formik.setFieldValue('startTimeHour', value.value)}
+								onChange={(value: Option) => {
+									formik.setFieldValue('startTimeHour', value.value);
+									value.value === '24' && formik.setFieldValue('startTimeMinute', 0);
+								}}
 								options={hourOptions}
 								passedStyles={hoursSelectStyles}
 								PassedDefaultValue={hourOptions[12]}
@@ -100,6 +105,7 @@ const NewEventForm = ({ closePopup, selectedDay }: Props) => {
 								onChange={(value: Option) => formik.setFieldValue('startTimeMinute', value.value)}
 								options={minuteOptions}
 								passedStyles={hoursSelectStyles}
+								isDisabled={formik.values.startTimeHour === '24'}
 							/>
 						</div>
 					</div>
@@ -112,7 +118,10 @@ const NewEventForm = ({ closePopup, selectedDay }: Props) => {
 						<div>
 							<p className='text-indigo-200'>Hour</p>
 							<CustomSelect
-								onChange={(value: Option) => formik.setFieldValue('endTimeHour', value.value)}
+								onChange={(value: Option) => {
+									formik.setFieldValue('endTimeHour', value.value);
+									value.value === '24' && formik.setFieldValue('endTimeMinute', 0);
+								}}
 								options={hourOptions}
 								passedStyles={hoursSelectStyles}
 								PassedDefaultValue={hourOptions[13]}
@@ -124,6 +133,7 @@ const NewEventForm = ({ closePopup, selectedDay }: Props) => {
 								onChange={(value: Option) => formik.setFieldValue('endTimeMinute', value.value)}
 								options={minuteOptions}
 								passedStyles={hoursSelectStyles}
+								isDisabled={formik.values.endTimeHour === '24'}
 							/>
 						</div>
 					</div>

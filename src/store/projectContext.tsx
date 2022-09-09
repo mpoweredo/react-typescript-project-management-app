@@ -7,6 +7,7 @@ import { Kanban, NewTaskData, Project } from '../types/KanbanTypes';
 import { ProjectContextType } from '../types/projectContextType';
 import { UserAuth } from './authContext';
 import { v4 as uuidv4 } from 'uuid';
+import { CalendarEvent } from '../types/CalendarTypes';
 
 const ProjectContext = createContext<ProjectContextType | false>(false);
 
@@ -83,6 +84,11 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 		updateProject(updatedData);
 	};
 
+	const addNewEvent = (newEvent: CalendarEvent) => {
+		const updatedData = { ...project, calendar: [...project!.calendar, newEvent] } as Project;
+		updateProject(updatedData);
+	};
+
 	useEffect(() => {
 		const fetchProjects = async () => {
 			setLoading(true);
@@ -105,7 +111,7 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 	}, []);
 
 	return (
-		<ProjectContext.Provider value={{ updateProject, deleteColumn, addNewColumn, project, loading, error, addNewTask, deleteTask, updateTask }}>
+		<ProjectContext.Provider value={{ updateProject, deleteColumn, addNewColumn, addNewEvent, project, loading, error, addNewTask, deleteTask, updateTask }}>
 			{children}
 		</ProjectContext.Provider>
 	);

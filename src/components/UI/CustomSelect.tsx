@@ -6,7 +6,8 @@ type Props = {
 	options: Option[];
 	onChange: (value: Option) => void;
 	passedStyles?: {};
-	PassedDefaultValue?: Option
+	PassedDefaultValue?: Option;
+	isDisabled?: boolean;
 };
 
 const customStyles = {
@@ -25,7 +26,7 @@ const customStyles = {
 	}),
 };
 
-export default ({ onChange, options, passedStyles = {}, PassedDefaultValue}: Props) => {
+export default ({ onChange, options, passedStyles = {}, PassedDefaultValue, isDisabled = false }: Props) => {
 	const { project } = ProjectData();
 
 	const styles = { ...customStyles, ...passedStyles };
@@ -41,6 +42,7 @@ export default ({ onChange, options, passedStyles = {}, PassedDefaultValue}: Pro
 				classNamePrefix='react-select'
 				menuPosition='fixed'
 				menuPlacement={project && project?.kanban.length > 5 ? 'top' : 'bottom'}
+				isDisabled={isDisabled}
 			/>
 		</div>
 	);

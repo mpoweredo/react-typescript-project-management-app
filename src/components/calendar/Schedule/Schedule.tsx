@@ -1,11 +1,11 @@
-import { format, fromUnixTime } from 'date-fns';
+import { format } from 'date-fns';
 import { CalendarEvent } from '../../../types/CalendarTypes';
-import Event from './ScheduleItem';
+import Event from './Event/Event';
 
 const classes = {
-	scheduleContainer: 'xl:max-w-[600px] lg:max-w-[450px] w-full flex h-full flex-col p-6 bg-[#17181b] rounded-lg',
+	scheduleContainer: 'xl:max-w-[500px] lg:max-w-[450px] w-full h-full p-6 bg-[#17181b] rounded-lg flex flex-col',
 	scheduleText: 'font-semibold text-indigo-300 text-2xl mb-5',
-	scheduleList: 'flex flex-col gap-3 w-full h-full',
+	scheduleList: 'flex flex-col gap-2 h-full no-scroll overflow-auto',
 };
 
 type Props = {

@@ -5,17 +5,16 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Days from './Days';
 import Cell from './Cell';
 import Schedule from './Schedule/Schedule';
-import { ProjectData } from '../../store/projectContext'
+import { ProjectData } from '../../store/projectContext';
 import { Calendar, CalendarEvent } from '../../types/CalendarTypes';
 import { fromUnixTime } from 'date-fns/esm';
 
 const classes = {
 	calendarContainer: 'w-full max-w-[380px] xs:max-w-[450px] mx-auto lg:mx-0',
 	calendarHeader: 'flex gap-3 text-indigo-400 justify-around items-center w-full',
-	daysContainer: 'grid grid-cols-7 mt-2 text-center gap-2 xs:gap-y-5 md:gap-y-5 h-auto',
-	contentContainer: 'flex gap-20 h-full xl:justify-between flex-col xl:flex-row',
+	daysContainer: 'grid grid-cols-7 mt-2 text-center gap-2 xs:gap-y-5 md:gap-y-5 ',
+	contentContainer: 'flex gap-5 xl:gap-20 xl:justify-between flex-col xl:flex-row overflow-hidden h-full',
 };
-
 
 type Props = {
 	selectedDay: Date;
@@ -23,12 +22,13 @@ type Props = {
 };
 
 const CalendarGrid = ({ selectedDay, setSelectedDay }: Props) => {
-	const { project } = ProjectData()
+	const { project } = ProjectData();
 
 	const today = startOfToday();
 	const [currentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'));
 	const firstDayCurrentMonth = parse(currentMonth, 'MMM-yyyy', new Date());
-	const selectedDaySchedule = project && project.calendar.filter((event: CalendarEvent) => isSameDay(fromUnixTime(event.day.seconds), selectedDay)) || [];
+	const selectedDaySchedule =
+		(project && project.calendar.filter((event: CalendarEvent) => isSameDay(fromUnixTime(event.day.seconds), selectedDay))) || [];
 
 	const days = eachDayOfInterval({
 		start: startOfWeek(firstDayCurrentMonth, { weekStartsOn: 1 }),

@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { CalendarEvent } from '../../../../types/CalendarTypes';
+import EventView from './EventView';
 
 type Props = {
 	event: CalendarEvent;
@@ -11,20 +13,27 @@ const classes = {
 };
 
 const Event = ({ event }: Props) => {
+	const [isOpen, setIsOpen] = useState<boolean>(false);
+
+	const toggleHandler = () => setIsOpen(prevState => !prevState);
+
 	return (
-		<li className={classes.eventCard}>
-			<header>
-				<p className={classes.eventTitle}>{event.eventTitle}</p>
-			</header>
-			<section className='flex flex-col h-full'>
-				<div className='flex flex-col justify-between h-full'>
-					<p className='text-gray-400'>
-						{event.startTime.startTimeHour}:{event.startTime.startTimeMinute} - {event.endTime.endTimeHour}:{event.endTime.endTimeMinute}
-					</p>
-					<p className={classes.description}>{event.eventDescription}</p>
-				</div>
-			</section>
-		</li>
+		<>
+			<li className={classes.eventCard} onClick={toggleHandler}>
+				<header>
+					<p className={classes.eventTitle}>{event.eventTitle}</p>
+				</header>
+				<section className='flex flex-col h-full'>
+					<div className='flex flex-col justify-between h-full'>
+						<p className='text-gray-400'>
+							{event.startTime.startTimeHour}:{event.startTime.startTimeMinute} - {event.endTime.endTimeHour}:{event.endTime.endTimeMinute}
+						</p>
+						<p className={classes.description}>{event.eventDescription}</p>
+					</div>
+				</section>
+			</li>
+			<EventView isOpen={isOpen} toggleHandler={toggleHandler} event={event} />
+		</>
 	);
 };
 

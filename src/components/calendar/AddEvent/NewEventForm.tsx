@@ -83,7 +83,7 @@ const NewEventForm = ({ closePopup, selectedDay }: Props) => {
 					{formik.touched.eventTitle && formik.errors.eventTitle ? <p className={classes.error}>{formik.errors.eventTitle}</p> : null}
 				</div>
 				<div>
-					<label htmlFor='taskDescription' className={classes.label}>
+					<label className={classes.label}>
 						Select event start time
 					</label>
 					<div className='flex gap-3 mt-2'>
@@ -111,7 +111,7 @@ const NewEventForm = ({ closePopup, selectedDay }: Props) => {
 					</div>
 				</div>
 				<div>
-					<label htmlFor='taskDescription' className={classes.label}>
+					<label className={classes.label}>
 						Select event end time
 					</label>
 					<div className='flex gap-3 mt-2'>

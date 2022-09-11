@@ -13,6 +13,7 @@ type ProjectContextType = {
 	updateTask: (NewTaskData: NewTaskData) => void;
 	addNewEvent: (newEvent: CalendarEvent) => void;
 	updateEvent: (updatedEvent: CalendarEvent) => void;
+	deleteEvent: (eventId: string) => void;
 };
 
 export type { ProjectContextType };

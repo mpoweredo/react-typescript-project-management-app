@@ -34,7 +34,9 @@ type Props = {
 };
 
 const EventView = ({ isOpen, toggleHandler, event }: Props) => {
-	const { updateEvent } = ProjectData();
+	const { updateEvent, deleteEvent } = ProjectData();
+
+	const deleteHandler = () => deleteEvent(event.id);
 
 	const formik = useFormik({
 		initialValues: {
@@ -62,8 +64,8 @@ const EventView = ({ isOpen, toggleHandler, event }: Props) => {
 				},
 				eventDescription: values.eventDescription,
 			};
-            updateEvent(updatedEvent)
-            toggleHandler()
+			updateEvent(updatedEvent);
+			toggleHandler();
 		},
 	});
 
@@ -82,7 +84,7 @@ const EventView = ({ isOpen, toggleHandler, event }: Props) => {
 									id='eventTitle'
 									value={formik.values.eventTitle}
 								/>
-								<button type='button' className={classes.buttonDelete}>
+								<button type='button' className={classes.buttonDelete} onClick={deleteHandler}>
 									<DeleteIcon />
 								</button>
 								<button type='button' className={classes.buttonClose} onClick={toggleHandler}>

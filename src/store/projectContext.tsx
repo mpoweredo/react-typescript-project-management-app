@@ -93,8 +93,12 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 		const updatedData = [...project!.calendar] as Calendar;
 		const selectedEvent = updatedData.findIndex(({ id }) => id === updatedEvent.id);
 		updatedData[selectedEvent] = updatedEvent;
-		const newData = {...project, calendar: updatedData} as Project
-		updateProject(newData);
+		updateProject({ ...project, calendar: updatedData } as Project);
+	};
+
+	const deleteEvent = (eventId: string) => {
+		const updatedData = [...project!.calendar] as Calendar;
+		updateProject({ ...project, calendar: updatedData.filter(({ id }) => id !== eventId) } as Project);
 	};
 
 	useEffect(() => {
@@ -120,7 +124,7 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 
 	return (
 		<ProjectContext.Provider
-			value={{ updateProject, updateEvent, deleteColumn, addNewColumn, addNewEvent, project, loading, error, addNewTask, deleteTask, updateTask }}>
+			value={{ updateProject, updateEvent, deleteEvent, deleteColumn, addNewColumn, addNewEvent, project, loading, error, addNewTask, deleteTask, updateTask }}>
 			{children}
 		</ProjectContext.Provider>
 	);

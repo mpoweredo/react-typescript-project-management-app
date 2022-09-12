@@ -45,6 +45,8 @@ const CreateNewProject = () => {
 				const response = await addDoc(collection(docRef, 'projects'), {
 					kanban: [
 						{
+							type: 'todo',
+							color: '#f3f4f6',
 							id: uuidv4(),
 							title: '📝 To do',
 							tasks: [
@@ -87,6 +89,8 @@ const CreateNewProject = () => {
 							],
 						},
 						{
+							type: 'inProgress',
+							color: '#60a5fa',
 							id: uuidv4(),
 							title: '✏️ In progress',
 							tasks: [
@@ -129,6 +133,8 @@ const CreateNewProject = () => {
 							],
 						},
 						{
+							type: 'done',
+							color: '#4ade80',
 							id: uuidv4(),
 							title: '✅ Done',
 							tasks: [

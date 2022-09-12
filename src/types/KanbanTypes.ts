@@ -17,6 +17,8 @@ type Subtask = {
 };
 
 type Column = {
+	type?: 'done' | 'todo' | 'inProgress',
+	color?: string;
 	id: string;
 	tasks: Task[];
 	index: number;

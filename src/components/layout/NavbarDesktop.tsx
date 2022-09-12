@@ -4,6 +4,7 @@ import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import { useParams, NavLink } from 'react-router-dom';
 import { UserAuth } from '../../store/authContext';
+import ShowChartIcon from '@mui/icons-material/ShowChart';
 
 const classes = {
 	sidebar: 'h-screen fixed rounded-r-xl w-56 py-8',
@@ -19,33 +20,40 @@ const NavbarDesktop = () => {
 	const { projectId } = useParams();
 	const { logout } = UserAuth();
 
-
 	console.log(projectId);
 
-	const logoutHandler = () => logout()
+	const logoutHandler = () => logout();
 
 	return (
 		<div className={classes.sidebar}>
 			<nav className={classes.nav}>
 				<ul className={classes.list}>
 					<div className='w-full mb-5 flex flex-col gap-4'>
+						<li className='w-full'>
+							<NavLink to='/' className={`${classes.listItem} !bg-indigo-400 hover:!bg-indigo-500`}>
+								<div className={`${classes.listContainer} !text-indigo-900`}>
+									<HomeRoundedIcon sx={{ fontSize: 26 }} />
+									Home
+								</div>
+							</NavLink>
+						</li>
+						<li className='w-full' onClick={logoutHandler}>
+							<button className={`${classes.listItem}`}>
+								<div className={`${classes.listContainer}`}>
+									<LogoutRoundedIcon sx={{ fontSize: 26 }} />
+									Logout
+								</div>
+							</button>
+						</li>
+					</div>
 					<li className='w-full'>
-						<NavLink to='/' className={`${classes.listItem} !bg-indigo-400 hover:!bg-indigo-500`}>
-							<div className={`${classes.listContainer} !text-indigo-900`}>
-								<HomeRoundedIcon sx={{ fontSize: 26 }} />
-								Home
+						<NavLink to={`/${projectId}/summary`} className={navData => (navData.isActive ? classes.listItemActive : classes.listItem)}>
+							<div className={classes.listContainer}>
+								<ShowChartIcon sx={{ fontSize: 26 }} />
+								Summary
 							</div>
 						</NavLink>
 					</li>
-					<li className='w-full' onClick={logoutHandler}>
-						<button className={`${classes.listItem}`} >
-							<div className={`${classes.listContainer}`}>
-								<LogoutRoundedIcon sx={{ fontSize: 26 }} />
-								Logout
-							</div>
-						</button>
-					</li>
-					</div>
 					<li className='w-full'>
 						<NavLink to={`/${projectId}/kanban`} className={navData => (navData.isActive ? classes.listItemActive : classes.listItem)}>
 							<div className={classes.listContainer}>

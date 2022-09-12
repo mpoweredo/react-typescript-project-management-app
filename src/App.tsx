@@ -7,6 +7,7 @@ import SignUp from './pages/auth/SignUp';
 import Calendar from './pages/calendar/Calendar';
 import Kanban from './pages/kanban/kanban';
 import Projects from './pages/projects/Projects';
+import Summary from './pages/summary/Summary';
 import { ProjectContextProvider } from './store/projectContext';
 
 function App() {
@@ -56,6 +57,18 @@ function App() {
 							<ProtectedRoute>
 								<ProjectContextProvider>
 									<Calendar />
+								</ProjectContextProvider>
+							</ProtectedRoute>
+						}
+					/>
+				</Route>
+				<Route element={<NavbarLayout />}>
+					<Route
+						path='/:projectId/summary'
+						element={
+							<ProtectedRoute>
+								<ProjectContextProvider>
+									<Summary />
 								</ProjectContextProvider>
 							</ProtectedRoute>
 						}

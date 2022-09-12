@@ -101,6 +101,10 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 		updateProject({ ...project, calendar: updatedData.filter(({ id }) => id !== eventId) } as Project);
 	};
 
+	const deleteProject = (projectId: string) => {
+		
+	}
+
 	useEffect(() => {
 		const fetchProjects = async () => {
 			setLoading(true);

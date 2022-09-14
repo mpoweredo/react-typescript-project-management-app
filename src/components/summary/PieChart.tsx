@@ -12,7 +12,7 @@ const classes = {
 const PieChart = () => {
 	const [chartData, setChartData] = useState<ChartData>([]);
 	const [activeIndex, setActiveIndex] = useState<number>(0);
-	const [didAnimationEnded, setDidAnimationEnded] = useState<boolean>(false);
+	const [isAnimationOver, setIsAnimationOver] = useState<boolean>(false);
 	const { project } = ProjectData();
 
 	useEffect(() => {
@@ -24,14 +24,14 @@ const PieChart = () => {
 
 	const onPieEnter = useCallback((_: any, index: number) => setActiveIndex(index), [setActiveIndex]);
 
-	const onAnimationEndHandler = () => setDidAnimationEnded(true);
+	const onAnimationEndHandler = () => setIsAnimationOver(true);
 
 	const renderActiveShape = ({ cx, cy, fill, percent, innerRadius, outerRadius, startAngle, endAngle }: any) => {
 		const completePercent = percent * 100;
 
 		return (
 			<g>
-				{didAnimationEnded && (
+				{isAnimationOver && (
 					<text
 						className={`font-extrabold text-xl`}
 						style={{ textShadow: `${fill} 0px 0px 18px` }}
@@ -69,7 +69,7 @@ const PieChart = () => {
 					</Pie>
 				</Chart>
 			</div>
-			<div className='h-full flex w-full'>{didAnimationEnded && <ColumnListData chartData={chartData} />}</div>
+			<div className='h-full flex w-full'>{isAnimationOver && <ColumnListData chartData={chartData} />}</div>
 		</div>
 	);
 };

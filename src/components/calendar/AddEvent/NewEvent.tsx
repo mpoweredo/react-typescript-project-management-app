@@ -1,18 +1,18 @@
 import AddIcon from '@mui/icons-material/Add';
+import { isPast } from 'date-fns';
 import { useState } from 'react';
 import NewEventPopup from './NewEventPopup';
 
 const classes = {
 	addNewEvent: 'bg-violet-300 text-slate-900 md:w-28 md:h-10 w-10 h-10 rounded-3xl md:rounded-sm font-medium cursor-pointer',
-	buttonsContainer: 'md:relative fixed right-5 bottom-5 md:right-0 md:bottom-0 z-20',
+	buttonContainer: 'md:relative fixed right-5 bottom-5 md:right-0 md:bottom-0 z-20',
 };
 
 type Props = {
 	selectedDay: Date;
-	setSelectedDay: React.Dispatch<React.SetStateAction<Date>>;
 };
 
-const NewEvent = ({ selectedDay, setSelectedDay }: Props) => {
+const NewEvent = ({ selectedDay }: Props) => {
 	const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
 
 	const toggleHandler = () => {
@@ -20,7 +20,7 @@ const NewEvent = ({ selectedDay, setSelectedDay }: Props) => {
 	};
 
 	return (
-		<div className={classes.buttonsContainer}>
+		<div className={`${classes.buttonContainer} ${isPast(selectedDay) && '!hidden'}`}>
 			
 			{/* /// FOR DESKTOP */}
 

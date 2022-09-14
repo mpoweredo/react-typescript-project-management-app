@@ -1,4 +1,4 @@
-import { format, fromUnixTime, getDay, isEqual, isSameDay, isSameMonth, isToday, parseISO } from 'date-fns';
+import { format, fromUnixTime, getDay, isEqual, isPast, isSameDay, isSameMonth, isToday, parseISO } from 'date-fns';
 import { ProjectData } from '../../store/projectContext';
 
 type Props = {
@@ -14,7 +14,7 @@ const classes = {
 	cellContainer: 'h-10 flex items-center justify-center font-semibold',
 	cell: ' w-9 h-9 text-[.9rem] xs:text-[1.1rem] xs:w-[2.1rem] xs:h-[2.1rem] xs:w-11 xs:h-11 flex items-center justify-center rounded-[5px]',
 	todayAndSelected: '!bg-green-400 hover:!bg-green-500 !text-green-800',
-	todayNotSelected: 'bg-red-400 hover:bg-red-500 !text-red-800',
+	todayNotSelected: '!bg-red-400 hover:bg-red-500 !text-red-800 hover:!text-red-600',
 };
 
 const Cell = ({ day, dayIndex, selectedDay, firstDayCurrentMonth, selectDay }: Props) => {
@@ -27,12 +27,12 @@ const Cell = ({ day, dayIndex, selectedDay, firstDayCurrentMonth, selectDay }: P
 				className={`${isSameMonth(day, firstDayCurrentMonth) ? 'text-gray-50' : 'text-[#292c2f]'} ${
 					isEqual(day, selectedDay) && isToday(day) && classes.todayAndSelected
 				} ${!isEqual(day, selectedDay) && isToday(day) && classes.todayNotSelected} ${
-					isEqual(day, selectedDay) && !isToday(day) && '!bg-indigo-500'
+					isEqual(day, selectedDay) && !isToday(day) && '!bg-indigo-500 !text-gray-50'
 				} ${!isToday(day) && isSameMonth(day, firstDayCurrentMonth) && 'bg-[#292d31]'} ${!isToday(day) && 'hover:bg-[#45494e] hover:!text-white'} ${
 					!isSameMonth(day, firstDayCurrentMonth) && !isEqual(day, selectedDay) && 'bg-transparent'
 				} ${classes.cell} ${
-					project?.calendar.some(event => isSameDay(fromUnixTime(event.day.seconds), day)) &&
-					'!bg-violet-500 hover:!bg-violet-600 !text-violet-900 hover:!text-violet-900'
+					project?.calendar.some(event => isSameDay(fromUnixTime(event.day.seconds), day) && !isPast(fromUnixTime(event.day.seconds))) &&
+					'bg-violet-500 hover:bg-violet-600 text-violet-900 hover:text-violet-900'
 				}
 				`}>
 				<time className='relative top-[1px]' dateTime={format(day, 'yyyy-MM-dd')}>

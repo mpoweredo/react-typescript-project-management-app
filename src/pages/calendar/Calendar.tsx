@@ -6,8 +6,8 @@ import { ProjectData } from '../../store/projectContext';
 
 const classes = {
 	calendarContent: 'flex flex-col h-full',
-	kanbanHeader: 'mb-5 flex h-auto w-full justify-between',
-	projectName: 'text-indigo-400 text-3xl font-semibold',
+	kanbanHeader: 'mb-5 flex w-full justify-between',
+	projectName: 'text-indigo-400 text-3xl h-[40px] font-semibold',
 };
 
 const Calendar = () => {
@@ -19,7 +19,7 @@ const Calendar = () => {
 		<div className={classes.calendarContent}>
 			<header className={classes.kanbanHeader}>
 				{project && <h3 className={classes.projectName}>/{project.name}</h3>}
-				<NewEvent selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
+				<NewEvent selectedDay={selectedDay} />
 			</header>
 			<CalendarGrid selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
 		</div>

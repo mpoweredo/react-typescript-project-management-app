@@ -1,11 +1,11 @@
-import { ChartData } from '../../types/ChartTypes';
+import { ChartData } from '../../../types/ChartTypes';
 
 type Props = {
 	chartData: ChartData;
 };
 
 const classes = {
-	kanbanColumnsList: 'h-full w-full flex flex-col gap-5',
+	kanbanColumnsList: 'w-full flex flex-col gap-5',
 	itemTitle: 'text-gray-50 font-semibold text-lg',
 	itemValue: 'text-indigo-300 font-semibold text-lg',
 	itemDataContainer: 'flex items-center justify-between w-full',

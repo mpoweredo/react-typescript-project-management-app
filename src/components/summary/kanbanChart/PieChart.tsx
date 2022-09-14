@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import { PieChart as Chart, Pie, Cell, Sector } from 'recharts';
-import { calculateColumnsItems } from '../../helpers/calculateColumnItems';
-import { ProjectData } from '../../store/projectContext';
-import { ChartData } from '../../types/ChartTypes';
+import { calculateColumnsItems } from '../../../helpers/calculateColumnItems';
+import { ProjectData } from '../../../store/projectContext';
+import { ChartData } from '../../../types/ChartTypes';
 import ColumnListData from './ColumnListData';
 
 const classes = {
-	chartDataContainer: 'h-full w-full flex gap-10 items-center',
+	chartDataContainer: 'w-full flex gap-10 flex-col xs:flex-row items-center',
 };
 
 const PieChart = () => {
@@ -69,7 +69,7 @@ const PieChart = () => {
 					</Pie>
 				</Chart>
 			</div>
-			<div className='h-full flex w-full'>{isAnimationOver && <ColumnListData chartData={chartData} />}</div>
+			<div className='flex w-full'>{isAnimationOver && <ColumnListData chartData={chartData} />}</div>
 		</div>
 	);
 };

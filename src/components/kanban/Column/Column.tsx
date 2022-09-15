@@ -11,7 +11,7 @@ const classes = {
 	tasksContainer: 'max-h-[370px] lg:max-h-[510px] overflow-y-auto no-scroll',
 };
 
-const Column = ({ tasks, index, id, title, filter }: ColumnType) => {
+const Column = ({ tasks, index, id, title, filter, type }: ColumnType) => {
 	const { deleteColumn } = ProjectData();
 
 	const deleteHandler = () => {
@@ -26,9 +26,11 @@ const Column = ({ tasks, index, id, title, filter }: ColumnType) => {
 						<div className={classes.column}>
 							<header className={classes.columnHeaderContainer}>
 								<h5>{title}</h5>
-								<button onClick={deleteHandler} className={classes.deleteColumn}>
-									<DeleteIcon />
-								</button>
+								{!type && (
+									<button onClick={deleteHandler} className={classes.deleteColumn}>
+										<DeleteIcon />
+									</button>
+								)}
 							</header>
 							<Droppable type='task' droppableId={index.toString()}>
 								{provided => (
@@ -36,8 +38,8 @@ const Column = ({ tasks, index, id, title, filter }: ColumnType) => {
 										<ul className={classes.tasksContainer}>
 											<div className='h-1'></div>
 											<>
-											{/* I had to make the code like this below because when I try to first filter tasks using .filter() then .map() i got */}
-											{/* error with drag drop because index changed when filtering array first  */}
+												{/* I had to make the code like this below because when I try to first filter tasks using .filter() then .map() i got */}
+												{/* error with drag drop because index changed when filtering array first  */}
 												{tasks.map((task: TaskType, index: number) => {
 													if (filter === 'all') return <Task columnId={id} key={task.id} taskData={task} index={index} />;
 													if (filter === task.priority) return <Task columnId={id} key={task.id} taskData={task} index={index} />;

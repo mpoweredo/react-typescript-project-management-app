@@ -88,7 +88,7 @@ const Kanban = () => {
 							<div {...provided.droppableProps} ref={provided.innerRef} className='h-full'>
 								<div className={`${classes.columnsContainer} columns-container`}>
 									{project?.kanban.map((column: ColumnType, index: number) => {
-										return <Column filter={filterBy} key={column.id} id={column.id} title={column.title} index={index} tasks={column.tasks} />;
+										return <Column filter={filterBy} key={column.id} id={column.id} title={column.title} type={column.type} index={index} tasks={column.tasks} />;
 									})}
 									{provided.placeholder}
 									<NewColumn />

@@ -12,7 +12,6 @@ const classes = {
 const PieChart = () => {
 	const [chartData, setChartData] = useState<ChartData>([]);
 	const [activeIndex, setActiveIndex] = useState<number>(0);
-	const [isAnimationOver, setIsAnimationOver] = useState<boolean>(false);
 	const { project } = ProjectData();
 
 	useEffect(() => {
@@ -24,25 +23,21 @@ const PieChart = () => {
 
 	const onPieEnter = useCallback((_: any, index: number) => setActiveIndex(index), [setActiveIndex]);
 
-	const onAnimationEndHandler = () => setIsAnimationOver(true);
-
 	const renderActiveShape = ({ cx, cy, fill, percent, innerRadius, outerRadius, startAngle, endAngle }: any) => {
 		const completePercent = percent * 100;
 
 		return (
 			<g>
-				{isAnimationOver && (
-					<text
-						className={`font-extrabold text-xl`}
-						style={{ textShadow: `${fill} 0px 0px 18px` }}
-						x={cx}
-						y={cy}
-						dy={8}
-						textAnchor='middle'
-						fill={fill}>
-						{completePercent.toFixed()}%
-					</text>
-				)}
+				<text
+					className={`font-extrabold text-xl`}
+					style={{ textShadow: `${fill} 0px 0px 18px` }}
+					x={cx}
+					y={cy}
+					dy={8}
+					textAnchor='middle'
+					fill={fill}>
+					{completePercent.toFixed()}%
+				</text>
 				<Sector cx={cx} cy={cy} innerRadius={innerRadius} outerRadius={outerRadius} startAngle={startAngle} endAngle={endAngle} fill={fill} />
 			</g>
 		);
@@ -53,7 +48,7 @@ const PieChart = () => {
 			<div>
 				<Chart width={160} height={160}>
 					<Pie
-						onAnimationEnd={onAnimationEndHandler}
+						isAnimationActive={false}
 						activeIndex={activeIndex}
 						activeShape={renderActiveShape}
 						stroke='none'
@@ -69,7 +64,7 @@ const PieChart = () => {
 					</Pie>
 				</Chart>
 			</div>
-			<div className='flex w-full'>{isAnimationOver && <ColumnListData chartData={chartData} />}</div>
+			<div className='flex w-full'>{<ColumnListData chartData={chartData} />}</div>
 		</div>
 	);
 };

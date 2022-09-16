@@ -2,6 +2,7 @@ import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { UserAuth } from '../../store/authContext';
+import TestAccount from './TestAccount';
 
 const classes = {
 	container: 'flex items-center justify-center h-screen px-3',
@@ -89,6 +90,7 @@ const RegisterForm = () => {
 						</div>
 						<button className={classes.button}>Sign Up</button>
 					</form>
+					<TestAccount />
 					<p className={classes.p}>
 						Already Have an account? Sign in
 						<span onClick={() => {navigate('/signin')}} className='text-indigo-500 cursor-pointer'>

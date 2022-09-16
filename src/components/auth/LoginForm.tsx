@@ -1,8 +1,8 @@
-import { CircularProgress } from '@mui/material';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { UserAuth } from '../../store/authContext';
+import TestAccount from './TestAccount';
 
 const classes = {
 	container: 'flex items-center justify-center h-screen px-3',
@@ -17,7 +17,7 @@ const classes = {
 };
 
 const LoginForm = () => {
-    const { loginUser, user } = UserAuth()
+    const { loginUser } = UserAuth()
 	const navigate = useNavigate()
 
 	const formik = useFormik({
@@ -73,6 +73,7 @@ const LoginForm = () => {
 						</div>
 						<button className={classes.button}>Sign in</button>
 					</form>
+					<TestAccount />
 					<p className={classes.p}>
 						Don't have account? Create new{' '}
 						<span onClick={() => {navigate('/signup')}} className='text-indigo-500 cursor-pointer'>

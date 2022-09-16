@@ -4,7 +4,7 @@ import { ProjectData } from 'store/projectContext';
 import UpcomingEventItem from './UpcomingEventItem';
 
 const classes = {
-	list: 'flex flex-col gap-3 max-h-[300px] overflow-auto vertical-scroll',
+	list: 'flex flex-col gap-3 max-h-[300px] overflow-auto vertical-scroll pr-2',
 	text: 'text-2xl font-semibold text-white',
 };
 

@@ -4,7 +4,8 @@ import { ProjectData } from 'store/projectContext';
 import UpcomingEventItem from './UpcomingEventItem';
 
 const classes = {
-	list: 'flex flex-col gap-3 max-h-[300px] overflow-auto vertical-scroll pr-2',
+	listContainer: 'flex gap-5 flex-col h-full min-h-0',
+	list: 'flex flex-col gap-3 overflow-auto vertical-scroll pr-2 max-h-[400px] min-h-0',
 	text: 'text-2xl font-semibold text-white',
 };
 
@@ -16,7 +17,7 @@ const UpcomingEventsList = () => {
 		.sort((a, b) => a.day.seconds - b.day.seconds);
 
 	return (
-		<div className='flex gap-5 flex-col'>
+		<div className={classes.listContainer}>
 			<p className={classes.text}>Upcoming Events</p>
 			<ul className={classes.list}>
 				{upcomingEvents?.map(event => (

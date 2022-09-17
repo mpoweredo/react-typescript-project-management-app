@@ -12,7 +12,7 @@ import { ProjectContextProvider } from './store/projectContext';
 
 function App() {
 	return (
-		<div className='App bg-[#121316] min-h-screen flex flex-col'>
+		<div className='App bg-[#121316] min-h-screen h-screen flex flex-col '>
 			<Routes>
 				<Route
 					path='/'

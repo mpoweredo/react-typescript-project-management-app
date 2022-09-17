@@ -1,13 +1,13 @@
 import { getUnixTime } from 'date-fns';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { hourOptions, minuteOptions } from '../../../data/selectOptions';
-import { hoursSelectStyles } from '../../../data/selectStyles';
-import { CalendarEvent } from '../../../types/CalendarTypes';
-import { Option } from '../../../types/KanbanTypes';
-import CustomSelect from '../../UI/CustomSelect';
+import { hourOptions, minuteOptions } from 'data/selectOptions';
+import { hoursSelectStyles } from 'data/selectStyles';
+import { CalendarEvent } from 'types/CalendarTypes';
+import { Option } from 'types/KanbanTypes';
+import CustomSelect from 'UI/CustomSelect';
 import { v4 as uuidv4 } from 'uuid';
-import { ProjectData } from '../../../store/projectContext';
+import { ProjectData } from 'store/projectContext';
 
 const classes = {
 	form: 'flex flex-col gap-5 mt-3',

@@ -1,5 +1,5 @@
 import { DropResult } from 'react-beautiful-dnd';
-import { Kanban } from '../types/KanbanTypes';
+import { Kanban } from 'types/KanbanTypes';
 
 const dragBetweenColumns = ({ source, destination }: DropResult, data: Kanban): Kanban => {
 	const sourceDroppableId: number = +source.droppableId;

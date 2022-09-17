@@ -1,5 +1,4 @@
 import { fromUnixTime, isPast, isToday } from 'date-fns';
-import { classNames } from 'react-select/dist/declarations/src/utils';
 import { ProjectData } from 'store/projectContext';
 import UpcomingEventItem from './UpcomingEventItem';
 

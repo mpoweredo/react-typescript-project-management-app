@@ -1,5 +1,5 @@
 import ReactDom from 'react-dom';
-import Backdrop from '../../UI/Backdrop';
+import Backdrop from 'UI/Backdrop';
 import CloseIcon from '@mui/icons-material/Close';
 import { format } from 'date-fns';
 import NewEventForm from './NewEventForm';

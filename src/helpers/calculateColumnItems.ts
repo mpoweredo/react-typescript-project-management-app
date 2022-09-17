@@ -1,5 +1,5 @@
-import { ChartData } from '../types/ChartTypes';
-import { Project } from '../types/KanbanTypes';
+import { ChartData } from 'types/ChartTypes';
+import { Project } from 'types/KanbanTypes';
 
 const calculateColumnsItems = (project: Project) => {
 	const data = project?.kanban.reduce((acc: ChartData, item) => {

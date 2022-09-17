@@ -1,6 +1,6 @@
-import { UserAuth } from '../../store/authContext';
-import CreateNewProject from '../../components/projects/CreateNewProject';
-import ProjectList from '../../components/projects/ProjectList';
+import { UserAuth } from 'store/authContext';
+import CreateNewProject from 'projects/CreateNewProject';
+import ProjectList from 'projects/ProjectList';
 import useProject from 'src/hooks/useProjects';
 
 const classes = {

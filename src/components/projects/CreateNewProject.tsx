@@ -3,12 +3,12 @@ import { useFormik } from 'formik';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import { db } from '../../data/firebaseConfig';
-import { UserAuth } from '../../store/authContext';
+import { db } from 'data/firebaseConfig';
+import { UserAuth } from 'store/authContext';
 import { v4 as uuidv4 } from 'uuid';
-import { Kanban } from '../../types/KanbanTypes';
+import { Kanban } from 'types/KanbanTypes';
 import { add, getUnixTime, startOfToday } from 'date-fns';
-import { Calendar } from '../../types/CalendarTypes';
+import { Calendar } from 'types/CalendarTypes';
 
 const classes = {
 	createButton: 'w-36 h-11 font-semibold rounded bg-indigo-500 text-slate-900 hover:bg-indigo-600 self-center lg:self-start mt-5',

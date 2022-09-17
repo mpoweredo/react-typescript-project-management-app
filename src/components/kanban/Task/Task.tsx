@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import { Task as TaskType } from '../../../types/KanbanTypes';
-import { calculateProgress } from '../../../helpers/calculateSubtaskProgress';
+import { Task as TaskType } from 'types/KanbanTypes';
+import { calculateProgress } from 'helpers/calculateSubtaskProgress';
 import TaskView from './TaskView';
 
 const classes = {

@@ -1,9 +1,9 @@
 import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../data/firebaseConfig';
+import { auth } from 'data/firebaseConfig';
 import { User as FirebaseUser } from 'firebase/auth';
-import { db } from '../data/firebaseConfig';
-import { AuthContextValue, Name } from '../types/authContextType';
+import { db } from 'data/firebaseConfig';
+import { AuthContextValue, Name } from 'types/authContextType';
 import { addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore';
 
 const UserContext = createContext<AuthContextValue | false>(false);

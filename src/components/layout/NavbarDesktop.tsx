@@ -3,7 +3,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import { useParams, NavLink } from 'react-router-dom';
-import { UserAuth } from '../../store/authContext';
+import { UserAuth } from 'store/authContext';
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 
 const classes = {

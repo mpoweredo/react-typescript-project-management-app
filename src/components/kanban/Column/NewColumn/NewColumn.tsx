@@ -4,7 +4,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { FormikValues, useFormik } from 'formik';
 import { useRef, useState } from 'react';
 import * as Yup from 'yup';
-import { ProjectData } from '../../../../store/projectContext';
+import { ProjectData } from 'store/projectContext';
 
 const classes = {
 	addNewColumn: 'bg-[#11111388] hover:bg-[#232325] text-slate-50 w-8 h-8 rounded-sm font-medium cursor-pointer',

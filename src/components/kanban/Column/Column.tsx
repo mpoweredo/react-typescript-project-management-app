@@ -1,8 +1,9 @@
-import { Column as ColumnType, Task as TaskType } from '../../../types/KanbanTypes';
+import { Column as ColumnType, Task as TaskType } from 'types/KanbanTypes';
 import Task from '../Task/Task';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { ProjectData } from '../../../store/projectContext';
+import { ProjectData } from 'store/projectContext';
+
 
 const classes = {
 	column: 'w-[260px] h-full bg-[#11111388] rounded-md px-4 py-4 flex flex-col mr-5',

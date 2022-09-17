@@ -1,4 +1,4 @@
-import { Subtask } from '../types/KanbanTypes';
+import { Subtask } from 'types/KanbanTypes';
 
 const calculateProgress = (subtasks: Subtask[]) => {
 	const subtasksLength = subtasks.length;

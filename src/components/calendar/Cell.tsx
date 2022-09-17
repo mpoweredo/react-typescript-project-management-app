@@ -1,5 +1,5 @@
 import { format, fromUnixTime, getDay, isEqual, isPast, isSameDay, isSameMonth, isToday, parseISO } from 'date-fns';
-import { ProjectData } from '../../store/projectContext';
+import { ProjectData } from 'store/projectContext';
 
 type Props = {
 	day: Date;

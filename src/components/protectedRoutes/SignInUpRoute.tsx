@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { UserAuth } from '../../store/authContext';
+import { UserAuth } from 'store/authContext';
 import { CircularProgress } from '@mui/material';
 
 type Props = {

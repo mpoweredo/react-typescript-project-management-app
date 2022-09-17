@@ -1,5 +1,4 @@
 import { differenceInCalendarDays, fromUnixTime, startOfToday } from 'date-fns';
-import React from 'react';
 import { CalendarEvent } from 'types/CalendarTypes';
 
 type Props = {

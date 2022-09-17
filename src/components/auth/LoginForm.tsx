@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import { UserAuth } from '../../store/authContext';
+import { UserAuth } from 'store/authContext';
 import TestAccount from './TestAccount';
 
 const classes = {

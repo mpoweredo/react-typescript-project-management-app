@@ -1,17 +1,17 @@
 import ReactMarkdown from 'react-markdown';
 import { useState } from 'react';
 import ReactDom from 'react-dom';
-import Backdrop from '../../UI/Backdrop';
-import { Option, Task as TaskType } from '../../../types/KanbanTypes';
+import Backdrop from 'UI/Backdrop';
+import { Option, Task as TaskType } from 'types/KanbanTypes';
 import CloseIcon from '@mui/icons-material/Close';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import gfm from 'remark-gfm';
 import remarkGfm from 'remark-gfm';
-import { priorityOptions } from '../../../data/selectOptions';
-import { prioritySelectStyles } from '../../../data/selectStyles';
-import { ProjectData } from '../../../store/projectContext';
-import CustomSelect from '../../UI/CustomSelect';
+import { priorityOptions } from 'data/selectOptions';
+import { prioritySelectStyles } from 'data/selectStyles';
+import { ProjectData } from 'store/projectContext';
+import CustomSelect from 'UI/CustomSelect';
 import Subtasks from './Subtask/Subtasks';
 import DeleteIcon from '@mui/icons-material/Delete';
 

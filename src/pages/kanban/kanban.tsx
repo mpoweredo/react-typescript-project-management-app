@@ -1,16 +1,15 @@
 import { useState } from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
-import { CircularProgress } from '@mui/material';
-import Column from '../../components/kanban/Column/Column';
-import { Column as ColumnType, Option, Project } from '../../types/KanbanTypes';
-import { dragBetweenColumns, dragBetweenRows, dragColumns } from '../../helpers/dragDrop';
-import NewTask from '../../components/kanban/Task/NewTask/NewTask';
-import { ProjectData } from '../../store/projectContext';
-import NewColumn from '../../components/kanban/Column/NewColumn/NewColumn';
-import CustomSelect from '../../components/UI/CustomSelect';
-import { sortOptions } from '../../data/selectOptions';
-import { filterBySelectStyles } from '../../data/selectStyles';
-import { PriorityOptions } from '../../types/KanbanTypes';
+import Column from 'kanban/Column/Column';
+import { Column as ColumnType, Option, Project } from 'types/KanbanTypes';
+import { dragBetweenColumns, dragBetweenRows, dragColumns } from 'helpers/dragDrop';
+import NewTask from 'kanban/Task/NewTask/NewTask';
+import { ProjectData } from 'store/projectContext';
+import NewColumn from 'kanban/Column/NewColumn/NewColumn';
+import CustomSelect from 'UI/CustomSelect';
+import { sortOptions } from 'data/selectOptions';
+import { filterBySelectStyles } from 'data/selectStyles';
+import { PriorityOptions } from 'types/KanbanTypes';
 
 const classes = {
 	kanbanHeader: 'mb-5 flex h-auto w-full justify-between',
@@ -23,8 +22,6 @@ const classes = {
 const Kanban = () => {
 	const { project, updateProject, loading, error } = ProjectData();
 	const [filterBy, setFilterBy] = useState<PriorityOptions | 'all'>('all');
-
-	console.log(project);
 
 	const handleDragEnd = async (result: DropResult) => {
 		if (!result.destination) return;

@@ -1,7 +1,7 @@
 import { doc, updateDoc } from 'firebase/firestore';
-import { db } from '../data/firebaseConfig';
-import { User } from '../types/authContextType';
-import { Project } from '../types/KanbanTypes';
+import { db } from 'data/firebaseConfig';
+import { User } from 'types/authContextType';
+import { Project } from 'types/KanbanTypes';
 
 const updateData = async (project: Project, projectId: string, user: User) => {
 	if (user) {

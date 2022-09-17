@@ -1,13 +1,13 @@
 import { doc, getDoc } from 'firebase/firestore';
 import { createContext, PropsWithChildren, useContext, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { db } from '../data/firebaseConfig';
-import { updateData } from '../helpers/updateData';
-import { Kanban, NewTaskData, Project } from '../types/KanbanTypes';
-import { ProjectContextType } from '../types/projectContextType';
+import { db } from 'data/firebaseConfig';
+import { updateData } from 'helpers/updateData';
+import { Kanban, NewTaskData, Project } from 'types/KanbanTypes';
+import { ProjectContextType } from 'types/projectContextType';
 import { UserAuth } from './authContext';
 import { v4 as uuidv4 } from 'uuid';
-import { Calendar, CalendarEvent } from '../types/CalendarTypes';
+import { Calendar, CalendarEvent } from 'types/CalendarTypes';
 
 const ProjectContext = createContext<ProjectContextType | false>(false);
 

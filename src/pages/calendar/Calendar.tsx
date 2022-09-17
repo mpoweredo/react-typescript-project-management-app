@@ -1,8 +1,8 @@
+import NewEvent from 'calendar/AddEvent/NewEvent';
+import CalendarGrid from 'calendar/CalendarGrid';
 import { startOfToday } from 'date-fns';
 import { useState } from 'react';
-import NewEvent from '../../components/calendar/AddEvent/NewEvent';
-import CalendarGrid from '../../components/calendar/CalendarGrid';
-import { ProjectData } from '../../store/projectContext';
+import { ProjectData } from 'store/projectContext';
 
 const classes = {
 	calendarContent: 'flex flex-col h-full',

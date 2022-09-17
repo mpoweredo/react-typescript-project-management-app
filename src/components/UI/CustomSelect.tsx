@@ -1,6 +1,6 @@
-import Select, { ActionMeta, SingleValue } from 'react-select';
-import { ProjectData } from '../../store/projectContext';
-import { Option } from '../../types/KanbanTypes';
+import Select, { SingleValue } from 'react-select';
+import { ProjectData } from 'store/projectContext';
+import { Option } from 'types/KanbanTypes';
 
 type Props = {
 	options: Option[];

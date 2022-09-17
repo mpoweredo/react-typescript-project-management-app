@@ -1,12 +1,12 @@
-import { add, eachDayOfInterval, endOfMonth, endOfWeek, format, isSameDay, parse, parseISO, startOfToday, startOfWeek } from 'date-fns';
+import { add, eachDayOfInterval, endOfMonth, endOfWeek, format, isSameDay, parse, startOfToday, startOfWeek } from 'date-fns';
 import { useState } from 'react';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Days from './Days';
 import Cell from './Cell';
 import Schedule from './Schedule/Schedule';
-import { ProjectData } from '../../store/projectContext';
-import { Calendar, CalendarEvent } from '../../types/CalendarTypes';
+import { ProjectData } from 'store/projectContext';
+import { CalendarEvent } from 'types/CalendarTypes';
 import { fromUnixTime } from 'date-fns/esm';
 
 const classes = {

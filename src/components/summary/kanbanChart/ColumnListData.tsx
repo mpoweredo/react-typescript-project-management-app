@@ -1,4 +1,4 @@
-import { ChartData } from '../../../types/ChartTypes';
+import { ChartData } from 'types/ChartTypes';
 
 type Props = {
 	chartData: ChartData;

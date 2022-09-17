@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { PieChart as Chart, Pie, Cell, Sector } from 'recharts';
-import { calculateColumnsItems } from '../../../helpers/calculateColumnItems';
-import { ProjectData } from '../../../store/projectContext';
-import { ChartData } from '../../../types/ChartTypes';
+import { calculateColumnsItems } from 'helpers/calculateColumnItems';
+import { ProjectData } from 'store/projectContext';
+import { ChartData } from 'types/ChartTypes';
 import ColumnListData from './ColumnListData';
 
 const classes = {

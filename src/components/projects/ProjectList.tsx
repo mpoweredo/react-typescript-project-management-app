@@ -1,7 +1,6 @@
-import { Project } from '../../types/KanbanTypes';
+import { Project } from 'types/KanbanTypes';
 import { CircularProgress } from '@mui/material';
 import ProjectItem from './ProjectItem';
-import CreateNewProject from './CreateNewProject';
 
 const classes = {
 	container: 'flex flex-col gap-5 items-center lg:items-start',

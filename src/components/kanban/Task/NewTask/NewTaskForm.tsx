@@ -1,13 +1,13 @@
-import { useFormik } from 'formik';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
 import remarkGfm from 'remark-gfm';
-import * as Yup from 'yup';
 import { priorityOptions } from 'data/selectOptions';
 import { columnSelectStyles, prioritySelectStyles } from 'data/selectStyles';
 import { ProjectData } from 'store/projectContext';
 import { NewTaskData, Option, Project } from 'types/KanbanTypes';
 import CustomSelect from 'UI/CustomSelect';
+import { newTaskSchema } from 'data/formikValidationSchemas';
 
 const classes = {
 	label: 'font-semibold text-[#8c8e92] text-2xl',
@@ -28,88 +28,78 @@ const NewTaskForm = ({ project, closePopUp }: Props) => {
 	const columnOptions: Option[] = project.kanban.map(column => column.title).map((title, index) => ({ value: index, label: title }));
 	const { addNewTask } = ProjectData();
 
-	const formik = useFormik({
-		initialValues: {
-			taskTitle: '',
-			taskDescription: '',
-			taskPriority: 'high',
-			taskColumn: 0,
-		},
-		validationSchema: Yup.object({
-			taskTitle: Yup.string().min(4, 'Title name must have atleast 4 characters!').required('This field is required!'),
-		}),
-		onSubmit: (values: NewTaskData) => {
-			addNewTask(values);
-			closePopUp();
-		},
-	});
-
 	return (
-		<form onSubmit={formik.handleSubmit} className={classes.form}>
-			<div>
-				<label htmlFor='taskTitle' className={classes.label}>
-					Title
-				</label>
-				<input
-					type='text'
-					id='taskTitle'
-					name='taskTitle'
-					autoComplete='off'
-					spellCheck='false'
-					className={`${classes.input} ${formik.touched.taskTitle && formik.errors.taskTitle && 'outline outline-1 !outline-red-400'}`}
-					onChange={formik.handleChange}
-					onBlur={formik.handleBlur}
-					value={formik.values.taskTitle}
-				/>
-				{formik.touched.taskTitle && formik.errors.taskTitle ? <p className={classes.error}>{formik.errors.taskTitle}</p> : null}
-			</div>
-			<div>
-				<label htmlFor='taskDescription' className={classes.label}>
-					Description
-				</label>
-				<textarea
-					id='taskDescription'
-					name='taskDescription'
-					onChange={formik.handleChange}
-					value={formik.values.taskDescription}
-					className={`${classes.description} hover:bg-[#2d3137] h-32`}
-				/>
-				{formik.values.taskDescription.trim().length > 0 && (
+		<Formik
+			initialValues={{
+				taskTitle: '',
+				taskDescription: '',
+				taskPriority: 'high',
+				taskColumn: 0,
+			}}
+			validationSchema={newTaskSchema}
+			onSubmit={(values: NewTaskData) => {
+				addNewTask(values);
+				closePopUp();
+			}}>
+			{({ errors, touched, values, setFieldValue }) => (
+				<Form className={classes.form}>
 					<div>
-						{' '}
-						<p className={`${classes.label} mt-2 mb-1`}>Live preview</p>
-						<div className={classes.description}>
-							<ReactMarkdown remarkPlugins={[gfm, remarkGfm]} children={formik.values.taskDescription} />
-						</div>
+						<label htmlFor='taskTitle' className={classes.label}>
+							Title
+						</label>
+						<Field
+							type='text'
+							id='taskTitle'
+							name='taskTitle'
+							autoComplete='off'
+							spellCheck='false'
+							className={`${classes.input} ${touched.taskTitle && errors.taskTitle && 'outline outline-1 !outline-red-400'}`}
+						/>
+						<ErrorMessage name='taskTitle'>{msg => <p className={classes.error}>{msg}</p>}</ErrorMessage>
 					</div>
-				)}
-			</div>
-			<div>
-				<label htmlFor='taskDescription' className={classes.label}>
-					Select column
-				</label>
-				<CustomSelect
-					onChange={(value: Option) => formik.setFieldValue('taskColumn', value.value)}
-					options={columnOptions}
-					passedStyles={columnSelectStyles}
-				/>
-			</div>
-			<div>
-				<label htmlFor='taskDescription' className={classes.label}>
-					Select task priority
-				</label>
-				<CustomSelect
-					onChange={(value: Option) => formik.setFieldValue('taskPriority', value.value)}
-					options={priorityOptions}
-					passedStyles={prioritySelectStyles}
-				/>
-			</div>
-			<div className={classes.buttonContainer}>
-				<button type='submit' className={classes.buttonCreate}>
-					Create
-				</button>
-			</div>
-		</form>
+					<div>
+						<label htmlFor='taskDescription' className={classes.label}>
+							Description
+						</label>
+						<Field id='taskDescription' name='taskDescription' className={`${classes.description} hover:bg-[#2d3137] h-32`} />
+						{values.taskDescription.trim().length > 0 && (
+							<div>
+								{' '}
+								<p className={`${classes.label} mt-2 mb-1`}>Live preview</p>
+								<div className={classes.description}>
+									<ReactMarkdown remarkPlugins={[gfm, remarkGfm]} children={values.taskDescription} />
+								</div>
+							</div>
+						)}
+					</div>
+					<div>
+						<label htmlFor='taskDescription' className={classes.label}>
+							Select column
+						</label>
+						<CustomSelect
+							onChange={(value: Option) => setFieldValue('taskColumn', value.value)}
+							options={columnOptions}
+							passedStyles={columnSelectStyles}
+						/>
+					</div>
+					<div>
+						<label htmlFor='taskDescription' className={classes.label}>
+							Select task priority
+						</label>
+						<CustomSelect
+							onChange={(value: Option) => setFieldValue('taskPriority', value.value)}
+							options={priorityOptions}
+							passedStyles={prioritySelectStyles}
+						/>
+					</div>
+					<div className={classes.buttonContainer}>
+						<button type='submit' className={classes.buttonCreate}>
+							Create
+						</button>
+					</div>
+				</Form>
+			)}
+		</Formik>
 	);
 };
 

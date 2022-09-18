@@ -11,4 +11,8 @@ const registerSchema = Yup.object({
 	password: Yup.string().min(7, 'Password must have atleast 7 characters!').required('Password is required!'),
 });
 
-export { loginSchema, registerSchema };
+const newTaskSchema = Yup.object({
+	taskTitle: Yup.string().min(4, 'Title name must have atleast 4 characters!').required('This field is required!'),
+});
+
+export { loginSchema, registerSchema, newTaskSchema };

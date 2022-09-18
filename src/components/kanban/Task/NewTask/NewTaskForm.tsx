@@ -61,7 +61,7 @@ const NewTaskForm = ({ project, closePopUp }: Props) => {
 						<label htmlFor='taskDescription' className={classes.label}>
 							Description
 						</label>
-						<Field id='taskDescription' name='taskDescription' className={`${classes.description} hover:bg-[#2d3137] h-32`} />
+						<Field id='taskDescription' name='taskDescription' className={`${classes.description} hover:bg-[#2d3137] h-32`} as='textarea' />
 						{values.taskDescription.trim().length > 0 && (
 							<div>
 								{' '}

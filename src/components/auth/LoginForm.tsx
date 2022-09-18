@@ -8,7 +8,7 @@ const classes = {
 	container: 'flex items-center justify-center h-screen px-3',
 	card: 'w-full max-w-[440px] bg-[#181a1d] h-auto rounded-md px-4 py-6 flex flex-col gap-7',
 	title: 'font-bold text-3xl text-white text-center',
-	input: 'bg-[#212428] w-full h-10 rounded px-3 focus:outline focus:outline-indigo-500 duration-500 hover:bg-[#2d3137] text-gray-300',
+	input: 'bg-[#212428] w-full h-10 rounded px-3 focus:outline focus:outline-indigo-500 duration-500 hover:bg-[#2d3137] text-gray-300 placeholder:text-gray-600',
 	form: 'flex flex-col gap-4',
 	label: 'text-xl text-[#8c8e92] font-semibold',
 	button: 'w-full h-11 mt-4 rounded font-semibold bg-[#0d0e10] text-[#bdbdbf] hover:bg-[#101114]',
@@ -42,6 +42,7 @@ const LoginForm = () => {
 										Email
 									</label>
 									<Field
+										placeholder='example@example.com'
 										type='email'
 										id='email'
 										name='email'

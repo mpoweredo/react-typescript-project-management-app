@@ -34,6 +34,7 @@ export default ({ onChange, options, passedStyles = {}, PassedDefaultValue, isDi
 	return (
 		<div>
 			<Select
+				isSearchable={false}
 				styles={styles}
 				defaultValue={PassedDefaultValue || options[0]}
 				onChange={(option: Option | null) => onChange(option as Option)}

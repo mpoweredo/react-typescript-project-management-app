@@ -4,10 +4,10 @@ import { useParams } from 'react-router-dom';
 import { db } from 'data/firebaseConfig';
 import { updateData } from 'helpers/updateData';
 import { Kanban, NewTaskData, Project } from 'types/KanbanTypes';
-import { ProjectContextType } from 'types/projectContextType';
+import { ProjectContextType, UpdatedData } from 'types/projectContextType';
 import { UserAuth } from './authContext';
 import { v4 as uuidv4 } from 'uuid';
-import { Calendar, CalendarEvent } from 'types/CalendarTypes';
+import { CalendarEvent } from 'types/CalendarTypes';
 
 const ProjectContext = createContext<ProjectContextType | false>(false);
 
@@ -18,12 +18,11 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 	const { projectId } = useParams();
 	const { user } = UserAuth();
 
-	const getUpdatedProject = (updatedData: Kanban) => {
-		const updatedProject = {
+	const getUpdatedProject = (updatedData: UpdatedData) => {
+		return {
 			...project,
-			kanban: updatedData,
+			...updatedData,
 		} as Project;
-		return updatedProject;
 	};
 
 	const updateProject = (newData: Project) => {
@@ -37,14 +36,14 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 		const updatedData = [...project!.kanban] as Kanban;
 		updatedData.splice(index, 1);
 
-		updateProject(getUpdatedProject(updatedData));
+		updateProject(getUpdatedProject({ kanban: updatedData }));
 	};
 
 	const deleteTask = (taskId: string, columnIndex: number) => {
 		const updatedData = [...project!.kanban] as Kanban;
 		updatedData[columnIndex].tasks = updatedData[columnIndex].tasks.filter(({ id }) => id !== taskId);
 
-		updateProject(getUpdatedProject(updatedData));
+		updateProject(getUpdatedProject({ kanban: updatedData }));
 	};
 
 	const addNewTask = (NewTaskData: NewTaskData) => {
@@ -60,7 +59,7 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 
 		updatedData[NewTaskData.taskColumn].tasks = [...updatedData[NewTaskData.taskColumn].tasks, newTask];
 
-		updateProject(getUpdatedProject(updatedData));
+		updateProject(getUpdatedProject({ kanban: updatedData }));
 	};
 
 	const updateTask = (NewTaskData: NewTaskData) => {
@@ -75,32 +74,32 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 
 		updatedData[NewTaskData.taskColumn].tasks[NewTaskData.taskIndex!] = updatedTask;
 
-		updateProject(getUpdatedProject(updatedData));
+		updateProject(getUpdatedProject({ kanban: updatedData }));
 	};
 
 	const addNewColumn = (title: string) => {
-		const updatedData = { ...project, kanban: [...project!.kanban, { title, id: uuidv4(), tasks: [] }] } as Project;
+		const updatedData = [...project!.kanban, { title, id: uuidv4(), tasks: [] }] as Kanban;
 
-		updateProject(updatedData);
+		updateProject(getUpdatedProject({ kanban: updatedData }));
 	};
 
 	const addNewEvent = (newEvent: CalendarEvent) => {
-		const updatedData = { ...project, calendar: [...project!.calendar, newEvent] } as Project;
-		updateProject(updatedData);
+		const updatedData = [...project!.calendar, newEvent];
+		updateProject(getUpdatedProject({ calendar: updatedData }));
 	};
 
 	const updateEvent = (updatedEvent: CalendarEvent) => {
-		const updatedData = [...project!.calendar] as Calendar;
+		const updatedData = [...project!.calendar];
 		const selectedEvent = updatedData.findIndex(({ id }) => id === updatedEvent.id);
 		updatedData[selectedEvent] = updatedEvent;
-		updateProject({ ...project, calendar: updatedData } as Project);
+
+		updateProject(getUpdatedProject({ calendar: updatedData }));
 	};
 
 	const deleteEvent = (eventId: string) => {
-		const updatedData = [...project!.calendar] as Calendar;
-		updateProject({ ...project, calendar: updatedData.filter(({ id }) => id !== eventId) } as Project);
+		const updatedData = [...project!.calendar.filter(({ id }) => id !== eventId)];
+		updateProject(getUpdatedProject({ calendar: updatedData }));
 	};
-
 
 	useEffect(() => {
 		const fetchProjects = async () => {
@@ -125,7 +124,21 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 
 	return (
 		<ProjectContext.Provider
-			value={{ updateProject, updateEvent, deleteEvent, deleteColumn, addNewColumn, addNewEvent, project, loading, error, addNewTask, deleteTask, updateTask }}>
+			value={{
+				updateProject,
+				updateEvent,
+				deleteEvent,
+				deleteColumn,
+				addNewColumn,
+				addNewEvent,
+				project,
+				loading,
+				error,
+				addNewTask,
+				deleteTask,
+				updateTask,
+				getUpdatedProject,
+			}}>
 			{children}
 		</ProjectContext.Provider>
 	);

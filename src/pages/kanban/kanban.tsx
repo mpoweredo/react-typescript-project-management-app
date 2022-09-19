@@ -20,7 +20,7 @@ const classes = {
 };
 
 const Kanban = () => {
-	const { project, updateProject, loading, error } = ProjectData();
+	const { project, updateProject, getUpdatedProject } = ProjectData();
 	const [filterBy, setFilterBy] = useState<PriorityOptions | 'all'>('all');
 
 	const handleDragEnd = async (result: DropResult) => {
@@ -30,34 +30,22 @@ const Kanban = () => {
 		if (result.type === 'task') {
 			if (source.droppableId !== destination.droppableId) {
 				const updatedData = dragBetweenColumns(result, project!.kanban);
-				const newData = {
-					...project,
-					kanban: updatedData,
-				} as Project;
+				updateProject(getUpdatedProject({ kanban: updatedData }));
 
-				updateProject(newData);
 				return;
 			}
 
 			if (source.droppableId === destination.droppableId) {
 				const updatedData = dragBetweenRows(result, project!.kanban);
-				const newData = {
-					...project,
-					kanban: updatedData,
-				} as Project;
+				updateProject(getUpdatedProject({ kanban: updatedData }));
 
-				updateProject(newData);
 				return;
 			}
 		} else {
 			const updatedData = dragColumns(result, project!.kanban);
+			updateProject(getUpdatedProject({ kanban: updatedData }));
 
-			const newData = {
-				...project,
-				kanban: updatedData,
-			} as Project;
-
-			updateProject(newData);
+			return;
 		}
 	};
 
@@ -66,15 +54,17 @@ const Kanban = () => {
 			<header className={classes.kanbanHeader}>
 				{project && <h3 className={classes.projectName}>/{project.name}</h3>}
 				<div className='flex gap-2 items-center'>
-					{project && <div className='hidden md:block'>
-						<CustomSelect
-							onChange={(value: Option) => {
-								setFilterBy(value.value as PriorityOptions);
-							}}
-							options={sortOptions}
-							passedStyles={filterBySelectStyles}
-						/>
-					</div>}
+					{project && (
+						<div className='hidden md:block'>
+							<CustomSelect
+								onChange={(value: Option) => {
+									setFilterBy(value.value as PriorityOptions);
+								}}
+								options={sortOptions}
+								passedStyles={filterBySelectStyles}
+							/>
+						</div>
+					)}
 					{project && <NewTask project={project} />}
 				</div>
 			</header>
@@ -85,7 +75,17 @@ const Kanban = () => {
 							<div {...provided.droppableProps} ref={provided.innerRef} className='h-full'>
 								<div className={`${classes.columnsContainer} columns-container`}>
 									{project?.kanban.map((column: ColumnType, index: number) => {
-										return <Column filter={filterBy} key={column.id} id={column.id} title={column.title} type={column.type} index={index} tasks={column.tasks} />;
+										return (
+											<Column
+												filter={filterBy}
+												key={column.id}
+												id={column.id}
+												title={column.title}
+												type={column.type}
+												index={index}
+												tasks={column.tasks}
+											/>
+										);
 									})}
 									{provided.placeholder}
 									<NewColumn />

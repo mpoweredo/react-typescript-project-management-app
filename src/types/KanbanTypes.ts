@@ -44,6 +44,11 @@ type NewTaskData = {
 	taskIndex?: number;
 };
 
+type NewSubtaskData = {
+	title: string;
+	isCompleted: boolean
+}
+
 type Option = {
 	value: number | string;
 	label: string;
@@ -56,4 +61,4 @@ type updatedTaskValues = {
 	taskPriority: PriorityOptions;
 };
 
-export type { Option, NewTaskData, Project, Kanban, Column, Task, Subtask, PriorityOptions, updatedTaskValues };
+export type { Option, NewTaskData, Project, Kanban, Column, Task, Subtask, PriorityOptions, updatedTaskValues, NewSubtaskData };

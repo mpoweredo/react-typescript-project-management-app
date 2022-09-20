@@ -1,5 +1,5 @@
 import { Calendar, CalendarEvent } from './CalendarTypes';
-import { Kanban, NewTaskData, Project } from './KanbanTypes';
+import { Kanban, NewSubtaskData, NewTaskData, Project } from './KanbanTypes';
 
 type UpdatedData = {
 	[key: string]: Calendar | Kanban;
@@ -19,6 +19,7 @@ type ProjectContextType = {
 	addNewEvent: (newEvent: CalendarEvent) => void;
 	updateEvent: (updatedEvent: CalendarEvent) => void;
 	deleteEvent: (eventId: string) => void;
+	addNewSubtask: (newSubtaskData: NewSubtaskData, columnIndex: number, taskIndex: number) => void
 };
 
 export type { ProjectContextType, UpdatedData };

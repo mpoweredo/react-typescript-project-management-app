@@ -11,7 +11,7 @@ import { priorityOptions } from 'data/selectOptions';
 import { prioritySelectStyles } from 'data/selectStyles';
 import { ProjectData } from 'store/projectContext';
 import CustomSelect from 'UI/CustomSelect';
-import Subtasks from './Subtask/Subtasks';
+import SubtaskList from './Subtask/SubtaskList';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { taskTitleSchema } from 'data/formikValidationSchemas';
 
@@ -122,7 +122,7 @@ const TaskView = ({ isOpen, task, closeTaskView, columnId }: Props) => {
 												onClick={() => setIsDescriptionEdited(true)}>
 												<ReactMarkdown remarkPlugins={[gfm, remarkGfm]} children={values.taskDescription} />
 											</div>
-											<Subtasks subtasks={task.subtasks} columnIndex={columnIndex} taskIndex={taskIndex} />
+											<SubtaskList subtasks={task.subtasks} columnIndex={columnIndex} taskIndex={taskIndex} />
 											<div>
 												<CustomSelect
 													onChange={(value: Option) => setFieldValue('taskPriority', value.value)}

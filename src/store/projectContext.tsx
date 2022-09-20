@@ -3,7 +3,7 @@ import { createContext, PropsWithChildren, useContext, useState, useEffect } fro
 import { useParams } from 'react-router-dom';
 import { db } from 'data/firebaseConfig';
 import { updateData } from 'helpers/updateData';
-import { Kanban, NewTaskData, Project } from 'types/KanbanTypes';
+import { Kanban, NewSubtaskData, NewTaskData, Project, Subtask as SubtaskType } from 'types/KanbanTypes';
 import { ProjectContextType, UpdatedData } from 'types/projectContextType';
 import { UserAuth } from './authContext';
 import { v4 as uuidv4 } from 'uuid';
@@ -88,6 +88,14 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 		updateProject(getUpdatedProject({ calendar: updatedData }));
 	};
 
+	const addNewSubtask = (newSubtaskData: NewSubtaskData, columnIndex: number, taskIndex: number) => {
+		const newSubtask = {...newSubtaskData, id: uuidv4()} as SubtaskType
+		const updatedData = project?.kanban as Kanban;
+		updatedData![columnIndex].tasks[taskIndex].subtasks = [...updatedData![columnIndex].tasks[taskIndex].subtasks, newSubtask];
+
+		updateProject(getUpdatedProject({ kanban: updatedData }));
+	};
+
 	const updateEvent = (updatedEvent: CalendarEvent) => {
 		const updatedData = [...project!.calendar];
 		const selectedEvent = updatedData.findIndex(({ id }) => id === updatedEvent.id);
@@ -138,6 +146,7 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 				deleteTask,
 				updateTask,
 				getUpdatedProject,
+				addNewSubtask
 			}}>
 			{children}
 		</ProjectContext.Provider>

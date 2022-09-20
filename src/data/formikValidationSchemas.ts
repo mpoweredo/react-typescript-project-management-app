@@ -16,7 +16,11 @@ const newTaskSchema = Yup.object({
 });
 
 const taskTitleSchema = Yup.object({
-	taskTitle: Yup.string().min(4, 'Title name must have atleast 4 characters!').required('This field is required!'),
+	taskTitle: Yup.string().min(4).required(),
 });
 
-export { loginSchema, registerSchema, newTaskSchema, taskTitleSchema };
+const subtaskTitleSchema = Yup.object({
+	subtaskTitle: Yup.string().min(2).required(),
+});
+
+export { loginSchema, registerSchema, newTaskSchema, taskTitleSchema, subtaskTitleSchema };

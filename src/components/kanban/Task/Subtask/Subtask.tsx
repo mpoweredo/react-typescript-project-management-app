@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useFormik } from 'formik';
-import { ProjectData } from '../../../../store/projectContext';
-import { Project, Subtask as SubtaskType } from '../../../../types/KanbanTypes';
+import { ProjectData } from 'store/projectContext';
+import { Project, Subtask as SubtaskType } from 'types/KanbanTypes';
 import EditIcon from '@mui/icons-material/Edit';
 import ClearIcon from '@mui/icons-material/Clear';
 import DoneIcon from '@mui/icons-material/Done';

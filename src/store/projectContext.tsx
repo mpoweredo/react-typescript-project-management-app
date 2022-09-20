@@ -3,7 +3,7 @@ import { createContext, PropsWithChildren, useContext, useState, useEffect } fro
 import { useParams } from 'react-router-dom';
 import { db } from 'data/firebaseConfig';
 import { updateData } from 'helpers/updateData';
-import { Kanban, NewSubtaskData, NewTaskData, Project, Subtask as SubtaskType } from 'types/KanbanTypes';
+import { Kanban, NewSubtaskData, NewTaskData, Project, Subtask as SubtaskType, SubtaskIndexes } from 'types/KanbanTypes';
 import { ProjectContextType, UpdatedData } from 'types/projectContextType';
 import { UserAuth } from './authContext';
 import { v4 as uuidv4 } from 'uuid';
@@ -88,13 +88,27 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 		updateProject(getUpdatedProject({ calendar: updatedData }));
 	};
 
-	const addNewSubtask = (newSubtaskData: NewSubtaskData, columnIndex: number, taskIndex: number) => {
+	const addNewSubtask = (newSubtaskData: NewSubtaskData, {columnIndex, taskIndex}: SubtaskIndexes) => {
 		const newSubtask = {...newSubtaskData, id: uuidv4()} as SubtaskType
 		const updatedData = project?.kanban as Kanban;
-		updatedData![columnIndex].tasks[taskIndex].subtasks = [...updatedData![columnIndex].tasks[taskIndex].subtasks, newSubtask];
+		updatedData![columnIndex!].tasks[taskIndex!].subtasks = [...updatedData![columnIndex!].tasks[taskIndex!].subtasks, newSubtask];
 
 		updateProject(getUpdatedProject({ kanban: updatedData }));
 	};
+
+	const changeSubtaskStatus = (isTaskCompleted: boolean, {columnIndex, taskIndex, subtaskIndex}: SubtaskIndexes) => {
+		const updatedData = project?.kanban as Kanban;
+		updatedData![columnIndex!].tasks[taskIndex!].subtasks[subtaskIndex!].isCompleted = !isTaskCompleted
+
+		updateProject(getUpdatedProject({ kanban: updatedData }));
+	}
+
+	const changeSubtaskTitle = (newSubtaskTitle: string, {columnIndex, taskIndex, subtaskIndex}: SubtaskIndexes) => {
+		const updatedData = project?.kanban as Kanban;
+		updatedData![columnIndex!].tasks[taskIndex!].subtasks[subtaskIndex!].title = newSubtaskTitle;
+
+		updateProject(getUpdatedProject({ kanban: updatedData }));
+	}
 
 	const updateEvent = (updatedEvent: CalendarEvent) => {
 		const updatedData = [...project!.calendar];
@@ -146,7 +160,9 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 				deleteTask,
 				updateTask,
 				getUpdatedProject,
-				addNewSubtask
+				addNewSubtask,
+				changeSubtaskStatus,
+				changeSubtaskTitle
 			}}>
 			{children}
 		</ProjectContext.Provider>

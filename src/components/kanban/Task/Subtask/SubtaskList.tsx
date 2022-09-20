@@ -26,7 +26,7 @@ const SubtaskList = ({ subtasks, columnIndex, taskIndex }: Props) => {
 			isCompleted: false,
 		};
 
-		addNewSubtask(newSubtaskData, columnIndex, taskIndex);
+		addNewSubtask(newSubtaskData, {columnIndex, taskIndex});
 	};
 
 	return (

@@ -61,4 +61,10 @@ type updatedTaskValues = {
 	taskPriority: PriorityOptions;
 };
 
-export type { Option, NewTaskData, Project, Kanban, Column, Task, Subtask, PriorityOptions, updatedTaskValues, NewSubtaskData };
+type SubtaskIndexes = {
+	columnIndex?: number;
+	subtaskIndex?: number;
+	taskIndex?: number
+}
+
+export type { Option, NewTaskData, Project, Kanban, Column, Task, Subtask, PriorityOptions, updatedTaskValues, NewSubtaskData, SubtaskIndexes };

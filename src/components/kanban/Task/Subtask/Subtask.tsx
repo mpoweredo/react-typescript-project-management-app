@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { useFormik } from 'formik';
+import { Field, Formik, useFormik } from 'formik';
 import { ProjectData } from 'store/projectContext';
 import { Project, Subtask as SubtaskType } from 'types/KanbanTypes';
 import EditIcon from '@mui/icons-material/Edit';
 import ClearIcon from '@mui/icons-material/Clear';
 import DoneIcon from '@mui/icons-material/Done';
+import { subtaskTitleSchema } from 'data/formikValidationSchemas';
 
 const classes = {
 	subtaskContainer: 'w-full bg-[#1D2024] py-3 px-2 mt-3 flex gap-3 items-center',
@@ -19,45 +20,22 @@ type Props = {
 };
 
 const Subtask = ({ subtask, columnIndex, taskIndex }: Props) => {
-	const { project, updateProject } = ProjectData();
+	const { project, changeSubtaskStatus, changeSubtaskTitle } = ProjectData();
 	const [isEditing, setIsEditing] = useState<boolean>(false);
 	const subtaskIndex = project?.kanban[columnIndex].tasks[taskIndex].subtasks.findIndex(({ id }) => id === subtask.id) as number;
 
-	const formik = useFormik({
-		initialValues: {
-			isTaskCompleted: subtask.isCompleted,
-			subtaskTitle: subtask.title,
-		},
-		onSubmit: values => {
-			console.log(values);
-		},
-	});
-
-	const changeSubtaskStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
-		formik.handleChange(e);
-		const updatedData = project?.kanban;
-		updatedData![columnIndex].tasks[taskIndex].subtasks[subtaskIndex].isCompleted = !formik.values.isTaskCompleted;
-
-		const newData = {
-			...project,
-			kanban: updatedData,
-		} as Project;
-
-		updateProject(newData);
+	const changeSubtaskStatusHandler = (
+		e: React.ChangeEvent<HTMLInputElement>,
+		handleChange: { (e: React.ChangeEvent<any>): void },
+		isTaskCompleted: boolean
+	) => {
+		handleChange(e);
+		changeSubtaskStatus(isTaskCompleted, { columnIndex, taskIndex, subtaskIndex });
 	};
 
-	const changeSubtaskTitle = () => {
+	const changeSubtaskTitleHandler = (subtaskTitle: string) => {
 		setIsEditing(false);
-		const updatedData = project?.kanban;
-
-		updatedData![columnIndex].tasks[taskIndex].subtasks[subtaskIndex].title = formik.values.subtaskTitle;
-
-		const newData = {
-			...project,
-			kanban: updatedData,
-		} as Project;
-
-		updateProject(newData);
+		changeSubtaskTitle(subtaskTitle, { columnIndex, taskIndex, subtaskIndex });
 	};
 
 	const editHandler = () => {
@@ -65,43 +43,45 @@ const Subtask = ({ subtask, columnIndex, taskIndex }: Props) => {
 	};
 
 	return (
-		<div className={classes.subtaskContainer}>
-			<input
-				type='checkbox'
-				checked={formik.values.isTaskCompleted}
-				onChange={changeSubtaskStatus}
-				name='isTaskCompleted'
-				className={classes.checkbox}
-				id={subtask.id}
-			/>
-			<div className='flex justify-between w-full'>
-				{!isEditing ? (
-					<label htmlFor={subtask.id} className={`py-1 ${formik.values.isTaskCompleted && 'line-through text-gray-600'}`}>
-						{subtask.title}
-					</label>
-				) : (
-					<input
-						className={classes.input}
-						autoFocus
-						spellCheck='false'
-						type='text'
-						onChange={formik.handleChange}
-						name='subtaskTitle'
-						value={formik.values.subtaskTitle}
+		<Formik
+			initialValues={{
+				isTaskCompleted: subtask.isCompleted,
+				subtaskTitle: subtask.title,
+			}}
+			validationSchema={subtaskTitleSchema}
+			onSubmit={({ subtaskTitle }) => changeSubtaskTitleHandler(subtaskTitle)}>
+			{({ values, submitForm, handleChange }) => (
+				<div className={classes.subtaskContainer}>
+					<Field
+						type='checkbox'
+						checked={values.isTaskCompleted}
+						onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeSubtaskStatusHandler(e, handleChange, values.isTaskCompleted)}
+						name='isTaskCompleted'
+						className={classes.checkbox}
+						id={subtask.id}
 					/>
-				)}
-				<div className='flex gap-2'>
-					<button type='button' onClick={editHandler}>
-						{!isEditing ? <EditIcon className='text-gray-300' /> : <ClearIcon className='text-red-300' />}
-					</button>
-					{isEditing && (
-						<button type='button' onClick={changeSubtaskTitle}>
-							<DoneIcon className='text-green-300' />
-						</button>
-					)}
+					<div className='flex justify-between w-full'>
+						{!isEditing ? (
+							<label htmlFor={subtask.id} className={`py-1 ${values.isTaskCompleted && 'line-through text-gray-600'}`}>
+								{subtask.title}
+							</label>
+						) : (
+							<Field className={classes.input} autoFocus spellCheck='false' type='text' name='subtaskTitle' />
+						)}
+						<div className='flex gap-2'>
+							<button type='button' onClick={editHandler}>
+								{!isEditing ? <EditIcon className='text-gray-300' /> : <ClearIcon className='text-red-300' />}
+							</button>
+							{isEditing && (
+								<button type='button' onClick={submitForm}>
+									<DoneIcon className='text-green-300' />
+								</button>
+							)}
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
+			)}
+		</Formik>
 	);
 };
 

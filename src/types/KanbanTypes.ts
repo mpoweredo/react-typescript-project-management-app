@@ -1,4 +1,4 @@
-import { Calendar } from "./CalendarTypes";
+import { Calendar } from './CalendarTypes';
 
 type Task = {
 	id: string;
@@ -17,7 +17,7 @@ type Subtask = {
 };
 
 type Column = {
-	type?: 'done' | 'todo' | 'inProgress',
+	type?: 'done' | 'todo' | 'inProgress';
 	color?: string;
 	id: string;
 	tasks: Task[];
@@ -32,7 +32,7 @@ type Project = {
 	kanban: Kanban;
 	name: string;
 	projectId?: string;
-	calendar: Calendar
+	calendar: Calendar;
 };
 
 type NewTaskData = {
@@ -50,4 +50,10 @@ type Option = {
 	color?: string;
 };
 
-export type { Option, NewTaskData, Project, Kanban, Column, Task, Subtask, PriorityOptions };
+type updatedTaskValues = {
+	taskTitle: string;
+	taskDescription: string;
+	taskPriority: PriorityOptions;
+};
+
+export type { Option, NewTaskData, Project, Kanban, Column, Task, Subtask, PriorityOptions, updatedTaskValues };

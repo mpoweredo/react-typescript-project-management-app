@@ -24,23 +24,24 @@ type Props = {
 	closePopUp: () => void;
 };
 
+const initialValues: NewTaskData = {
+	taskTitle: '',
+	taskDescription: '',
+	taskPriority: 'high',
+	taskColumn: 0,
+};
+
 const NewTaskForm = ({ project, closePopUp }: Props) => {
 	const columnOptions: Option[] = project.kanban.map(column => column.title).map((title, index) => ({ value: index, label: title }));
 	const { addNewTask } = ProjectData();
 
+	const submitHandler = (values: NewTaskData) => {
+		addNewTask(values);
+		closePopUp();
+	};
+
 	return (
-		<Formik
-			initialValues={{
-				taskTitle: '',
-				taskDescription: '',
-				taskPriority: 'high',
-				taskColumn: 0,
-			}}
-			validationSchema={newTaskSchema}
-			onSubmit={(values: NewTaskData) => {
-				addNewTask(values);
-				closePopUp();
-			}}>
+		<Formik initialValues={initialValues} validationSchema={newTaskSchema} onSubmit={submitHandler}>
 			{({ errors, touched, values, setFieldValue }) => (
 				<Form className={classes.form}>
 					<div>

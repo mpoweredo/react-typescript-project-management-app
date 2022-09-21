@@ -45,6 +45,12 @@ const TaskView = ({ isOpen, task, closeTaskView, columnId }: Props) => {
 		if (option.value === task.priority) return option;
 	});
 
+	const initialValues = {
+		taskTitle: task.title,
+		taskDescription: task.description,
+		taskPriority: task.priority,
+	};
+
 	const columnIndex = project!.kanban.findIndex(({ id }) => id === columnId);
 	const taskIndex = project!.kanban[columnIndex].tasks.findIndex(({ id }) => id === task.id);
 
@@ -75,14 +81,7 @@ const TaskView = ({ isOpen, task, closeTaskView, columnId }: Props) => {
 			{isOpen && (
 				<Backdrop passedCloseHandler={closeHandler}>
 					<div className={classes.content} onClick={e => e.stopPropagation()}>
-						<Formik
-							initialValues={{
-								taskTitle: task.title,
-								taskDescription: task.description,
-								taskPriority: task.priority,
-							}}
-							validationSchema={taskTitleSchema}
-							onSubmit={values => updateHandler(values)}>
+						<Formik initialValues={initialValues} validationSchema={taskTitleSchema} onSubmit={updateHandler}>
 							{({ errors, values, setFieldValue }) => (
 								<Form autoComplete='off'>
 									<header className={classes.header}>

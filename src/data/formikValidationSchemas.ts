@@ -23,4 +23,8 @@ const subtaskTitleSchema = Yup.object({
 	subtaskTitle: Yup.string().min(2).required(),
 });
 
-export { loginSchema, registerSchema, newTaskSchema, taskTitleSchema, subtaskTitleSchema };
+const columnTitleSchema = Yup.object({
+	columnTitle: Yup.string().min(2).required(),
+});
+
+export { loginSchema, registerSchema, newTaskSchema, taskTitleSchema, subtaskTitleSchema, columnTitleSchema };

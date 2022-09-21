@@ -27,4 +27,8 @@ const columnTitleSchema = Yup.object({
 	columnTitle: Yup.string().min(2).required(),
 });
 
-export { loginSchema, registerSchema, newTaskSchema, taskTitleSchema, subtaskTitleSchema, columnTitleSchema };
+const eventTitleSchema = Yup.object({
+	eventTitle: Yup.string().min(4, 'Title name must have atleast 4 characters!').required('This field is required!'),
+});
+
+export { loginSchema, registerSchema, newTaskSchema, taskTitleSchema, subtaskTitleSchema, columnTitleSchema, eventTitleSchema };

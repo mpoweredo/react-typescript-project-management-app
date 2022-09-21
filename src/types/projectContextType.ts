@@ -1,4 +1,4 @@
-import { Calendar, CalendarEvent } from './CalendarTypes';
+import { Calendar, CalendarEvent, NewCalendarEvent } from './CalendarTypes';
 import { Kanban, NewSubtaskData, NewTaskData, Project, SubtaskIndexes } from './KanbanTypes';
 
 type UpdatedData = {
@@ -16,7 +16,7 @@ type ProjectContextType = {
 	deleteColumn: (index: number) => void;
 	deleteTask: (taskId: string, columnIndex: number) => void;
 	updateTask: (NewTaskData: NewTaskData) => void;
-	addNewEvent: (newEvent: CalendarEvent) => void;
+	addNewEvent: (newEvent: NewCalendarEvent) => void;
 	updateEvent: (updatedEvent: CalendarEvent) => void;
 	deleteEvent: (eventId: string) => void;
 	addNewSubtask: (newSubtaskData: NewSubtaskData, indexes: SubtaskIndexes) => void;

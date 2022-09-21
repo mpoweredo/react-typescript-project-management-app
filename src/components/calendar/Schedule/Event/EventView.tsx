@@ -1,15 +1,15 @@
 import ReactDom from 'react-dom';
-import * as Yup from 'yup';
-import Backdrop from '../../../UI/Backdrop';
+import Backdrop from 'UI/Backdrop';
 import CloseIcon from '@mui/icons-material/Close';
-import { useFormik } from 'formik';
+import { Field, Form, Formik, useFormik } from 'formik';
 import DeleteIcon from '@mui/icons-material/Delete';
-import CustomSelect from '../../../UI/CustomSelect';
-import { Option } from '../../../../types/KanbanTypes';
-import { hoursSelectStyles } from '../../../../data/selectStyles';
-import { hourOptions, minuteOptions } from '../../../../data/selectOptions';
-import { CalendarEvent } from '../../../../types/CalendarTypes';
-import { ProjectData } from '../../../../store/projectContext';
+import CustomSelect from 'UI/CustomSelect';
+import { Option } from 'types/KanbanTypes';
+import { hoursSelectStyles } from 'data/selectStyles';
+import { hourOptions, minuteOptions } from 'data/selectOptions';
+import { CalendarEvent, NewCalendarEvent } from 'types/CalendarTypes';
+import { ProjectData } from 'store/projectContext';
+import { eventTitleSchema } from 'data/formikValidationSchemas';
 
 const classes = {
 	header: 'w-full flex justify-between items-start mb-4 md:mb-8',
@@ -38,137 +38,142 @@ const EventView = ({ isOpen, toggleHandler, event }: Props) => {
 
 	const deleteHandler = () => deleteEvent(event.id);
 
-	const formik = useFormik({
-		initialValues: {
-			eventTitle: event.eventTitle,
-			eventDescription: event.eventDescription,
+	const initialValues: NewCalendarEvent = {
+		eventTitle: event.eventTitle,
+		eventDescription: event.eventDescription,
+		startTime: {
 			startTimeHour: hourOptions[+event.startTime.startTimeHour].value,
 			startTimeMinute: minuteOptions[+event.startTime.startTimeMinute].value,
+		},
+		endTime: {
 			endTimeHour: hourOptions[+event.endTime.endTimeHour].value,
 			endTimeMinute: minuteOptions[+event.endTime.endTimeMinute].value,
 		},
-		validationSchema: Yup.object({
-			eventTitle: Yup.string().min(4, 'Title name must have atleast 4 characters!').required('This field is required!'),
-		}),
-		onSubmit: values => {
+	};
+
+	const submitHandler = (values: NewCalendarEvent) => {
+		{
 			const updatedEvent: CalendarEvent = {
 				...event,
 				eventTitle: values.eventTitle,
 				startTime: {
-					startTimeHour: values.startTimeHour as string,
-					startTimeMinute: values.startTimeMinute as string,
+					startTimeHour: values.startTime.startTimeHour as string,
+					startTimeMinute: values.startTime.startTimeMinute as string,
 				},
 				endTime: {
-					endTimeHour: values.endTimeHour as string,
-					endTimeMinute: values.endTimeMinute as string,
+					endTimeHour: values.endTime.endTimeHour as string,
+					endTimeMinute: values.endTime.endTimeMinute as string,
 				},
 				eventDescription: values.eventDescription,
 			};
 			updateEvent(updatedEvent);
 			toggleHandler();
-		},
-	});
+		}
+	};
 
 	return ReactDom.createPortal(
 		<>
 			{isOpen && (
 				<Backdrop passedCloseHandler={toggleHandler}>
 					<div className={classes.content} onClick={e => e.stopPropagation()}>
-						<form autoComplete='off' onSubmit={formik.handleSubmit}>
-							<header className={classes.header}>
-								<input
-									spellCheck='false'
-									onChange={formik.handleChange}
-									className={`${classes.title} ${classes.input} px-2 py-1`}
-									name='eventTitle'
-									id='eventTitle'
-									value={formik.values.eventTitle}
-								/>
-								<button type='button' className={classes.buttonDelete} onClick={deleteHandler}>
-									<DeleteIcon />
-								</button>
-								<button type='button' className={classes.buttonClose} onClick={toggleHandler}>
-									<CloseIcon />
-								</button>
-							</header>
-							<div>
-								<textarea
-									placeholder={formik.values.eventDescription || 'Click here to add description!'}
-									name='eventDescription'
-									id='eventDescription'
-									spellCheck='false'
-									className={`${classes.description}`}
-									value={formik.values.eventDescription}
-									onChange={formik.handleChange}
-								/>
-							</div>
-							<div>
-								<label className={classes.label}>Event start time</label>
-								<div className='flex gap-3 mt-2'>
+						<Formik initialValues={initialValues} validationSchema={eventTitleSchema} onSubmit={submitHandler}>
+							{({ values, setFieldValue }) => (
+								<Form autoComplete='off'>
+									<header className={classes.header}>
+										<Field
+											spellCheck='false'
+											className={`${classes.title} ${classes.input} px-2 py-1`}
+											name='eventTitle'
+											id='eventTitle'
+											value={values.eventTitle}
+										/>
+										<button type='button' className={classes.buttonDelete} onClick={deleteHandler}>
+											<DeleteIcon />
+										</button>
+										<button type='button' className={classes.buttonClose} onClick={toggleHandler}>
+											<CloseIcon />
+										</button>
+									</header>
 									<div>
-										<p className='text-indigo-200'>Hour</p>
-										<CustomSelect
-											onChange={(value: Option) => {
-												formik.setFieldValue('startTimeHour', value.value);
-												value.value === '24' && formik.setFieldValue('startTimeMinute', 0);
-											}}
-											options={hourOptions}
-											passedStyles={hoursSelectStyles}
-											PassedDefaultValue={hourOptions[+formik.values.startTimeHour]}
+										<Field
+											as='textarea'
+											placeholder={values.eventDescription || 'Click here to add description!'}
+											name='eventDescription'
+											id='eventDescription'
+											spellCheck='false'
+											className={`${classes.description}`}
+											value={values.eventDescription}
 										/>
 									</div>
 									<div>
-										<p className='text-indigo-200'>Minute</p>
-										<CustomSelect
-											onChange={(value: Option) => formik.setFieldValue('startTimeMinute', value.value)}
-											options={minuteOptions}
-											passedStyles={hoursSelectStyles}
-											isDisabled={formik.values.startTimeHour === '24'}
-											PassedDefaultValue={hourOptions[+formik.values.startTimeMinute]}
-										/>
-									</div>
-								</div>
-								<div className='mt-2'>
-									<label className={classes.label}>Event end time</label>
-									<div className='flex gap-3 mt-2'>
-										<div>
-											<p className='text-indigo-200'>Hour</p>
-											<CustomSelect
-												onChange={(value: Option) => {
-													formik.setFieldValue('endTimeHour', value.value);
-													value.value === '24' && formik.setFieldValue('endTimeMinute', 0);
-												}}
-												options={hourOptions}
-												passedStyles={hoursSelectStyles}
-												PassedDefaultValue={hourOptions[+formik.values.endTimeHour]}
-											/>
+										<label className={classes.label}>Event start time</label>
+										<div className='flex gap-3 mt-2'>
+											<div>
+												<p className='text-indigo-200'>Hour</p>
+												<CustomSelect
+													onChange={(value: Option) => {
+														setFieldValue('startTime.startTimeHour', value.value);
+														value.value === '24' && setFieldValue('startTime.startTimeMinute', 0);
+													}}
+													options={hourOptions}
+													passedStyles={hoursSelectStyles}
+													PassedDefaultValue={hourOptions[+values.startTime.startTimeHour]}
+												/>
+											</div>
+											<div>
+												<p className='text-indigo-200'>Minute</p>
+												<CustomSelect
+													onChange={(value: Option) => setFieldValue('startTime.startTimeMinute', value.value)}
+													options={minuteOptions}
+													passedStyles={hoursSelectStyles}
+													isDisabled={values.startTime.startTimeHour === '24'}
+													PassedDefaultValue={hourOptions[+values.startTime.startTimeMinute]}
+												/>
+											</div>
 										</div>
-										<div>
-											<p className='text-indigo-200'>Minute</p>
-											<CustomSelect
-												onChange={(value: Option) => formik.setFieldValue('endTimeMinute', value.value)}
-												options={minuteOptions}
-												passedStyles={hoursSelectStyles}
-												isDisabled={formik.values.endTimeHour === '24'}
-												PassedDefaultValue={hourOptions[+formik.values.endTimeMinute]}
-											/>
+										<div className='mt-2'>
+											<label className={classes.label}>Event end time</label>
+											<div className='flex gap-3 mt-2'>
+												<div>
+													<p className='text-indigo-200'>Hour</p>
+													<CustomSelect
+														onChange={(value: Option) => {
+															setFieldValue('endTime.endTimeHour', value.value);
+															value.value === '24' && setFieldValue('endTime.endTimeMinute', 0);
+														}}
+														options={hourOptions}
+														passedStyles={hoursSelectStyles}
+														PassedDefaultValue={hourOptions[+values.endTime.endTimeHour]}
+													/>
+												</div>
+												<div>
+													<p className='text-indigo-200'>Minute</p>
+													<CustomSelect
+														onChange={(value: Option) => setFieldValue('endTime.endTimeMinute', value.value)}
+														options={minuteOptions}
+														passedStyles={hoursSelectStyles}
+														isDisabled={values.endTime.endTimeHour === '24'}
+														PassedDefaultValue={hourOptions[+values.endTime.endTimeMinute]}
+													/>
+												</div>
+											</div>
 										</div>
 									</div>
-								</div>
-							</div>
-							{(event.eventTitle !== formik.values.eventTitle ||
-								event.eventDescription !== formik.values.eventDescription ||
-								event.startTime.startTimeHour !== formik.values.startTimeHour ||
-								event.startTime.startTimeMinute !== formik.values.startTimeMinute ||
-								event.endTime.endTimeHour !== formik.values.endTimeHour ||
-								event.endTime.endTimeMinute !== formik.values.endTimeMinute) && (
-								<div className={classes.buttonContainer}>
-									<button type='submit' className={classes.buttonChange}>
-										Change
-									</button>
-								</div>
+									{(event.eventTitle !== values.eventTitle ||
+										event.eventDescription !== values.eventDescription ||
+										event.startTime.startTimeHour !== values.startTime.startTimeHour ||
+										event.startTime.startTimeMinute !== values.startTime.startTimeMinute ||
+										event.endTime.endTimeHour !== values.endTime.endTimeHour ||
+										event.endTime.endTimeMinute !== values.endTime.endTimeMinute) && (
+										<div className={classes.buttonContainer}>
+											<button type='submit' className={classes.buttonChange}>
+												Change
+											</button>
+										</div>
+									)}
+								</Form>
 							)}
-						</form>
+						</Formik>
 					</div>
 				</Backdrop>
 			)}

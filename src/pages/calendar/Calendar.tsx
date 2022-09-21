@@ -1,4 +1,4 @@
-import NewEvent from 'calendar/AddEvent/NewEvent';
+import NewEvent from 'calendar/Schedule/Event/AddEvent/NewEvent';
 import CalendarGrid from 'calendar/CalendarGrid';
 import { startOfToday } from 'date-fns';
 import { useState } from 'react';
@@ -12,7 +12,6 @@ const classes = {
 
 const Calendar = () => {
 	const { project } = ProjectData();
-	console.log(project);
 	const [selectedDay, setSelectedDay] = useState(startOfToday());
 
 	return (

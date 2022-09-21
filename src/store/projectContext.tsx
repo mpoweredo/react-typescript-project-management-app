@@ -7,7 +7,7 @@ import { Kanban, NewSubtaskData, NewTaskData, Project, Subtask as SubtaskType, S
 import { ProjectContextType, UpdatedData } from 'types/projectContextType';
 import { UserAuth } from './authContext';
 import { v4 as uuidv4 } from 'uuid';
-import { CalendarEvent } from 'types/CalendarTypes';
+import { Calendar, CalendarEvent, NewCalendarEvent } from 'types/CalendarTypes';
 
 const ProjectContext = createContext<ProjectContextType | false>(false);
 
@@ -19,7 +19,7 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 	const { user } = UserAuth();
 
 	const getUpdatedProject = (updatedData: UpdatedData) => {
-		return {
+ 		return {
 			...project,
 			...updatedData,
 		} as Project;
@@ -83,32 +83,32 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 		updateProject(getUpdatedProject({ kanban: updatedData }));
 	};
 
-	const addNewEvent = (newEvent: CalendarEvent) => {
-		const updatedData = [...project!.calendar, newEvent];
+	const addNewEvent = (newEvent: NewCalendarEvent) => {
+		const updatedData = [...project!.calendar, { ...newEvent, id: uuidv4() }] as Calendar
 		updateProject(getUpdatedProject({ calendar: updatedData }));
 	};
 
-	const addNewSubtask = (newSubtaskData: NewSubtaskData, {columnIndex, taskIndex}: SubtaskIndexes) => {
-		const newSubtask = {...newSubtaskData, id: uuidv4()} as SubtaskType
+	const addNewSubtask = (newSubtaskData: NewSubtaskData, { columnIndex, taskIndex }: SubtaskIndexes) => {
+		const newSubtask = { ...newSubtaskData, id: uuidv4() } as SubtaskType;
 		const updatedData = project?.kanban as Kanban;
 		updatedData![columnIndex!].tasks[taskIndex!].subtasks = [...updatedData![columnIndex!].tasks[taskIndex!].subtasks, newSubtask];
 
 		updateProject(getUpdatedProject({ kanban: updatedData }));
 	};
 
-	const changeSubtaskStatus = (isTaskCompleted: boolean, {columnIndex, taskIndex, subtaskIndex}: SubtaskIndexes) => {
+	const changeSubtaskStatus = (isTaskCompleted: boolean, { columnIndex, taskIndex, subtaskIndex }: SubtaskIndexes) => {
 		const updatedData = project?.kanban as Kanban;
-		updatedData![columnIndex!].tasks[taskIndex!].subtasks[subtaskIndex!].isCompleted = !isTaskCompleted
+		updatedData![columnIndex!].tasks[taskIndex!].subtasks[subtaskIndex!].isCompleted = !isTaskCompleted;
 
 		updateProject(getUpdatedProject({ kanban: updatedData }));
-	}
+	};
 
-	const changeSubtaskTitle = (newSubtaskTitle: string, {columnIndex, taskIndex, subtaskIndex}: SubtaskIndexes) => {
+	const changeSubtaskTitle = (newSubtaskTitle: string, { columnIndex, taskIndex, subtaskIndex }: SubtaskIndexes) => {
 		const updatedData = project?.kanban as Kanban;
 		updatedData![columnIndex!].tasks[taskIndex!].subtasks[subtaskIndex!].title = newSubtaskTitle;
 
 		updateProject(getUpdatedProject({ kanban: updatedData }));
-	}
+	};
 
 	const updateEvent = (updatedEvent: CalendarEvent) => {
 		const updatedData = [...project!.calendar];
@@ -162,7 +162,7 @@ export const ProjectContextProvider = ({ children }: PropsWithChildren) => {
 				getUpdatedProject,
 				addNewSubtask,
 				changeSubtaskStatus,
-				changeSubtaskTitle
+				changeSubtaskTitle,
 			}}>
 			{children}
 		</ProjectContext.Provider>

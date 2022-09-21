@@ -1,9 +1,8 @@
 import AddIcon from '@mui/icons-material/Add';
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
-import { Field, Form, Formik, FormikValues, useFormik } from 'formik';
-import { useRef, useState } from 'react';
-import * as Yup from 'yup';
+import { Field, Form, Formik } from 'formik';
+import { useState } from 'react';
 import { ProjectData } from 'store/projectContext';
 import { columnTitleSchema } from 'data/formikValidationSchemas';
 

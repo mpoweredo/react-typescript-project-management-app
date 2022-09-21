@@ -32,8 +32,8 @@ const Task = ({ index, taskData, columnId }: Props) => {
 		<>
 			<Draggable draggableId={taskData.id.toString()} index={index as number}>
 				{provided => (
-					<div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className='mt-4'>
-						<li className={classes.taskItem} onClick={() => setIsOpen(true)}>
+					<li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className='mt-4'>
+						<div className={classes.taskItem} onClick={() => setIsOpen(true)}>
 							{taskData.title}
 							<div className={`${classes.priorityBar}`} style={{ backgroundColor: priorityColor }} />
 							{!!subtaskProgresData.subtasksLength && (
@@ -46,8 +46,8 @@ const Task = ({ index, taskData, columnId }: Props) => {
 									</div>
 								</div>
 							)}
-						</li>
-					</div>
+						</div>
+					</li>
 				)}
 			</Draggable>
 			<TaskView task={taskData} columnId={columnId} isOpen={isOpen} closeTaskView={toggleTaskView} />

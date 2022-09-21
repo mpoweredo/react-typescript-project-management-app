@@ -24,7 +24,7 @@ const NewTask = ({ project }: Props) => {
 			{/* /// FOR DESKTOP */}
 
 			<div className='md:flex hidden'>
-				<button className={classes.addNewTask} onClick={toggleNewTask}>
+				<button className={classes.addNewTask} aria-label='add task' onClick={toggleNewTask}>
 					Add task
 				</button>
 			</div>
@@ -32,7 +32,7 @@ const NewTask = ({ project }: Props) => {
 			{/* /// FOR MOBILE */}
 
 			<div className='md:hidden block'>
-				<button className={classes.addNewTask} onClick={toggleNewTask}>
+				<button className={classes.addNewTask} aria-label='add task' onClick={toggleNewTask}>
 					<AddIcon />
 				</button>
 			</div>

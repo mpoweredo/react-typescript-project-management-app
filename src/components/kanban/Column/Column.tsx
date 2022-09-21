@@ -4,7 +4,6 @@ import { Draggable, Droppable } from 'react-beautiful-dnd';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ProjectData } from 'store/projectContext';
 
-
 const classes = {
 	column: 'w-[260px] h-full bg-[#11111388] rounded-md px-4 py-4 flex flex-col mr-5',
 	columnHeaderContainer: 'w-full h-auto bg-[#474DA1] rounded-sm p-3 text-indigo-200 font-semibold flex justify-between items-center',
@@ -26,7 +25,7 @@ const Column = ({ tasks, index, id, title, filter, type }: ColumnType) => {
 					<div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
 						<div className={classes.column}>
 							<header className={classes.columnHeaderContainer}>
-								<h5>{title}</h5>
+								<h1>{title}</h1>
 								{!type && (
 									<button onClick={deleteHandler} className={classes.deleteColumn}>
 										<DeleteIcon />
@@ -36,8 +35,8 @@ const Column = ({ tasks, index, id, title, filter, type }: ColumnType) => {
 							<Droppable type='task' droppableId={index.toString()}>
 								{provided => (
 									<div {...provided.droppableProps} ref={provided.innerRef}>
+										<div className='h-1'></div>
 										<ul className={classes.tasksContainer}>
-											<div className='h-1'></div>
 											<>
 												{/* I had to make the code like this below because when I try to first filter tasks using .filter() then .map() i got */}
 												{/* error with drag drop because index changed when filtering array first  */}

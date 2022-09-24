@@ -13,7 +13,7 @@
 ## About The Project
 
 This application has 3 main functionalities - Kanban board, calendar and progres summary page, also this contains auth system.
-I made this Project to summarize all my react and typescript skills. During this process I found out a few usefull libraries such as react-select, recharts, date-fns and react-beautiful-dnd and I also learned how to specify path aliases and avoid from relative path hell ```../../../```.
+I made this Project to summarize all my react and typescript skills. During this process I found out a few usefull libraries such as react-select, recharts, date-fns and react-beautiful-dnd and I also learned how to specify path aliases and avoid relative path hell ```../../../```.
 
 #### Live demo: https://react-typescript-project-management-app.vercel.app/
 

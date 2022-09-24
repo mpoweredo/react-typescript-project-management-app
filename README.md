@@ -13,6 +13,9 @@
 ## About The Project
 
 This application has 3 main functionalities - Kanban board, calendar and progres summary page, also this contains auth system.
+I made this Project to summarize all my react and typescript skills. During this process I found out a few usefull libraries such as react-select, recharts, date-fns and react-beautiful-dnd and I also learned how to specify path aliases and avoid from relative path hell ```../../../```.
+
+#### Live demo: xyz
 
 ## Kanban
 
@@ -32,7 +35,7 @@ This application has 3 main functionalities - Kanban board, calendar and progres
 1. Get a firebase config data here: https://firebase.google.com/
 2. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/mpoweredo/react-typescript-project-management-app.git
    ```
 3. Install NPM packages
    ```sh
@@ -40,8 +43,8 @@ This application has 3 main functionalities - Kanban board, calendar and progres
    ```
 4. Enter your firebase config data in `.env` file or `firebaseConfig.ts`
    ```
-   VITE_apiKey=AIzaSyDtEil2m8FBOqdcvWYGkkk_S-2BXVKuVhY
-   VITE_authDomain=work-management-app-f6ccf.firebaseapp.com
+   VITE_apiKey=<YOUR SECRET FIREBASE apiKey>
+   VITE_authDomain=work-<YOUR SECRET FIREBASE authDomain>
    ...
    ```
 

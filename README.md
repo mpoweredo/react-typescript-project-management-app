@@ -26,6 +26,24 @@ This application has 3 main functionalities - Kanban board, calendar and progres
 
 ![Alt text](images/Summary.png?raw=true "Kanban")
 
+## Installation
+
+
+1. Get a firebase config data here: https://firebase.google.com/
+2. Clone the repo
+   ```sh
+   git clone https://github.com/your_username_/Project-Name.git
+   ```
+3. Install NPM packages
+   ```sh
+   npm install
+   ```
+4. Enter your firebase config data in `.env` file or `firebaseConfig.ts`
+   ```
+   VITE_apiKey=AIzaSyDtEil2m8FBOqdcvWYGkkk_S-2BXVKuVhY
+   VITE_authDomain=work-management-app-f6ccf.firebaseapp.com
+   ...
+   ```
 
 ### Built With
 
@@ -42,6 +60,7 @@ This application has 3 main functionalities - Kanban board, calendar and progres
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 
 

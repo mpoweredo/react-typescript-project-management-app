@@ -46,7 +46,7 @@ const NavbarMobile = () => {
 							</button>
 						</div>
 						<ul className={classes.listContainer}>
-							<li className='w-full'>
+							<li className='w-full' onClick={toggleHandler}>
 								<NavLink to='/' className={`${classes.listItem} !bg-indigo-400 hover:!bg-indigo-500`}>
 									<div className={`${classes.listItemContainer} !text-indigo-900`}>
 										<HomeRoundedIcon sx={{ fontSize: 26 }} />
@@ -54,7 +54,7 @@ const NavbarMobile = () => {
 									</div>
 								</NavLink>
 							</li>
-							<li className='w-full'>
+							<li className='w-full' onClick={toggleHandler}>
 								<NavLink to={`/${projectId}/summary`} className={navData => (navData.isActive ? classes.listItemActive : classes.listItem)}>
 									<div className={classes.listItemContainer}>
 										<ShowChartIcon sx={{ fontSize: 26 }} />
@@ -62,7 +62,7 @@ const NavbarMobile = () => {
 									</div>
 								</NavLink>
 							</li>
-							<li className='w-full'>
+							<li className='w-full' onClick={toggleHandler}>
 								<NavLink to={`/${projectId}/kanban`} className={navData => (navData.isActive ? classes.listItemActive : classes.listItem)}>
 									<div className={classes.listItemContainer}>
 										<ViewKanbanIcon sx={{ fontSize: 26 }} />
@@ -70,7 +70,7 @@ const NavbarMobile = () => {
 									</div>
 								</NavLink>
 							</li>
-							<li className='w-full'>
+							<li className='w-full' onClick={toggleHandler}>
 								<NavLink to={`/${projectId}/calendar`} className={navData => (navData.isActive ? classes.listItemActive : classes.listItem)}>
 									<div className={classes.listItemContainer}>
 										<CalendarMonthIcon sx={{ fontSize: 26 }} />

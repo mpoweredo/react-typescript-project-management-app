@@ -62,7 +62,6 @@ I made this Project to summarize all my react and typescript skills. During this
 <br>
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
@@ -75,7 +74,6 @@ I made this Project to summarize all my react and typescript skills. During this
 <br>
 www.linkedin.com/in/mpoweredo
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
